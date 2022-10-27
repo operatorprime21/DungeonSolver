@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject bagTile;
-    public Camera cam;
+    public List<InventoryItem> inventory = new List<InventoryItem>();
+    private bool toggled = false;
+    public GameObject inventoryUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,23 +15,26 @@ public class Inventory : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+
+    public void ToggleInventory()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (toggled == false)
         {
-            Debug.Log(Input.mousePosition.x + ", " + Input.mousePosition.y);
+            inventoryUI.gameObject.SetActive(true);
+            toggled = true;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
+        }
+        else
+        {
+            inventoryUI.gameObject.SetActive(false);
+            toggled = false;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
         }
     }
 
-    public void OpenInventory()
+    public void AddItem(InventoryItem item)
     {
-        for (float row = 0f; row < 5f; row = row+1f)
-        {
-            for(float width = 0f; width < 3f; width = width+1f)
-            {
-                Vector3 camSpace = cam.ScreenToWorldPoint(new Vector3(row, width, 0f));
-                GameObject tile = Instantiate(bagTile, camSpace, Quaternion.identity);
-            }
-        }
+        inventory.Add(item);
     }
 }

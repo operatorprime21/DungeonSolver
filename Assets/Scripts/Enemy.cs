@@ -69,12 +69,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        PlayerMovement playerController = player.GetComponent<PlayerMovement>();
-        playerController.lockedOnEnemy = null;
-        playerController.manualAim = false;
-    }
+    //private void OnDestroy()
+    //{
+    //    PlayerMovement playerController = player.GetComponent<PlayerMovement>();
+    //    playerController.lockedOnEnemy = null;
+    //    playerController.manualAim = false;
+    //}
     private void LockOnPlayer()
     {
         Vector3 aimedAt = player.transform.position;
