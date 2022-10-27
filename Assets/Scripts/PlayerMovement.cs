@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float angleMod;
     public bool manualAim;
     public Enemy lockedOnEnemy;
+
+    public LayerMask obstacleMask;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +26,8 @@ public class PlayerMovement : MonoBehaviour
         {
             destination = ReturnDestination();
         }
+        
         this.transform.position = Vector3.MoveTowards(this.transform.position, destination, speed * Time.deltaTime);
-
 
         if (lockedOnEnemy == null)
         {
@@ -60,6 +62,14 @@ public class PlayerMovement : MonoBehaviour
         if (this.transform.position != aimedAt && manualAim == false)
         {
             transform.rotation = Quaternion.Slerp(this.transform.rotation, p, Time.deltaTime * speed * 4);
+        }
+    }
+
+    private void OnEnter2D(Collider2D collider)
+    {
+       if(collider.tag == "Wall")
+        {
+            destination = this.transform.position;
         }
     }
 

@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public LayerMask obstacleMask;
 
     public bool seeingPlayer;
-
+    public string state;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         FindPlayer();
         if(seeingPlayer == true)
         {
-
+            
         }
     }
 
