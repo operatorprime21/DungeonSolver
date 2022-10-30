@@ -50,9 +50,14 @@ public class PlayerStats : MonoBehaviour
         {
             DrainThirst(10);
         }
+
+        if(currentHealth <= 0)
+        {
+            Death();
+        }
     }
 
-    private void TakeDamage(float d)
+    public void TakeDamage(float d)
     {
         currentHealth = currentHealth - d;
         healthM.value = currentHealth;
@@ -66,5 +71,10 @@ public class PlayerStats : MonoBehaviour
     {
         currentThirst = currentThirst - t;
         thirstM.value = currentThirst;
+    }
+
+    public void Death()
+    {
+        Debug.Log("You Died");
     }
 }

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        destination = this.transform.position;
     }
 
     // Update is called once per frame
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
        if(collider.tag == "Wall")
         {

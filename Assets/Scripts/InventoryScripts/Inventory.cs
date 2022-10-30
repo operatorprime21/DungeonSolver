@@ -32,9 +32,4 @@ public class Inventory : MonoBehaviour
             GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
         }
     }
-
-    public void AddItem(InventoryItem item)
-    {
-        inventory.Add(item);
-    }
 }

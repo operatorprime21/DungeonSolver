@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class InventoryItem : MonoBehaviour
 {
@@ -10,10 +10,13 @@ public class InventoryItem : MonoBehaviour
     public int maxCountPerSlot;
 
     public int currentCount;
-    public Camera cam;
+    private Camera cam;
     private GameObject slot;
     private GameObject canvas;
+    public TMP_Text count;
     private GameObject player;
+
+    public Transform lastSlot;
 
     public enum Item
     {
@@ -24,18 +27,18 @@ public class InventoryItem : MonoBehaviour
         emptyBottle
     }
 
-    public Sprite sprite;
-
     private void Start()
     {
         InitItemVariables();
-        canvas = GameObject.Find("Canvas");
+        canvas = GameObject.Find("Main Canvas");
         player = GameObject.Find("Player");
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        count.text = currentCount.ToString();
     }
 
     private void Update()
     {
-
+       
     }
 
     private void InitItemVariables()
@@ -77,12 +80,24 @@ public class InventoryItem : MonoBehaviour
         if (slot == null)
         {
             DenyStacking();
+            Debug.Log("No slots asigned");
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (slot != null)
+        {
+            Slot SlotInfo = slot.GetComponent<Slot>();
+            SlotInfo.RemoveItem();
+            this.transform.parent = canvas.transform;
         }
     }
 
     public void DenyStacking()
     {
-        this.transform.position = player.transform.position;
+        this.transform.position = lastSlot.transform.position;
+        this.transform.parent = lastSlot.transform;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -90,7 +105,7 @@ public class InventoryItem : MonoBehaviour
         if(collision.tag == "Slot")
         {
             slot = collision.gameObject;
-            Debug.Log(slot.name);
+            //eDebug.Log(slot.name);
         }
     }
 
