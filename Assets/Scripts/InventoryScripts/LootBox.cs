@@ -42,13 +42,13 @@ public class LootBox : MonoBehaviour
                 if (randomItem != 0)
                 {
                     int rItemCount = Random.Range(1, itemlist.items[randomItem].maxCountPerSlot+1);
-                    currentItemCount =+ rItemCount;
-                    if(currentItemCount >= maxItemSpawn)
-                    {//Currenntly not functional. Item spawning are still overexceeding the limit of the box. Need further investigationn
-                        break;
-                    }
-                    else
-                    {
+                    //currentItemCount =+ rItemCount;
+                    //if(currentItemCount >= maxItemSpawn)
+                    //{//Currenntly not functional. Item spawning are still overexceeding the limit of the box. Need further investigationn
+                    //    break;
+                    //}
+                    //else
+                    //{
                         InventoryItem newItem = itemlist.items[randomItem];
                         newItem.currentCount = rItemCount;
                         TestHolding.Add(newItem);
@@ -58,7 +58,8 @@ public class LootBox : MonoBehaviour
                         itemUI.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
                         Slot SlotInfo = slotToFill.GetComponent<Slot>();
                         SlotInfo.AddItem(itemUI);
-                    }
+                        SlotInfo.hasItem = true;
+                    //}
                 }
             }
         }

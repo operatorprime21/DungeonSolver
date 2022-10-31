@@ -7,6 +7,7 @@ public class Slot : MonoBehaviour
 {
     public InventoryItem itemInThisSlot;
     public int maxCapForItem;
+    public bool hasItem;
 
     public void AddItem(InventoryItem itemToAdd)
     {
@@ -17,6 +18,7 @@ public class Slot : MonoBehaviour
             itemToAdd.transform.position = this.transform.position;
             itemToAdd.lastSlot = this.transform;
             itemToAdd.transform.parent = this.transform;
+            hasItem = true;
         }
         else if (itemToAdd.itemType == itemInThisSlot.itemType) //Check if the list is not empty and already has at least one item occupied
         {

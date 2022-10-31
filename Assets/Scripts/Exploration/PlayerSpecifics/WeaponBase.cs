@@ -70,7 +70,7 @@ public class WeaponBase : MonoBehaviour
                 this.windup = 0.3f;
                 this.recovery = 0.2f;
                 break;
-            case WeaponBase.Weapon.pistol: //Note: Right now it is single shot with infinite clip. Might want to expand to stronger weapons with different functions later (auto/ammo integration)
+            case WeaponBase.Weapon.pistol: 
                 this.type = WeaponType.rangedHitscan;
                 this.range = 50;
                 this.damage = 30;
@@ -86,7 +86,7 @@ public class WeaponBase : MonoBehaviour
                 this.windup = 2f;
                 this.recovery = 1.5f;
                 this.clipSize = 1;
-                this.ammoInClip = Random.Range(0, clipSize+1);
+                this.ammoInClip = Random.Range(0, clipSize + 1);
                 break;
         }
     }

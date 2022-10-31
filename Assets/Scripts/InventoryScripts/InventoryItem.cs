@@ -24,7 +24,8 @@ public class InventoryItem : MonoBehaviour
         cloth,
         ammo,
         nail,
-        emptyBottle
+        emptyBottle,
+        arrow
     }
 
     private void Start()
@@ -34,11 +35,6 @@ public class InventoryItem : MonoBehaviour
         player = GameObject.Find("Player");
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         count.text = currentCount.ToString();
-    }
-
-    private void Update()
-    {
-       
     }
 
     private void InitItemVariables()
@@ -52,13 +48,16 @@ public class InventoryItem : MonoBehaviour
                 maxCountPerSlot = 12;
                 break;
             case InventoryItem.Item.ammo:
-                maxCountPerSlot = 20;
+                maxCountPerSlot = 8;
                 break;
             case InventoryItem.Item.nail:
                 maxCountPerSlot = 15;
                 break;
             case InventoryItem.Item.emptyBottle:
                 maxCountPerSlot = 3;
+                break;
+            case InventoryItem.Item.arrow:
+                maxCountPerSlot = 2;
                 break;
         }
     }
@@ -91,6 +90,7 @@ public class InventoryItem : MonoBehaviour
             Slot SlotInfo = slot.GetComponent<Slot>();
             SlotInfo.RemoveItem();
             this.transform.parent = canvas.transform;
+            SlotInfo.hasItem = false;
         }
     }
 
@@ -115,6 +115,12 @@ public class InventoryItem : MonoBehaviour
         {
             slot = null;
         }
+    }
+
+    public void removeBool()
+    {
+        Slot SlotInfo = slot.GetComponent<Slot>();
+        SlotInfo.hasItem = false;
     }
 
 }

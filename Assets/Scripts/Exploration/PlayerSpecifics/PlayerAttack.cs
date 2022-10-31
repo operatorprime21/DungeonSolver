@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -14,16 +15,7 @@ public class PlayerAttack : MonoBehaviour
 
     public GameObject slot;
     public GameObject inventory;
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void BeginAttack() //Called by a button press
     {
@@ -38,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
     }
 
-    IEnumerator Attack(WeaponBase weapon, int range, int damage, float windup, float recovery) //This will eventually go unused
+    IEnumerator Attack(WeaponBase weapon, int range, int damage, float windup, float recovery) 
     {
         if (isAttacking == false)
         {
@@ -54,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
                     HitscanBullet(weapon, range, damage);
                     break;
                 case WeaponBase.WeaponType.rangedProjectile:
-                    SpawnProjectile(weapon, range, damage);
+                    SpawnProjectile(weapon);
                     break;
             }
             yield return new WaitForSeconds(recovery);
@@ -110,43 +102,87 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            Debug.Log("EmptyClip");
-            Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-            List<GameObject> items = inventory.ReturnInventory();
-            foreach (GameObject item in items)
+            Reload(gun, InventoryItem.Item.ammo);
+        }
+    }
+    //Note: This function will serve as a baseline for any future crafting/building related behaviors that require automatic grabbing from inventory
+    private static void Reload(WeaponBase gun, InventoryItem.Item ammoType) 
+    {
+        Debug.Log("EmptyClip");
+        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+        List<GameObject> items = inventory.ReturnInventory();
+        foreach (GameObject item in items)
+        {
+            InventoryItem type = item.GetComponent<InventoryItem>();
+            if (type.itemType == ammoType)
             {
-                InventoryItem type = item.GetComponent<InventoryItem>();
-                if (type.itemType == InventoryItem.Item.ammo)
+                int count = type.currentCount;
+                if (gun.ammoInClip == 0)
                 {
-                    int count = type.currentCount;
                     if (count > gun.clipSize)
                     {
                         type.currentCount -= gun.clipSize;
+                        type.count.text = type.currentCount.ToString();
                         gun.ammoInClip = gun.clipSize;
+                        break;
+                    }
+                    else if (count == gun.clipSize)
+                    {
+                        gun.ammoInClip = gun.clipSize;
+                        type.removeBool();
+                        Destroy(item);
                         break;
                     }
                     else
                     {
                         gun.ammoInClip += count;
-                        type.currentCount = 0;
+                        type.removeBool();
                         Destroy(item);
-                        if (gun.ammoInClip == gun.clipSize)
-                        {
-                            break;
-                        }
+                    }
+                }
+                else
+                {
+                    int clipLeft = gun.clipSize - gun.ammoInClip;
+                    if (clipLeft < count)
+                    {
+                        gun.ammoInClip = gun.clipSize;
+                        type.currentCount -= clipLeft;
+                        type.count.text = type.currentCount.ToString();
+                        break;
+                    }
+                    if (clipLeft == count)
+                    {
+                        gun.ammoInClip = gun.clipSize;
+                        type.removeBool();
+                        Destroy(item);
+                        break;
+                    }
+                    if (clipLeft > count)
+                    {
+                        gun.ammoInClip += count;
+                        type.removeBool();
+                        Destroy(item);
                     }
                 }
             }
         }
     }
 
-    public void SpawnProjectile(WeaponBase weapon, int range, int damage)
+    public void SpawnProjectile(WeaponBase weapon)
     {
-        GameObject projPref = weapon.projPrefab;
-        Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
-        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90;
-        Quaternion p = Quaternion.AngleAxis(angle, Vector3.forward);
-        GameObject arrow = Instantiate(projPref, this.transform.position, p);
+        if(weapon.ammoInClip > 0)
+        {
+            weapon.ammoInClip--;
+            GameObject projPref = weapon.projPrefab;
+            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
+            float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90;
+            Quaternion p = Quaternion.AngleAxis(angle, Vector3.forward);
+            GameObject arrow = Instantiate(projPref, this.transform.position, p);
+        }
+        else
+        {
+            Reload(weapon, InventoryItem.Item.arrow);
+        }
     }
 }
 

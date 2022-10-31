@@ -39,17 +39,13 @@ public class Inventory : MonoBehaviour
         for(int i = 0; i < 8; i++)
         {
             GameObject nextSlot = inventoryUI.transform.Find("Slot ("+i+")").gameObject;
-            GameObject item = nextSlot.transform.GetChild(0).gameObject; //THIS IS WHERE IM STUCK AT. THE LIST ALWAYS RETURN AN OUT OF BOUNDS IF THERES NOTHING
-            if(item != null)
+            Slot slot = nextSlot.GetComponent<Slot>();
+            if(slot.hasItem == true)
             {
+                GameObject item = nextSlot.transform.GetChild(0).gameObject;
                 itemInSlot.Add(item);
                 Debug.Log("added " + item.name);
             }
-            if(item == null)
-            {
-                Debug.Log("nothing in this slot");
-            }
-            
         }
         return itemInSlot;
     }

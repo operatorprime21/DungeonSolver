@@ -33,7 +33,7 @@ public class PlayerStats : MonoBehaviour
         hungerM.value = currentHunger;
         thirstM.value = currentThirst;
 
-        DrainThirst(5);
+        StartCoroutine(DrainThirst(0.5f));
     }
 
     private void Update()
@@ -45,10 +45,6 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             ConsumeEnergy(15);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DrainThirst(10);
         }
 
         if(currentHealth <= 0)
@@ -67,10 +63,15 @@ public class PlayerStats : MonoBehaviour
         currentHunger = currentHunger - e;
         hungerM.value = currentHunger;
     }
-    private void DrainThirst(float t)
+    IEnumerator DrainThirst(float t)
     {
-        currentThirst = currentThirst - t;
-        thirstM.value = currentThirst;
+        for(int s = 0; s < 3; s++)
+        {
+            currentThirst = currentThirst - t;
+            thirstM.value = currentThirst;
+            yield return new WaitForSeconds(1f);
+            s--;
+        }
     }
 
     public void Death()
