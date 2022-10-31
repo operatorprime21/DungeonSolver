@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject forward;
 
     public GameObject slot;
+    public GameObject inventory;
     void Start()
     {
 
@@ -50,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
                     Debug.Log(weapon.weapon);
                     break;
                 case WeaponBase.WeaponType.rangedHitscan:
-                    HitscanBullet(range, damage);
+                    HitscanBullet(weapon, range, damage);
                     break;
                 case WeaponBase.WeaponType.rangedProjectile:
                     SpawnProjectile(weapon, range, damage);
@@ -87,20 +88,55 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void HitscanBullet(int range, int damage)
+    public void HitscanBullet(WeaponBase gun, int range, int damage)
     {
-        Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector3.forward + aimDir, range, mask);
-        if (hit.collider.tag == "Enemy")
+        //Check current clip first
+        if(gun.ammoInClip > 0)
         {
-            Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.green, 2f);
+            gun.ammoInClip--;
+            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector3.forward + aimDir, range, mask);
+            if (hit.collider.tag == "Enemy")
+            {
+                Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.green, 2f);
 
-            Enemy enemyScript = hit.collider.GetComponent<Enemy>(); //Get enemy script reference
-            enemyScript.ReceiveDamage(damage); //Do damage to the first enemy thats hit
+                Enemy enemyScript = hit.collider.GetComponent<Enemy>(); //Get enemy script reference
+                enemyScript.ReceiveDamage(damage); //Do damage to the first enemy thats hit
+            }
+            else
+            {
+                Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.red, 2f);
+            }
         }
         else
         {
-            Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.red, 2f);
+            Debug.Log("EmptyClip");
+            Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+            List<GameObject> items = inventory.ReturnInventory();
+            foreach (GameObject item in items)
+            {
+                InventoryItem type = item.GetComponent<InventoryItem>();
+                if (type.itemType == InventoryItem.Item.ammo)
+                {
+                    int count = type.currentCount;
+                    if (count > gun.clipSize)
+                    {
+                        type.currentCount -= gun.clipSize;
+                        gun.ammoInClip = gun.clipSize;
+                        break;
+                    }
+                    else
+                    {
+                        gun.ammoInClip += count;
+                        type.currentCount = 0;
+                        Destroy(item);
+                        if (gun.ammoInClip == gun.clipSize)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 

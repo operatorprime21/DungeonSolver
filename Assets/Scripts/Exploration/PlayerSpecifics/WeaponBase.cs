@@ -26,7 +26,8 @@ public class WeaponBase : MonoBehaviour
     public float windup;
     public float recovery;
 
-    public float clip;
+    public int clipSize;
+    public int ammoInClip;
     public float reloadTime;
     public GameObject projPrefab;
 
@@ -75,6 +76,8 @@ public class WeaponBase : MonoBehaviour
                 this.damage = 30;
                 this.windup = 3f;
                 this.recovery = 2.5f;
+                this.clipSize = 6;
+                this.ammoInClip = Random.Range(0, clipSize + 1);
                 break;
             case WeaponBase.Weapon.crossbow:
                 this.type = WeaponType.rangedProjectile;
@@ -82,6 +85,8 @@ public class WeaponBase : MonoBehaviour
                 this.damage = 5;
                 this.windup = 2f;
                 this.recovery = 1.5f;
+                this.clipSize = 1;
+                this.ammoInClip = Random.Range(0, clipSize+1);
                 break;
         }
     }

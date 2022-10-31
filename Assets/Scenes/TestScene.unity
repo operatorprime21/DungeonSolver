@@ -2290,7 +2290,7 @@ GameObject:
   - component: {fileID: 912297888}
   - component: {fileID: 912297887}
   m_Layer: 5
-  m_Name: InventoryUI
+  m_Name: InventoryUISSS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3720,6 +3720,7 @@ MonoBehaviour:
   - {fileID: 1438807342470707399, guid: abb92e5cece6b9c4cb4bf472fc42c815, type: 3}
   - {fileID: 8565889603079309975, guid: 22c5499108ddb9a4eb8ddec13adf03ce, type: 3}
   - {fileID: 6311929190486849607, guid: f74a0b9620d25f3489af53dfda4a6ba8, type: 3}
+  - {fileID: 6311929190486849607, guid: 2427dd0c6e22fd443a5a0bf93c4ee895, type: 3}
   UItoToggle: {fileID: 0}
 --- !u!4 &1565942857
 Transform:
@@ -3889,7 +3890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1582031568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4257,13 +4258,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35127be919644d34fb5e722f4ba6e5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 5
+  weapon: 4
   type: 0
   range: 0
   damage: 0
   windup: 0
   recovery: 0
-  clip: 0
+  clipSize: 0
+  ammoInClip: 0
   reloadTime: 0
   projPrefab: {fileID: 3101548101548101974, guid: f39f1396e8875d64fb5599e6c8be2770, type: 3}
 --- !u!4 &1697233193
@@ -5002,6 +5004,7 @@ MonoBehaviour:
     m_Bits: 384
   forward: {fileID: 1056763493}
   slot: {fileID: 1697233191}
+  inventory: {fileID: 912297885}
 --- !u!1 &2124542849
 GameObject:
   m_ObjectHideFlags: 0

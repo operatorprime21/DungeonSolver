@@ -32,4 +32,21 @@ public class Inventory : MonoBehaviour
             GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
         }
     }
+
+    public List<GameObject> ReturnInventory()
+    {
+        List<GameObject> itemInSlot = new List<GameObject>();
+        for(int i = 0; i < 8; i++)
+        {
+            GameObject nextSlot = inventoryUI.transform.Find("Slot ("+i+")").gameObject;
+            GameObject item = nextSlot.transform.gameObject; //THIS IS WHERE IM STUCK AT. THE LIST IS RETURNING THE "SLOT" OBJECT INSTEAD OF THE ITEM IN THE SLOT CHILDREN
+            if(item != null)
+            {
+                itemInSlot.Add(item);
+                Debug.Log("added " + item.name);
+            }
+            
+        }
+        return itemInSlot;
+    }
 }
