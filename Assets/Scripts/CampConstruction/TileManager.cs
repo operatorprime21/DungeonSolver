@@ -20,7 +20,7 @@ public class TileManager : MonoBehaviour
             RaycastHit2D hitPoint = Physics2D.Raycast(worldPos, new Vector2(0, 0), Mathf.Infinity, mask);
             if(hitPoint)
             {
-                if (hitPoint.collider.CompareTag("Tile"))
+                if (hitPoint.collider.tag == "Tile")
                 {
                     TileHovered = hitPoint.collider.name;
                 }

@@ -6,6 +6,7 @@ public class StructureMove : MonoBehaviour
 {
     public List<GameObject> tileToCheck = new List<GameObject>();
     private GameObject startTile;
+    public List<GameObject> sprites = new List<GameObject>();
     public int tileCost;
     private bool allSlotsFree;
     //For testing only
@@ -43,13 +44,18 @@ public class StructureMove : MonoBehaviour
             Tile validity = tile.GetComponent<Tile>();
             if (validity.ReturnValid() == true)
             {
-                this.transform.Find("Square").GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, 0.5f);
-
+                foreach(GameObject square in sprites)
+                {
+                    square.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, 0.5f);
+                }
                 allSlotsFree = true;
             }
             else
             {
-                this.transform.Find("Square").GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 0.5f);
+                foreach (GameObject square in sprites)
+                {
+                    square.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 0.5f);
+                }
                 allSlotsFree = false;
                 break;
             }
