@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool isValid;
+    public bool isValid = true;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public bool ReturnValid()
     {
@@ -26,8 +16,5 @@ public class Tile : MonoBehaviour
     {
         isValid = !isValid;
     }
-
-
-
 
 }

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3520624144310073600}
   - component: {fileID: 6872416290787096423}
   - component: {fileID: -7241237076495414894}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!50 &6872416290787096423
 Rigidbody2D:
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ab4edb1a1957c45a6aee746bf8fba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isValid: 0
+  isValid: 1
 --- !u!1 &7748996086208072482
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7748996086208072481}
   - component: {fileID: 7748996086208072480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: space
   m_TagString: Untagged
   m_Icon: {fileID: 0}
