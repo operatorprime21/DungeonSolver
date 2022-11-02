@@ -44,7 +44,6 @@ public class Inventory : MonoBehaviour
             {
                 GameObject item = nextSlot.transform.GetChild(0).gameObject;
                 itemInSlot.Add(item);
-                Debug.Log("added " + item.name);
             }
         }
         return itemInSlot;

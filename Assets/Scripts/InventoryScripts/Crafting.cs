@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Crafting : MonoBehaviour
 {
+    private GameObject canvas;
     bool CheckResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
@@ -19,7 +20,7 @@ public class Crafting : MonoBehaviour
             }
         }
         Debug.Log(countToAdd);
-        if(countToAdd < reqAmount)
+        if (countToAdd < reqAmount)
         {
             return false;
         }
@@ -27,7 +28,7 @@ public class Crafting : MonoBehaviour
         {
             return true;
         }
-    }    
+    }
     void ConsumeResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
@@ -90,127 +91,47 @@ public class Crafting : MonoBehaviour
         }
     }
 
-    void CraftFrom1(InventoryItem.Item type1, int type1Req)
+    public void Craft(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
     {
-        if (CheckResource(type1, type1Req) == false)
-        {
-            Debug.Log("Not enough resources");
-        }
-        else
-        {
-            ConsumeResource(type1, type1Req);
-            Debug.Log("Successfully crafted");
-        }
-    }
-    void CraftFrom2(InventoryItem.Item type1, int type1Req, InventoryItem.Item type2, int type2Req)
-    {
-        for (int r = 0; r < 3; r++)
+        for (int r = 0; r < type.Count + 1; r++)
         {
             if (r == 0)
             {
-                if (CheckResource(type1, type1Req) == false)
+                if (CheckResource(type[r], typeReq[r]) == false)
                 {
                     Debug.Log("Not enough resources");
                     break;
                 }
             }
-            if (r == 1)
+            if (r == type.Count)
             {
-                if (CheckResource(type2, type2Req) == false)
+                GameObject inventory = GameObject.Find("InventoryUI");
+                
+                for (int i = 0; i < 8; i++)
                 {
-                    Debug.Log("Not enough resources");
-                    break;
+                    GameObject nextSlot = inventory.transform.Find("Slot (" + i + ")").gameObject;
+                    Slot slot = nextSlot.GetComponent<Slot>();
+                    if (slot.hasItem == false)
+                    {
+                        canvas = GameObject.Find("Main Canvas");
+                        Vector3 spawnSlot = slot.transform.position;
+                        GameObject itemMake = Instantiate(result, spawnSlot, Quaternion.identity, slot.transform);
+                        slot.hasItem = true;
+                        InventoryItem itemInfo = itemMake.GetComponent<InventoryItem>();
+                        slot.maxCapForItem = itemInfo.maxCountPerSlot;
+                        itemInfo.currentCount = 1;
+                        itemInfo.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
+                        itemInfo.lastSlot = slot.transform;
+                        itemInfo.slot = slot.gameObject;
+                        for (int c = 0; c < type.Count; c++)
+                        {
+                            ConsumeResource(type[c], typeReq[c]);
+                        }
+                        break;
+                    }
                 }
-            }
-            if (r == 2)
-            {
-                ConsumeResource(type1, type1Req);
-                ConsumeResource(type2, type2Req);
-                Debug.Log("Successfully crafted");
-            }
-        }
-    }
-    void CraftFrom3(InventoryItem.Item type1, int type1Req, InventoryItem.Item type2, int type2Req, InventoryItem.Item type3, int type3Req)
-    {
-        for (int r = 0; r < 4; r++)
-        {
-            if (r == 0)
-            {
-                if (CheckResource(type1, type1Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 1)
-            {
-                if (CheckResource(type2, type2Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 2)
-            {
-                if (CheckResource(type3, type3Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 3)
-            {
-                ConsumeResource(type1, type1Req);
-                ConsumeResource(type2, type2Req);
-                ConsumeResource(type3, type3Req);
-                Debug.Log("Successfully crafted");
-            }
-        }
-    }
-    void CraftFrom4(InventoryItem.Item type1, int type1Req, InventoryItem.Item type2, int type2Req, InventoryItem.Item type3, int type3Req, InventoryItem.Item type4, int type4Req)
-    {
-        for (int r = 0; r < 5; r++)
-        {
-            if (r == 0)
-            {
-                if (CheckResource(type1, type1Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 1)
-            {
-                if (CheckResource(type2, type2Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 2)
-            {
-                if (CheckResource(type3, type3Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if (r == 3)
-            {
-                if (CheckResource(type4, type4Req) == false)
-                {
-                    Debug.Log("Not enough resources");
-                    break;
-                }
-            }
-            if ( r == 4)
-            {
-                ConsumeResource(type1, type1Req);
-                ConsumeResource(type2, type2Req);
-                ConsumeResource(type3, type3Req);
-                ConsumeResource(type4, type4Req);
-                Debug.Log("Successfully crafted");
             }
         }
     }
 }
+   

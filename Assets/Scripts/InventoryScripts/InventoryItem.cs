@@ -11,7 +11,7 @@ public class InventoryItem : MonoBehaviour
 
     public int currentCount;
     private Camera cam;
-    private GameObject slot;
+    public GameObject slot;
     private GameObject canvas;
     public TMP_Text count;
     private GameObject player;
@@ -25,7 +25,8 @@ public class InventoryItem : MonoBehaviour
         ammo,
         nail,
         emptyBottle,
-        arrow
+        arrow,
+        bandage
     }
 
     private void Start()
@@ -58,6 +59,9 @@ public class InventoryItem : MonoBehaviour
                 break;
             case InventoryItem.Item.arrow:
                 maxCountPerSlot = 2;
+                break;
+            case InventoryItem.Item.bandage:
+                maxCountPerSlot = 4;
                 break;
         }
     }
@@ -105,7 +109,6 @@ public class InventoryItem : MonoBehaviour
         if(collision.tag == "Slot")
         {
             slot = collision.gameObject;
-            //eDebug.Log(slot.name);
         }
     }
 
