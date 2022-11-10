@@ -19,9 +19,9 @@ public class SetupBuildTile : MonoBehaviour
 
     void SetupTile()
     {
-        for(int row = 0; row < 10; row++)
+        for(int row = 0; row < 50; row++)
         {
-            for(int col = 0; col < 10; col++)
+            for(int col = 0; col < 50; col++)
             {
                 GameObject tile = Instantiate(singleTile, new Vector3(row, col, 0), Quaternion.identity);
                 tile.name = row + "." + col;
