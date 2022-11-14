@@ -11,14 +11,7 @@ public class BuildingBase : MonoBehaviour
     public float timeToGenerate;
     public int energyCost;
 
-    public void GenerateResource()
-    {
-        //Consume energy from each member
-        //Wait for time
-        //Add resource (and count) to inventory
-        //Loop through each survivor using resident cap
-
-    }
+    public GameObject sizeChecker;
 
     private bool CheckResource()
     {
@@ -30,7 +23,17 @@ public class BuildingBase : MonoBehaviour
     {
         if(CheckResource() == true)
         {
+
             //Instantiate holo-prefab to check 
+            Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
+            Instantiate(sizeChecker, new Vector3(itemPos.x, itemPos.y, 0f), Quaternion.identity);
+
+            GameObject BPListUI = GameObject.Find("Main Canvas").transform.Find("BlueprintList").gameObject;
+            BPListUI.SetActive(false);
+            GameObject buttonExit = GameObject.Find("Main Canvas").transform.Find("ExitMenu").gameObject;
+            buttonExit.SetActive(false);
         }
         else
         {
