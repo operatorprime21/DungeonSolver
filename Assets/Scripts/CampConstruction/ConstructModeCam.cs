@@ -15,13 +15,15 @@ public class ConstructModeCam : MonoBehaviour
             tappedPos = cam.ScreenToWorldPoint(FirstmousePos);
         }
 
-        if(Input.GetMouseButton(0))
+        else if(Input.GetMouseButton(0))
         {
             Camera cam = this.GetComponent<Camera>();
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             Vector3 posToMove = cam.ScreenToWorldPoint(mousePos);
-            Vector3 camTransform = mousePos - posToMove;
-            this.gameObject.transform.position = camTransform;
+            Vector3 transformV3 = tappedPos - posToMove;
+            Vector3 camTransform = new Vector3(transformV3.x, transformV3.y, 0);
+
+            this.gameObject.transform.position += camTransform;
         }
     }
 }

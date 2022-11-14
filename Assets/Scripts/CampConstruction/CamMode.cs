@@ -27,7 +27,7 @@ public class CamMode : MonoBehaviour
             camScript.enabled = false;
             ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
             buildCamScript.enabled = true;
-            cam.GetComponent<Camera>().orthographicSize = 15;
+            cam.GetComponent<Camera>().orthographicSize = 10;
             player.SetActive(false);
         }
     }
