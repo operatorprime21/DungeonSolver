@@ -25,4 +25,10 @@ public class ResourceHolder : MonoBehaviour
         unit.text = foodUnits.ToString();
         fruit.text = corneaFruit.ToString();
     }
+
+    public void ChangeFruit(int fruitChange)
+    {
+        corneaFruit += fruitChange;
+        fruit.text = corneaFruit.ToString();
+    }
 }

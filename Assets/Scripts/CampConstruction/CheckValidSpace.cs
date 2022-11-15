@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CheckValidSpace : MonoBehaviour
 {
@@ -16,14 +17,19 @@ public class CheckValidSpace : MonoBehaviour
     //For testing only
 
     private bool isChecking;
+    private bool buildIsStarted;
+    public float timeToBuild;
+    public TMP_Text timer;
+
+    public int fruitCost;
     private void Awake()
     {
         isChecking = false;
+        buildIsStarted = false;
     }
     private void OnMouseDrag()
     {
-        
-        if(isChecking == true)
+        if(isChecking == true && buildIsStarted == false)
         {
             Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
@@ -89,43 +95,78 @@ public class CheckValidSpace : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if(allSlotsFree == true)
+        if(buildIsStarted == false)
         {
-            Debug.Log("Successfully placed");
-            foreach (GameObject slot in tileToCheck)
+            if (allSlotsFree == true)
             {
-                slot.GetComponent<Tile>().SwitchValid();
+                Debug.Log("Successfully placed");
+                foreach (GameObject slot in tileToCheck)
+                {
+                    slot.GetComponent<Tile>().SwitchValid();
+                }
+                GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
+                buttonChangeMode.SetActive(true);
+                GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
+                buttonOpenBP.SetActive(true);
+                StartCoroutine(BuildTimer(timeToBuild));
+                buildIsStarted = true;
             }
-            GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
-            buttonChangeMode.SetActive(true);
-            GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
-            buttonOpenBP.SetActive(true);
+            else
+            {
+                Debug.Log("Not enough slots to place");
+                this.transform.position = startingPos;
 
-            Destroy(this.gameObject);
-            //Start coroutine using build time
-            //Spawn the actual building prefab
+                GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
+                buttonChangeMode.SetActive(true);
 
-        }
-        else
-        {
-            Debug.Log("Not enough slots to place");
-            this.transform.position = startingPos;
+                GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
+                buttonOpenBP.SetActive(true);
 
-            GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
-            buttonChangeMode.SetActive(true);
-
-            GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
-            buttonOpenBP.SetActive(true);
-
-            Destroy(this.gameObject);
+                Destroy(this.gameObject);
+            }
         }
     }
     private void OnMouseDown()
     {
-        isChecking = true;
-        foreach (GameObject slot in tileToCheck)
+        if(buildIsStarted == false)
         {
-            slot.GetComponent<Tile>().SwitchValid();
+            isChecking = true;
+            foreach (GameObject slot in tileToCheck)
+            {
+                slot.GetComponent<Tile>().SwitchValid();
+            }
+        }
+        else
+        {
+            GameObject.Find("Main Canvas").GetComponent<Canvas>().transform.Find("SpeedUp").gameObject.SetActive(true);
+            TMP_Text confirm = GameObject.Find("Main Canvas").transform.Find("SpeedUp").transform.Find("confirm").GetComponent<TMP_Text>();
+            confirm.text = "Speed up build using " + fruitCost.ToString() + " Cornea Fruits?";
+            GameObject.Find("UIManager").GetComponent<CamMode>().AssignSpeedUpBuild(buildingPrefab, -fruitCost, this.gameObject);
+        }
+    }
+
+    IEnumerator BuildTimer(float time)
+    {
+        this.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
+        StartCoroutine(SetTimer(time));
+        yield return new WaitForSeconds(time);
+        Debug.Log("Finished Building!");
+        Instantiate(buildingPrefab, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator SetTimer(float time)
+    {
+        if (time >= 0)
+        {
+            timer.text = time.ToString();
+            yield return new WaitForSeconds(1f);
+            time -= 1;
+            StartCoroutine(SetTimer(time));
+        }
+        else
+        {
+            timer.text = null;
         }
     }
     

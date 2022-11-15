@@ -16,8 +16,15 @@ public class CamMode : MonoBehaviour
 
     public GameObject buttonExitMenu;
 
+    public GameObject confirmSpeedUp;
+
     private List<GameObject> UItoClose = new List<GameObject>();
     private List<GameObject> UItoOpen = new List<GameObject>();
+
+    public GameObject buildingPrefab;
+    public GameObject tileChecker;
+
+    public int fruitCost;
 
     // Start is called before the first frame update
     public void ChangeCamMode()
@@ -66,5 +73,25 @@ public class CamMode : MonoBehaviour
         buildCamScript.enabled = true;
         buttonCamMode.SetActive(true);
         buttonExitMenu.SetActive(false);
+    }
+
+    public void ConfirmSpeedUp()
+    {
+        GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
+        Debug.Log("Finished Building!");
+        confirmSpeedUp.SetActive(false);
+        Instantiate(buildingPrefab, tileChecker.transform.position, Quaternion.identity);
+        Destroy(tileChecker);
+    }
+    public void DoNotSpeedUp()
+    {
+        confirmSpeedUp.SetActive(false);
+    }
+
+    public void AssignSpeedUpBuild(GameObject building, int fruit, GameObject checker)
+    {
+        buildingPrefab = building;
+        fruitCost = fruit;
+        tileChecker = checker;
     }
 }
