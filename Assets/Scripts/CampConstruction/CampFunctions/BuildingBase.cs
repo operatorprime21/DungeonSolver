@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class BuildingBase : MonoBehaviour
 {
-    public int residentCap;
-
-    public float timeToBuild;
-
-    public float timeToGenerate;
-    public int energyCost;
-
     public GameObject sizeChecker;
 
     private bool CheckResource()
     {
-        //Loop through Inventory Holder to check the availability and correct amount of resource
+        //Loop through Inventory Holder to check the availability and correct amount of resource to build that building
         return true;
     }
 

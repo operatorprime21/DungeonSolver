@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BPListSlider : MonoBehaviour
+public class ListSlider : MonoBehaviour
 {
     public Vector3 tappedPos;
     // Start is called before the first frame update
