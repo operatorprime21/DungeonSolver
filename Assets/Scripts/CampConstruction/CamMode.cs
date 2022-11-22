@@ -10,21 +10,30 @@ public class CamMode : MonoBehaviour
     public GameObject player;
 
     public GameObject buttonOpenBPList;
+    public GameObject buttonOpenSurvList;
     public GameObject BPList;
+    public GameObject SurvList;
 
     public GameObject buttonCamMode;
 
     public GameObject buttonExitMenu;
 
     public GameObject confirmSpeedUp;
+    public GameObject buildingInfo;
 
     private List<GameObject> UItoClose = new List<GameObject>();
     private List<GameObject> UItoOpen = new List<GameObject>();
 
     public GameObject buildingPrefab;
     public GameObject tileChecker;
+    public GameObject survivorToPlace;
+    public GameObject buildingToAssign;
+
+    public GameObject buttonAssign;
+    public GameObject buttonUnassign;
 
     public int fruitCost;
+    public bool isInPlacementMode;
 
     // Start is called before the first frame update
     public void ChangeCamMode()
@@ -40,6 +49,7 @@ public class CamMode : MonoBehaviour
             player.SetActive(true);
 
             buttonOpenBPList.SetActive(false);
+            buttonOpenSurvList.SetActive(false);
         }
         else
         {
@@ -52,27 +62,61 @@ public class CamMode : MonoBehaviour
             player.SetActive(false);
 
             buttonOpenBPList.SetActive(true);
+            buttonOpenSurvList.SetActive(true);
         }
     }
 
     public void OpenBPList()
     {
         buttonOpenBPList.SetActive(false);
-        BPList.SetActive(true);
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
         buildCamScript.enabled = false;
         buttonCamMode.SetActive(false);
+        buttonOpenSurvList.SetActive(false);
+
+        BPList.SetActive(true);
         buttonExitMenu.SetActive(true);
+
+        UItoClose.Add(BPList);
+        UItoClose.Add(buttonExitMenu);
+        UItoOpen.Add(buttonOpenBPList);
+        UItoOpen.Add(buttonCamMode);
+        UItoOpen.Add(buttonOpenSurvList);
     }
 
-    public void CloseBPList()
+    public void OpenSurvList()
     {
-        BPList.SetActive(false);
-        buttonOpenBPList.SetActive(true);
+        buttonOpenSurvList.SetActive(false);
+        ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
+        buildCamScript.enabled = false;
+        buttonCamMode.SetActive(false);
+        buttonOpenBPList.SetActive(false);
+
+        SurvList.SetActive(true);
+        buttonExitMenu.SetActive(true);
+
+        UItoClose.Add(SurvList);
+        UItoClose.Add(buttonExitMenu);
+        UItoOpen.Add(buttonOpenSurvList);
+        UItoOpen.Add(buttonCamMode);
+        UItoOpen.Add(buttonOpenBPList);
+    }
+
+    public void CloseUI()
+    {
+        foreach (GameObject uiClose in UItoClose)
+        {
+            uiClose.SetActive(false);
+        }
+        UItoClose = new List<GameObject>();
+        foreach (GameObject uiOpen in UItoOpen)
+        {
+            uiOpen.SetActive(true);
+        }
+        UItoOpen = new List<GameObject>();
+
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
         buildCamScript.enabled = true;
-        buttonCamMode.SetActive(true);
-        buttonExitMenu.SetActive(false);
     }
 
     public void ConfirmSpeedUp()
@@ -82,10 +126,14 @@ public class CamMode : MonoBehaviour
         confirmSpeedUp.SetActive(false);
         Instantiate(buildingPrefab, tileChecker.transform.position, Quaternion.identity);
         Destroy(tileChecker);
+        ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
+        buildCamScript.enabled = true;
     }
     public void DoNotSpeedUp()
     {
         confirmSpeedUp.SetActive(false);
+        ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
+        buildCamScript.enabled = true;
     }
 
     public void AssignSpeedUpBuild(GameObject building, int fruit, GameObject checker)
@@ -93,5 +141,40 @@ public class CamMode : MonoBehaviour
         buildingPrefab = building;
         fruitCost = fruit;
         tileChecker = checker;
+    }
+
+    public void TurnOffAssignButton()
+    {
+        buttonAssign.SetActive(false);
+        buttonUnassign.SetActive(true);
+    }
+    public void TurnOnAssignButton()
+    {
+        buttonAssign.SetActive(true);
+        buttonUnassign.SetActive(false);
+    }
+
+
+    public void AssignSurvivor()
+    {
+        if (isInPlacementMode == true)
+        {
+            if (survivorToPlace != null)
+            {
+                buildingToAssign.GetComponent<BuildingFunctions>().AddOccupant(survivorToPlace);
+                survivorToPlace = null;
+                buildingToAssign = null;
+                isInPlacementMode = false;
+            }
+        }
+        else
+        {
+            isInPlacementMode = true;
+        }
+        buildingInfo.SetActive(false);
+    }
+    public void ConfirmGenerate()
+    {
+        buildingToAssign.GetComponent<BuildingFunctions>().ResourceGeneration();
     }
 }

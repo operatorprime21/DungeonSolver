@@ -31,4 +31,11 @@ public class ResourceHolder : MonoBehaviour
         corneaFruit += fruitChange;
         fruit.text = corneaFruit.ToString();
     }
+
+    public void ChangeCell(int cellChange)
+    {
+        powerCell += cellChange;
+        cell.text = powerCell.ToString();
+    }
+
 }

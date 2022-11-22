@@ -9,10 +9,13 @@ public class BuildingFunctions : MonoBehaviour
     public int reqPer;
     public int reqAdp;
     public int reqInw;
-
-    List<GameObject> survivor = new List<GameObject>();
+    public int reqCell;
+    public List<GameObject> survivor = new List<GameObject>();
     public int maxOccupant;
     public float timeToGen;
+    public int amountResToGen;
+
+    private bool isWorking;
     void Start()
     {
         
@@ -28,10 +31,15 @@ public class BuildingFunctions : MonoBehaviour
     {
         //Open the building functionality menu (and exit button)
         //
-        
+        if(isWorking == false)
+        {
+            CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+            cam.buildingToAssign = this.gameObject;
+            cam.buildingInfo.SetActive(true);
+        }
     }
 
-    public bool CheckReq()
+    public bool CheckStatReq()
     {
         int sumPer = 0;
         int sumAdp = 0;
@@ -67,21 +75,41 @@ public class BuildingFunctions : MonoBehaviour
         if(survivor.Count < maxOccupant)
         {
             survivor.Add(surv);
+            CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+            cam.TurnOffAssignButton();
+            SurvivorBase survInfo = surv.GetComponent<SurvivorBase>();
+            survInfo.assignedBuilding = this.gameObject;
+        }
+        else
+        {
+            Debug.Log("Full");
         }
     }
 
+
     public void ResourceGeneration()
     {
-        if (CheckReq() == true)
+        ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
+        
+        if (CheckStatReq() == true && inv.powerCell >= reqCell)
         {
+            inv.ChangeCell(-reqCell);
+            isWorking = true;
+            CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+            cam.buildingInfo.SetActive(false);
             StartCoroutine(TimeToGenerate(timeToGen));
+        }
+        else
+        {
+            Debug.Log("Not enough stats");
         }
     }
 
     IEnumerator TimeToGenerate(float time)
     {
         yield return new WaitForSeconds(time);
-        
+        isWorking = false;
+        Debug.Log("Generated " + amountResToGen + " of x resource");
     }
 
 }

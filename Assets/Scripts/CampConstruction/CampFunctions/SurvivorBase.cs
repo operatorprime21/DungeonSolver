@@ -15,6 +15,8 @@ public class SurvivorBase : MonoBehaviour
     public int adaptability;
     public int ironWill;
 
+    public GameObject assignedBuilding;
+
     public void Heal(int healAmount)
     {
         if (currentHealth == maxHealth)

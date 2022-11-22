@@ -108,6 +108,9 @@ public class CheckValidSpace : MonoBehaviour
                 buttonChangeMode.SetActive(true);
                 GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
                 buttonOpenBP.SetActive(true);
+                GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("ManageSurvivor").gameObject;
+                buttonOpenSurvList.SetActive(true);
+
                 StartCoroutine(BuildTimer(timeToBuild));
                 buildIsStarted = true;
             }
@@ -118,9 +121,10 @@ public class CheckValidSpace : MonoBehaviour
 
                 GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
                 buttonChangeMode.SetActive(true);
-
                 GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
                 buttonOpenBP.SetActive(true);
+                GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("ManageSurvivor").gameObject;
+                buttonOpenSurvList.SetActive(true);
 
                 Destroy(this.gameObject);
             }
