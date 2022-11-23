@@ -21,8 +21,8 @@ public class CamMode : MonoBehaviour
     public GameObject confirmSpeedUp;
     public GameObject buildingInfo;
 
-    private List<GameObject> UItoClose = new List<GameObject>();
-    private List<GameObject> UItoOpen = new List<GameObject>();
+    public List<GameObject> UItoClose = new List<GameObject>();
+    public List<GameObject> UItoOpen = new List<GameObject>();
 
     public GameObject buildingPrefab;
     public GameObject tileChecker;
@@ -170,11 +170,12 @@ public class CamMode : MonoBehaviour
         else
         {
             isInPlacementMode = true;
+            OpenSurvList();
         }
         buildingInfo.SetActive(false);
     }
-    public void ConfirmGenerate()
+    public void ConfirmFunction()
     {
-        buildingToAssign.GetComponent<BuildingFunctions>().ResourceGeneration();
+        buildingToAssign.GetComponent<BuildingFunctions>().CheckFunctionCost();
     }
 }

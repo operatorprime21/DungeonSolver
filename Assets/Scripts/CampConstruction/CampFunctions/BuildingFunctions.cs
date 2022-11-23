@@ -9,11 +9,22 @@ public class BuildingFunctions : MonoBehaviour
     public int reqPer;
     public int reqAdp;
     public int reqInw;
+
     public int reqCell;
     public List<GameObject> survivor = new List<GameObject>();
     public int maxOccupant;
     public float timeToGen;
     public int amountResToGen;
+
+    public BuildType type;
+    public enum BuildType
+    { 
+        host,
+        cellGenerator,
+        foodGenerator,
+        fanStations
+    }
+
 
     private bool isWorking;
     void Start()
@@ -35,7 +46,30 @@ public class BuildingFunctions : MonoBehaviour
         {
             CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
             cam.buildingToAssign = this.gameObject;
-            cam.buildingInfo.SetActive(true);
+            if(cam.isInPlacementMode == true)
+            {
+                if(cam.survivorToPlace != null)
+                {
+                    AddOccupant(cam.survivorToPlace);
+                    cam.survivorToPlace = null;
+                    cam.buildingToAssign = null;
+                    cam.isInPlacementMode = false;
+                }
+            }
+            else
+            {
+                cam.buildingInfo.SetActive(true);
+                cam.buttonExitMenu.SetActive(true);
+                cam.buttonCamMode.SetActive(false);
+                cam.buttonOpenBPList.SetActive(false);
+                cam.buttonOpenSurvList.SetActive(false);
+
+                cam.UItoClose.Add(cam.buildingInfo);
+                cam.UItoClose.Add(cam.buttonExitMenu);
+                cam.UItoOpen.Add(cam.buttonOpenSurvList);
+                cam.UItoOpen.Add(cam.buttonOpenBPList);
+                cam.UItoOpen.Add(cam.buttonCamMode);
+            }
         }
     }
 
@@ -87,7 +121,7 @@ public class BuildingFunctions : MonoBehaviour
     }
 
 
-    public void ResourceGeneration()
+    public void CheckFunctionCost()
     {
         ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
         
@@ -97,7 +131,7 @@ public class BuildingFunctions : MonoBehaviour
             isWorking = true;
             CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
             cam.buildingInfo.SetActive(false);
-            StartCoroutine(TimeToGenerate(timeToGen));
+            StartCoroutine(TimeToFinishFunction(timeToGen));
         }
         else
         {
@@ -105,11 +139,28 @@ public class BuildingFunctions : MonoBehaviour
         }
     }
 
-    IEnumerator TimeToGenerate(float time)
+    IEnumerator TimeToFinishFunction(float time)
     {
         yield return new WaitForSeconds(time);
         isWorking = false;
-        Debug.Log("Generated " + amountResToGen + " of x resource");
+        Function();
     }
+
+    public void Function()
+    {
+        ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
+        switch (this.type)
+        {
+            case BuildingFunctions.BuildType.cellGenerator:
+                inv.ChangeCell(amountResToGen);
+                break;
+            case BuildingFunctions.BuildType.foodGenerator:
+                inv.ChangeFood(amountResToGen);
+                break;
+            case BuildingFunctions.BuildType.fanStations:
+                //Clears fog from a fixed area. 
+                break;
+        }
+    }    
 
 }

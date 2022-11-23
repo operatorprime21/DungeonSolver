@@ -38,4 +38,10 @@ public class ResourceHolder : MonoBehaviour
         cell.text = powerCell.ToString();
     }
 
+    public void ChangeFood(int foodChange)
+    {
+        foodUnits += foodChange;
+        unit.text = foodUnits.ToString();
+    }
+
 }
