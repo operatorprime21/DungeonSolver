@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class BuildingFunctions : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -15,21 +15,32 @@ public class BuildingFunctions : MonoBehaviour
     public int maxOccupant;
     public float timeToGen;
     public int amountResToGen;
-
+    public int fruitCost;
     public BuildType type;
+    public TMP_Text timer;
+
+    public List<InventoryItem> resReqFor = new List<InventoryItem>();
     public enum BuildType
     { 
         host,
         cellGenerator,
         foodGenerator,
-        fanStations
+        fanStations,
+        fence,
+        storage,
+        meleeWorkShop,
+        firearmWorkshop,
+        trainingStation1,
+        trainingStation2,
+        trainingStation3,
+
     }
 
 
-    private bool isWorking;
+    public bool isWorking;
     void Start()
     {
-        
+        timer = this.gameObject.transform.Find("Canvas").transform.Find("timer").GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
@@ -42,10 +53,10 @@ public class BuildingFunctions : MonoBehaviour
     {
         //Open the building functionality menu (and exit button)
         //
-        if(isWorking == false)
+        CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+        cam.buildingToAssign = this.gameObject;
+        if (isWorking == false)
         {
-            CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
-            cam.buildingToAssign = this.gameObject;
             if(cam.isInPlacementMode == true)
             {
                 if(cam.survivorToPlace != null)
@@ -70,6 +81,13 @@ public class BuildingFunctions : MonoBehaviour
                 cam.UItoOpen.Add(cam.buttonOpenBPList);
                 cam.UItoOpen.Add(cam.buttonCamMode);
             }
+        }
+        else
+        {
+            TMP_Text confirmText = GameObject.Find("Main Canvas").transform.Find("SpeedUpFunction").gameObject.transform.Find("confirm").GetComponent<TMP_Text>();
+            cam.fruitCost = fruitCost;
+            confirmText.text = "Speed up process by " + fruitCost.ToString() + " Cornea Fruits?";
+            cam.confirmSpeedUpFunction.SetActive(true);
         }
     }
 
@@ -137,10 +155,13 @@ public class BuildingFunctions : MonoBehaviour
         {
             Debug.Log("Not enough stats");
         }
+
+
     }
 
-    IEnumerator TimeToFinishFunction(float time)
+    public IEnumerator TimeToFinishFunction(float time)
     {
+        StartCoroutine(SetTimer(time));
         yield return new WaitForSeconds(time);
         isWorking = false;
         Function();
@@ -161,6 +182,20 @@ public class BuildingFunctions : MonoBehaviour
                 //Clears fog from a fixed area. 
                 break;
         }
-    }    
+    }
 
+    public IEnumerator SetTimer(float time)
+    {
+        if (time >= 0 && isWorking == true)
+        {
+            timer.text = time.ToString();
+            yield return new WaitForSeconds(1f);
+            time -= 1;
+            StartCoroutine(SetTimer(time));
+        }
+        else
+        {
+            timer.text = null;
+        }
+    }
 }

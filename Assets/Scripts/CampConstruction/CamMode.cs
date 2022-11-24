@@ -13,12 +13,12 @@ public class CamMode : MonoBehaviour
     public GameObject buttonOpenSurvList;
     public GameObject BPList;
     public GameObject SurvList;
-
+    public GameObject confirmSpeedUpFunction;
     public GameObject buttonCamMode;
 
     public GameObject buttonExitMenu;
 
-    public GameObject confirmSpeedUp;
+    public GameObject confirmSpeedUpBuilding;
     public GameObject buildingInfo;
 
     public List<GameObject> UItoClose = new List<GameObject>();
@@ -119,19 +119,38 @@ public class CamMode : MonoBehaviour
         buildCamScript.enabled = true;
     }
 
-    public void ConfirmSpeedUp()
+    public void ConfirmSpeedUpBuilding()
     {
         GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
-        Debug.Log("Finished Building!");
-        confirmSpeedUp.SetActive(false);
+        confirmSpeedUpBuilding.SetActive(false);
+
         Instantiate(buildingPrefab, tileChecker.transform.position, Quaternion.identity);
         Destroy(tileChecker);
+        tileChecker = null;
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
         buildCamScript.enabled = true;
     }
+
+    public void ConfirmSpeedUpFunction()
+    {
+        GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
+        confirmSpeedUpFunction.SetActive(false);
+
+        BuildingFunctions function = buildingToAssign.GetComponent<BuildingFunctions>();
+        function.StopAllCoroutines();
+        function.Function();
+        function.timer.text = null;
+        function.isWorking = false;
+        buildingToAssign = null;
+        ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
+        buildCamScript.enabled = true;
+    }
+
+
     public void DoNotSpeedUp()
     {
-        confirmSpeedUp.SetActive(false);
+        confirmSpeedUpBuilding.SetActive(false);
+        confirmSpeedUpFunction.SetActive(false);
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
         buildCamScript.enabled = true;
     }

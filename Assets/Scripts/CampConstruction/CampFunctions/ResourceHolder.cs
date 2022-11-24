@@ -9,6 +9,7 @@ public class ResourceHolder : MonoBehaviour
     public int powerCell;
     public int corneaFruit;
     public int foodUnits;
+    public List<InventoryItem> resources = new List<InventoryItem>();
 
     public TMP_Text cell;
     public TMP_Text unit;

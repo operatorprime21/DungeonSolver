@@ -104,6 +104,7 @@ public class CheckValidSpace : MonoBehaviour
                 {
                     slot.GetComponent<Tile>().SwitchValid();
                 }
+
                 GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("ChangeCamMode").gameObject;
                 buttonChangeMode.SetActive(true);
                 GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("OpenBPList").gameObject;
@@ -142,8 +143,8 @@ public class CheckValidSpace : MonoBehaviour
         }
         else
         {
-            GameObject.Find("Main Canvas").GetComponent<Canvas>().transform.Find("SpeedUp").gameObject.SetActive(true);
-            TMP_Text confirm = GameObject.Find("Main Canvas").transform.Find("SpeedUp").transform.Find("confirm").GetComponent<TMP_Text>();
+            GameObject.Find("Main Canvas").GetComponent<Canvas>().transform.Find("SpeedUpBuilding").gameObject.SetActive(true);
+            TMP_Text confirm = GameObject.Find("Main Canvas").transform.Find("SpeedUpBuilding").transform.Find("confirm").GetComponent<TMP_Text>();
             confirm.text = "Speed up build using " + fruitCost.ToString() + " Cornea Fruits?";
             GameObject.Find("UIManager").GetComponent<CamMode>().AssignSpeedUpBuild(buildingPrefab, -fruitCost, this.gameObject);
         }
@@ -154,7 +155,6 @@ public class CheckValidSpace : MonoBehaviour
         this.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
         StartCoroutine(SetTimer(time));
         yield return new WaitForSeconds(time);
-        Debug.Log("Finished Building!");
         Instantiate(buildingPrefab, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
