@@ -38,14 +38,14 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(20);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ConsumeEnergy(15);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    TakeDamage(20);
+        //}
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    ConsumeEnergy(15);
+        //}
 
         if(currentHealth <= 0)
         {

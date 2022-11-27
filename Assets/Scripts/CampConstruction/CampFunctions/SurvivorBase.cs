@@ -16,6 +16,8 @@ public class SurvivorBase : MonoBehaviour
     public int ironWill;
 
     public GameObject assignedBuilding;
+    public GameObject UI;
+    public bool isSaved;
 
     public void Heal(int healAmount)
     {

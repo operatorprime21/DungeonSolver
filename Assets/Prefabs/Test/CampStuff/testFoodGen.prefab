@@ -368,8 +368,11 @@ MonoBehaviour:
   survivor: []
   maxOccupant: 3
   timeToGen: 5
-  amountResToGen: 6
+  amountToIncrease: 10
   fruitCost: 10
   type: 2
   timer: {fileID: 0}
+  hungerDrain: 0
+  resReqFor: []
+  amountResReq: 
   isWorking: 0

@@ -8,7 +8,11 @@ public class SurvivorManager : MonoBehaviour
 
     private void Start()
     {
-         
+         foreach(SurvivorBase survInfo in survivorList)
+         {
+            if(survInfo.isSaved == true)
+            survInfo.UI.SetActive(true);
+         }
     }
 
     

@@ -16,6 +16,8 @@ public class CamMode : MonoBehaviour
     public GameObject confirmSpeedUpFunction;
     public GameObject buttonCamMode;
 
+    public GameObject buttonToggleInventory;
+    public GameObject buttonInteract;
     public GameObject buttonExitMenu;
 
     public GameObject confirmSpeedUpBuilding;
@@ -45,9 +47,11 @@ public class CamMode : MonoBehaviour
             camScript.enabled = true;
             ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
             buildCamScript.enabled = false;
-            cam.GetComponent<Camera>().orthographicSize = 4;
+            cam.GetComponent<Camera>().orthographicSize = 5;
             player.SetActive(true);
 
+            buttonToggleInventory.SetActive(true);
+            buttonInteract.SetActive(true);
             buttonOpenBPList.SetActive(false);
             buttonOpenSurvList.SetActive(false);
         }
@@ -61,6 +65,8 @@ public class CamMode : MonoBehaviour
             cam.GetComponent<Camera>().orthographicSize = 10;
             player.SetActive(false);
 
+            buttonToggleInventory.SetActive(false);
+            buttonInteract.SetActive(false);
             buttonOpenBPList.SetActive(true);
             buttonOpenSurvList.SetActive(true);
         }

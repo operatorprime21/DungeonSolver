@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> inventory = new List<InventoryItem>();
+    public List<GameObject> storages = new List<GameObject>();
     private bool toggled = false;
     public GameObject inventoryUI;
     // Start is called before the first frame update
@@ -34,7 +36,7 @@ public class Inventory : MonoBehaviour
     }
 
     public List<GameObject> ReturnInventory()
-    {
+    { 
         List<GameObject> itemInSlot = new List<GameObject>();
         for(int i = 0; i < 8; i++)
         {
@@ -47,5 +49,23 @@ public class Inventory : MonoBehaviour
             }
         }
         return itemInSlot;
+    }
+
+    public List<GameObject> ReturnTotalInventory()
+    {
+        List<GameObject> item = new List<GameObject>();
+        if(ReturnInventory()!= null)
+        {
+            item.Union(ReturnInventory()).ToList();
+        }
+        foreach (GameObject storage in storages)
+        {
+            //storage.GetComponent<>
+            //Try to get the inventories of each storage house
+            //Then loop through each slot
+            //Check if it has item or not
+            //Add
+        }
+        return item;
     }
 }

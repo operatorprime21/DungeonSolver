@@ -14,26 +14,28 @@ public class BuildingFunctions : MonoBehaviour
     public List<GameObject> survivor = new List<GameObject>();
     public int maxOccupant;
     public float timeToGen;
-    public int amountResToGen;
+    public int amountToIncrease;
     public int fruitCost;
     public BuildType type;
     public TMP_Text timer;
+    public int hungerDrain;
 
     public List<InventoryItem> resReqFor = new List<InventoryItem>();
+    public List<int> amountResReq = new List<int>();
     public enum BuildType
     { 
-        host,
-        cellGenerator,
-        foodGenerator,
-        fanStations,
-        fence,
-        storage,
-        meleeWorkShop,
-        firearmWorkshop,
-        trainingStation1,
-        trainingStation2,
-        trainingStation3,
-
+        host,             //Done
+        cellGenerator,    //Done
+        foodGenerator,    //Basic done, need to implement Inventory for more depth
+        fanStations,      //For later progression
+        fence,            //Need to Implement Invasion Events first
+        storage,          //Need to Implement Inventory first
+        meleeWorkShop,    //Need to Implement Inventory/Storage buildings first
+        firearmWorkshop,  //Need to Implement Inventory/Storage buildings first
+        armoryWorkshop,   //Need to Implement Inventory/Storage buildings first
+        trainingStation1, //Done
+        trainingStation2, //Done
+        trainingStation3, //Done
     }
 
 
@@ -146,6 +148,12 @@ public class BuildingFunctions : MonoBehaviour
         if (CheckStatReq() == true && inv.powerCell >= reqCell)
         {
             inv.ChangeCell(-reqCell);
+            foreach(GameObject surv in survivor)
+            {
+                SurvivorBase survInfo = surv.GetComponent<SurvivorBase>();
+                survInfo.currentHunger -= hungerDrain;
+                survInfo.UI.transform.Find("unassignBuilding").gameObject.SetActive(false);
+            }
             isWorking = true;
             CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
             cam.buildingInfo.SetActive(false);
@@ -155,8 +163,6 @@ public class BuildingFunctions : MonoBehaviour
         {
             Debug.Log("Not enough stats");
         }
-
-
     }
 
     public IEnumerator TimeToFinishFunction(float time)
@@ -164,22 +170,69 @@ public class BuildingFunctions : MonoBehaviour
         StartCoroutine(SetTimer(time));
         yield return new WaitForSeconds(time);
         isWorking = false;
+        
         Function();
+
     }
 
     public void Function()
     {
+        foreach (GameObject surv in survivor)
+        {
+            SurvivorBase survInfo = surv.GetComponent<SurvivorBase>();
+            survInfo.UI.transform.Find("unassignBuilding").gameObject.SetActive(true);
+        }
         ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
         switch (this.type)
         {
-            case BuildingFunctions.BuildType.cellGenerator:
-                inv.ChangeCell(amountResToGen);
+            case BuildType.cellGenerator:
+                inv.ChangeCell(amountToIncrease);
                 break;
-            case BuildingFunctions.BuildType.foodGenerator:
-                inv.ChangeFood(amountResToGen);
+            case BuildType.foodGenerator:
+                inv.ChangeFood(amountToIncrease);
+                //Consume different type of resources from a recipe to produce higher amounts. 
                 break;
-            case BuildingFunctions.BuildType.fanStations:
-                //Clears fog from a fixed area. 
+            case BuildType.fanStations:
+                //Clears fog from a fixed number of tiles (enable validity). 
+                break;
+            case BuildType.storage:
+                //Spawns a new box inventory
+                break;
+            case BuildType.meleeWorkShop:
+                //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                break;
+            case BuildType.firearmWorkshop:
+                //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                break;
+            case BuildType.armoryWorkshop:
+                //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                break;
+            case BuildType.trainingStation1:
+                foreach (GameObject surv in survivor)
+                {
+                    SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
+                    survStat.adaptability += amountToIncrease;
+                    SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
+                    survUI.SetUIstat();
+                }    
+                break;
+            case BuildType.trainingStation2:
+                foreach (GameObject surv in survivor)
+                {
+                    SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
+                    survStat.perseverance += amountToIncrease;
+                    SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
+                    survUI.SetUIstat();
+                }
+                break;
+            case BuildType.trainingStation3:
+                foreach (GameObject surv in survivor)
+                {
+                    SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
+                    survStat.ironWill += amountToIncrease;
+                    SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
+                    survUI.SetUIstat();
+                }
                 break;
         }
     }
