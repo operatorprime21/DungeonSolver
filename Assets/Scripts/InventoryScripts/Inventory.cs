@@ -58,14 +58,19 @@ public class Inventory : MonoBehaviour
         {
             item.Union(ReturnInventory()).ToList();
         }
-        foreach (GameObject storage in storages)
+
+        if(storages != null)
         {
-            //storage.GetComponent<>
-            //Try to get the inventories of each storage house
-            //Then loop through each slot
-            //Check if it has item or not
-            //Add
+            foreach (GameObject storage in storages)
+            {
+                //storage.GetComponent<>
+                //Try to get the inventories of each storage house
+                //Then loop through each slot
+                //Check if it has item or not
+                //Add
+            }
         }
+        
         return item;
     }
 }

@@ -130,8 +130,8 @@ public class CamMode : MonoBehaviour
         GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
         confirmSpeedUpBuilding.SetActive(false);
 
-        Instantiate(buildingPrefab, tileChecker.transform.position, Quaternion.identity);
-        Destroy(tileChecker);
+        tileChecker.GetComponent<CheckValidSpace>().CompleteBuilding();
+
         tileChecker = null;
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();
         buildCamScript.enabled = true;

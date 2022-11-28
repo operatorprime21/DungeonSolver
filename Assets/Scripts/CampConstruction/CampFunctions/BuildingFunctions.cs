@@ -22,6 +22,9 @@ public class BuildingFunctions : MonoBehaviour
 
     public List<InventoryItem> resReqFor = new List<InventoryItem>();
     public List<int> amountResReq = new List<int>();
+
+    public GameObject storageUI;
+    public GameObject recipeList;
     public enum BuildType
     { 
         host,             //Done
@@ -100,13 +103,14 @@ public class BuildingFunctions : MonoBehaviour
         int sumInw = 0;
         foreach (GameObject surv in survivor)
         {
-            if(surv != null)
+            if (surv != null)
             {
                 SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
                 sumPer += survStat.perseverance;
                 sumInw += survStat.ironWill;
                 sumAdp += survStat.adaptability;
             }
+            else return false;
         }
 
         if (sumPer >= reqPer)

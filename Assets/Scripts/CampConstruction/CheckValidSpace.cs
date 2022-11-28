@@ -155,7 +155,20 @@ public class CheckValidSpace : MonoBehaviour
         this.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
         StartCoroutine(SetTimer(time));
         yield return new WaitForSeconds(time);
+        CompleteBuilding();
+    }
+
+    public void CompleteBuilding()
+    {
         Instantiate(buildingPrefab, this.transform.position, Quaternion.identity);
+        BuildingFunctions function = buildingPrefab.GetComponent<BuildingFunctions>();
+        if (function.type == BuildingFunctions.BuildType.storage)
+        {
+            Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
+            Vector3 UIpos = GameObject.Find("boxUIpos").transform.position;
+            GameObject boxUI = Instantiate(function.storageUI, UIpos, Quaternion.identity, mainCv.transform);
+            boxUI.SetActive(false);
+        }
         Destroy(this.gameObject);
     }
 
