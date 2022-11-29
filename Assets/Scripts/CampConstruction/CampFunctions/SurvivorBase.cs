@@ -11,9 +11,9 @@ public class SurvivorBase : MonoBehaviour
     public int currentHunger;
     public int maxHunger;
 
-    public int perseverance;
-    public int adaptability;
-    public int ironWill;
+    public int body;
+    public int soul;
+    public int mind;
 
     public GameObject assignedBuilding;
     public GameObject UI;

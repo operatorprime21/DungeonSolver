@@ -5,18 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
-    public Camera cam;
+    private Camera cam;
     public Vector3 destination;
     public Vector3 aimedAt;
     public float angleMod;
     public bool manualAim;
     public Enemy lockedOnEnemy;
 
-    public LayerMask obstacleMask;
+    public LayerMask uiMask;
+    public LayerMask blockingMask;
     // Start is called before the first frame update
     void Start()
     {
         destination = this.transform.position;
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -41,11 +43,33 @@ public class PlayerMovement : MonoBehaviour
         Rotate();
     }
 
+    
+
     public Vector3 ReturnDestination()
     {
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 destination = cam.ScreenToWorldPoint(mousePos);
-        return destination;
+        if (Physics2D.Raycast(cam.transform.position, destination - this.transform.position, Mathf.Infinity, uiMask))
+        {
+            Debug.Log("clicked UI");
+            destination = this.transform.position;
+            return destination;
+        }
+        if (Physics2D.Raycast(this.transform.position, destination-this.transform.position, .5f, blockingMask))
+        {
+            Debug.Log("Hitting a wall");
+            return this.transform.position;
+        }
+        else if(Physics2D.Raycast(this.transform.position, destination - this.transform.position, Mathf.Infinity, blockingMask))
+        {
+            Debug.Log("Returning wall");
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, destination - this.transform.position, Mathf.Infinity, blockingMask);
+            return hit.point ;
+        }
+        else
+        {
+            return destination;
+        }
     }
 
     private void LockOn()

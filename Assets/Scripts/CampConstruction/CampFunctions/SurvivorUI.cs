@@ -27,15 +27,15 @@ public class SurvivorUI : MonoBehaviour
             TMP_Text stat = this.transform.Find("stat (" + s + ")").GetComponent<TMP_Text>();
             if (s == 0)
             {
-                stat.text = "Perserverance: " + surv.perseverance.ToString();
+                stat.text = "Body: " + surv.body.ToString();
             }
             if (s == 1)
             {
-                stat.text = "Adaptability: " + surv.adaptability.ToString();
+                stat.text = "Soul: " + surv.soul.ToString();
             }
             if (s == 2)
             {
-                stat.text = "Iron Will: " + surv.ironWill.ToString();
+                stat.text = "Mind: " + surv.mind.ToString();
             }
         }
     }

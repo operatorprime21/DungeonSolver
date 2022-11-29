@@ -20,13 +20,71 @@ public class InventoryItem : MonoBehaviour
 
     public enum Item
     {
+        //Necessities/Crafting materials/Resources
         wood,
         cloth,
         ammo,
         nail,
         emptyBottle,
         arrow,
-        bandage
+        bandage,
+        gunPowder,
+        scrapMetal,
+        ductTape,
+        rope,
+        pipe,
+        plasticScrap,
+        potato,
+        cannedMeat,
+        cannedFish,
+        bread,
+        glass,
+        egg,
+        batteryCell,
+        gasTank,
+        wires,
+        motherboards,
+        cogs,
+        wheat,
+        rawMeat,
+        medicalKit,
+        painKillers,
+        rubberStraps,
+        lockpick,
+        copperNickle,
+
+        //Melee
+        woodenPlank,
+        crowBar,
+        policeBaton,
+        knife,
+        shovel,
+        machete,
+        bigKnife,
+        rake,
+        hammer,
+        largeHammer,
+
+        //Ranged 
+        pistol,
+        crossbow,
+        levelActionRifle,
+        sawedOffShotgun,
+        automaticPistol,
+
+        //Armor
+        sweater,
+        bulletProofVest,
+        hazmatSuit,
+        footballSuit,
+        heavyJacket,
+
+        //Misc
+        bagExtender1,
+        bagExtender2,
+        flashlight1,
+        flashlight2,
+
     }
 
     private void Start()

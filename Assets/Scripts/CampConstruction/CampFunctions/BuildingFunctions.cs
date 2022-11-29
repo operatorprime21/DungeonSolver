@@ -106,9 +106,9 @@ public class BuildingFunctions : MonoBehaviour
             if (surv != null)
             {
                 SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
-                sumPer += survStat.perseverance;
-                sumInw += survStat.ironWill;
-                sumAdp += survStat.adaptability;
+                sumPer += survStat.body;
+                sumInw += survStat.mind;
+                sumAdp += survStat.soul;
             }
             else return false;
         }
@@ -215,7 +215,7 @@ public class BuildingFunctions : MonoBehaviour
                 foreach (GameObject surv in survivor)
                 {
                     SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
-                    survStat.adaptability += amountToIncrease;
+                    survStat.soul += amountToIncrease;
                     SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
                     survUI.SetUIstat();
                 }    
@@ -224,7 +224,7 @@ public class BuildingFunctions : MonoBehaviour
                 foreach (GameObject surv in survivor)
                 {
                     SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
-                    survStat.perseverance += amountToIncrease;
+                    survStat.body += amountToIncrease;
                     SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
                     survUI.SetUIstat();
                 }
@@ -233,7 +233,7 @@ public class BuildingFunctions : MonoBehaviour
                 foreach (GameObject surv in survivor)
                 {
                     SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
-                    survStat.ironWill += amountToIncrease;
+                    survStat.mind += amountToIncrease;
                     SurvivorUI survUI = survStat.UI.GetComponent<SurvivorUI>();
                     survUI.SetUIstat();
                 }
