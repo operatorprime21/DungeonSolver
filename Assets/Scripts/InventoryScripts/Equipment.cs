@@ -8,18 +8,13 @@ public class Equipment : MonoBehaviour
     public GameObject bodyGear;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        EquipWeapon(); //For testing purposes
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EquipWeapon()
     {
-        
+        this.gameObject.transform.parent.GetComponent<PlayerAttack>().slot = handGear;
     }
-
-
-
-
 }

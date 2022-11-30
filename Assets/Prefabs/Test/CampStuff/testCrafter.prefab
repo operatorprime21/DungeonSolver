@@ -367,11 +367,11 @@ MonoBehaviour:
   reqCell: 12
   survivor: []
   maxOccupant: 1
-  timeToGen: 12
-  amountToIncrease: 2
+  timeToGen: 0
+  amountToIncrease: 0
   fruitCost: 10
   type: 6
-  timer: {fileID: 0}
+  timer: {fileID: 3890782538929186461}
   hungerDrain: 0
   resReqFor: []
   amountResReq: 

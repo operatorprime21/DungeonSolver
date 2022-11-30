@@ -15,6 +15,8 @@ public class PlayerStats : MonoBehaviour
     public float maxHunger;
     public float currentHunger;
 
+    public bool hasArmor;
+
     public Slider healthM;
     public Slider thirstM;
     public Slider hungerM;
@@ -55,9 +57,15 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float d)
     {
-        
+        Equipment armor = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
+        if(armor.bodyGear != null)
+        {
+            int dr = armor.bodyGear.GetComponent<ArmorBase>().dmgReduce;
+            d -= dr;
+        }
         currentHealth = currentHealth - d;
         healthM.value = currentHealth;
+        
     }
     private void ConsumeEnergy(float e)
     {
