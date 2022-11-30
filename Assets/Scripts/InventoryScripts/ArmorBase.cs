@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equipment : MonoBehaviour
+public class ArmorBase : MonoBehaviour
 {
-    public GameObject handGear;
-    public GameObject bodyGear;
+    public int survStatPos;
+    public int survStatNeg;
+
+    public int dmgReduce;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +20,4 @@ public class Equipment : MonoBehaviour
     {
         
     }
-
-
-
-
 }

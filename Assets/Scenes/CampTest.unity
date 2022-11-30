@@ -1872,6 +1872,7 @@ GameObject:
   - component: {fileID: 140824164}
   - component: {fileID: 140824163}
   - component: {fileID: 140824162}
+  - component: {fileID: 140824165}
   m_Layer: 5
   m_Name: bp (4)
   m_TagString: Untagged
@@ -1943,7 +1944,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 140824163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 140824165}
+        m_TargetAssemblyTypeName: BuildingBase, Assembly-CSharp
+        m_MethodName: Build
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &140824163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1982,6 +1995,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140824160}
   m_CullTransparentMesh: 1
+--- !u!114 &140824165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140824160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2ae4de6555eae4d9ece41fe5fcc274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeChecker: {fileID: 6848227900324324040, guid: 80f8a43ec22d0014f95c640d88bbde14, type: 3}
 --- !u!1 &141228287
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,6 +4105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
+  storages: []
   inventoryUI: {fileID: 1632442464}
 --- !u!1 &531675435
 GameObject:
@@ -6750,9 +6777,9 @@ MonoBehaviour:
   maxHealth: 50
   currentHunger: 25
   maxHunger: 25
-  perseverance: 8
-  adaptability: 1
-  ironWill: 9
+  body: 0
+  soul: 0
+  mind: 0
   assignedBuilding: {fileID: 0}
   UI: {fileID: 615454246}
   isSaved: 1
@@ -8607,9 +8634,9 @@ MonoBehaviour:
   maxHealth: 50
   currentHunger: 25
   maxHunger: 25
-  perseverance: 2
-  adaptability: 7
-  ironWill: 5
+  body: 0
+  soul: 0
+  mind: 0
   assignedBuilding: {fileID: 0}
   UI: {fileID: 1700360124}
   isSaved: 1
@@ -11993,9 +12020,9 @@ MonoBehaviour:
   maxHealth: 50
   currentHunger: 25
   maxHunger: 25
-  perseverance: 6
-  adaptability: 3
-  ironWill: 4
+  body: 0
+  soul: 0
+  mind: 0
   assignedBuilding: {fileID: 0}
   UI: {fileID: 1837121307}
   isSaved: 1
@@ -13800,9 +13827,9 @@ MonoBehaviour:
   maxHealth: 50
   currentHunger: 25
   maxHunger: 25
-  perseverance: 7
-  adaptability: 2
-  ironWill: 7
+  body: 0
+  soul: 0
+  mind: 0
   assignedBuilding: {fileID: 0}
   UI: {fileID: 56450983}
   isSaved: 1

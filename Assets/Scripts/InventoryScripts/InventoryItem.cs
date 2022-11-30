@@ -6,9 +6,9 @@ using TMPro;
 public class InventoryItem : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Item itemType;
+    public Item item;
     public int maxCountPerSlot;
-
+    private Type itemType;
     public int currentCount;
     private Camera cam;
     public GameObject slot;
@@ -28,29 +28,32 @@ public class InventoryItem : MonoBehaviour
         emptyBottle,
         arrow,
         bandage,
+
         gunPowder,
         scrapMetal,
         ductTape,
         rope,
-        pipe,
-        plasticScrap,
+        pipe,//
+        plasticScrap,//
+
         potato,
         cannedMeat,
         cannedFish,
         bread,
-        glass,
+        glass,//
         egg,
-        batteryCell,
-        gasTank,
-        wires,
-        motherboards,
-        cogs,
         wheat,
         rawMeat,
         medicalKit,
-        painKillers,
+        painKillers,//
+        lockpick,//
+
+        batteryCell,
+        gasTank,//
+        wires,
+        motherboards,
+        cogs,
         rubberStraps,
-        lockpick,
         copperNickle,
 
         //Melee
@@ -87,6 +90,16 @@ public class InventoryItem : MonoBehaviour
 
     }
 
+    private enum Type
+    { 
+        resource,
+        consumable,
+        misc,
+        weapon,
+        armor
+    }
+
+
     private void Start()
     {
         InitItemVariables();
@@ -98,29 +111,218 @@ public class InventoryItem : MonoBehaviour
 
     private void InitItemVariables()
     {
-        switch (this.itemType)
+        switch (this.item)
         {
             case InventoryItem.Item.wood:
                 maxCountPerSlot = 5;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.cloth:
                 maxCountPerSlot = 12;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.ammo:
                 maxCountPerSlot = 8;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.nail:
                 maxCountPerSlot = 15;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.emptyBottle:
                 maxCountPerSlot = 3;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.arrow:
                 maxCountPerSlot = 2;
+                itemType = Type.resource;
                 break;
             case InventoryItem.Item.bandage:
                 maxCountPerSlot = 4;
+                itemType = Type.consumable;
                 break;
+
+            case InventoryItem.Item.gunPowder:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.scrapMetal:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.ductTape:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.rope:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.pipe:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.plasticScrap:
+                maxCountPerSlot = 4;
+                itemType = Type.resource;
+                break;
+
+            case InventoryItem.Item.potato:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.cannedMeat:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.cannedFish:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.bread:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.glass:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.egg:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.wheat:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.rawMeat:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.medicalKit:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.painKillers:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+            case InventoryItem.Item.lockpick:
+                maxCountPerSlot = 2;
+                itemType = Type.consumable;
+                break;
+
+            case InventoryItem.Item.batteryCell:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.gasTank:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.wires:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.motherboards:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.cogs:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.rubberStraps:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.copperNickle:
+                maxCountPerSlot = 2;
+                itemType = Type.resource;
+                break;
+
+            case InventoryItem.Item.woodenPlank:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.crowBar:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.policeBaton:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.knife:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.shovel:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.machete:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.rake:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.hammer:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.largeHammer:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.bigKnife:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.pistol:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.crossbow:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.levelActionRifle:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.sawedOffShotgun:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+            case InventoryItem.Item.automaticPistol:
+                maxCountPerSlot = 1;
+                itemType = Type.weapon;
+                break;
+
+            case InventoryItem.Item.sweater:
+                maxCountPerSlot = 1;
+                itemType = Type.armor;
+                break;
+            case InventoryItem.Item.bulletProofVest:
+                maxCountPerSlot = 1;
+                itemType = Type.armor;
+                break;
+            case InventoryItem.Item.hazmatSuit:
+                maxCountPerSlot = 1;
+                itemType = Type.armor;
+                break;
+            case InventoryItem.Item.footballSuit:
+                maxCountPerSlot = 1;
+                itemType = Type.armor;
+                break;
+            case InventoryItem.Item.heavyJacket:
+                maxCountPerSlot = 1;
+                itemType = Type.armor;
+                break;
+
         }
     }
 

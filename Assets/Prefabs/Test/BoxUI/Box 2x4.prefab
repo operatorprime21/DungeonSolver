@@ -78,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909130101670177
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909130152772375
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909130362037013
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909131178346630
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +327,7 @@ GameObject:
   - component: {fileID: 844909131178346629}
   - component: {fileID: 844909131178346627}
   - component: {fileID: 844909131178346628}
+  - component: {fileID: 1873717511215324793}
   m_Layer: 5
   m_Name: Box 2x4
   m_TagString: Untagged
@@ -396,6 +401,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1873717511215324793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844909131178346630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e291f9db49ef4ca4db094272c2efc7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotCount: 8
+  slots:
+  - {fileID: 844909129924768339}
+  - {fileID: 844909131503227851}
+  - {fileID: 844909130101670191}
+  - {fileID: 844909131811327077}
+  - {fileID: 844909131415268350}
+  - {fileID: 844909130362037011}
+  - {fileID: 844909131805430923}
+  - {fileID: 844909130152772373}
 --- !u!1 &844909131415268336
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909131503227853
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909131805430925
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0
 --- !u!1 &844909131811327079
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,3 +738,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInThisSlot: {fileID: 0}
   maxCapForItem: 0
+  hasItem: 0

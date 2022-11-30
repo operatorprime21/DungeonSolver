@@ -55,6 +55,7 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float d)
     {
+        
         currentHealth = currentHealth - d;
         healthM.value = currentHealth;
     }

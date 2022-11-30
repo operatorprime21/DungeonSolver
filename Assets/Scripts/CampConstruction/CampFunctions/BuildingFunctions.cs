@@ -23,19 +23,20 @@ public class BuildingFunctions : MonoBehaviour
     public List<InventoryItem> resReqFor = new List<InventoryItem>();
     public List<int> amountResReq = new List<int>();
 
+    public GameObject storageToSpawn;
     public GameObject storageUI;
     public GameObject recipeList;
     public enum BuildType
     { 
         host,             //Done
         cellGenerator,    //Done
-        foodGenerator,    //Basic done, need to implement Inventory for more depth
+        foodGenerator,    //Immediate next task
         fanStations,      //For later progression
-        fence,            //Need to Implement Invasion Events first
-        storage,          //Need to Implement Inventory first
-        meleeWorkShop,    //Need to Implement Inventory/Storage buildings first
-        firearmWorkshop,  //Need to Implement Inventory/Storage buildings first
-        armoryWorkshop,   //Need to Implement Inventory/Storage buildings first
+        fence,            //Might actually skip this
+        storage,          //Done
+        meleeWorkShop,    //Immediate next task
+        firearmWorkshop,  //Immediate next task
+        armoryWorkshop,   //Immediate next task
         trainingStation1, //Done
         trainingStation2, //Done
         trainingStation3, //Done
@@ -200,7 +201,14 @@ public class BuildingFunctions : MonoBehaviour
                 //Clears fog from a fixed number of tiles (enable validity). 
                 break;
             case BuildType.storage:
-                //Spawns a new box inventory
+                Debug.Log(storageUI);
+                storageUI.SetActive(true);
+
+                CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(storageUI);
+                cam.UItoClose.Add(cam.buttonExitMenu);
+                //Opens the box ui
                 break;
             case BuildType.meleeWorkShop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
@@ -254,5 +262,11 @@ public class BuildingFunctions : MonoBehaviour
         {
             timer.text = null;
         }
+    }
+
+    public void AssignStorage(GameObject ui)
+    {
+        storageUI = ui;
+        Debug.Log(storageUI + "??????");
     }
 }

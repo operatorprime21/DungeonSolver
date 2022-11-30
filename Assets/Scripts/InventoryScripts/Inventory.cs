@@ -53,24 +53,27 @@ public class Inventory : MonoBehaviour
 
     public List<GameObject> ReturnTotalInventory()
     {
-        List<GameObject> item = new List<GameObject>();
+        List<GameObject> itemInSlot = new List<GameObject>();
         if(ReturnInventory()!= null)
         {
-            item.Union(ReturnInventory()).ToList();
+            itemInSlot.Union(ReturnInventory()).ToList();
         }
 
         if(storages != null)
         {
             foreach (GameObject storage in storages)
             {
-                //storage.GetComponent<>
-                //Try to get the inventories of each storage house
-                //Then loop through each slot
-                //Check if it has item or not
-                //Add
+                SlotHolder storageInfo = storage.GetComponent<SlotHolder>();
+                foreach (Slot slot in storageInfo.slots)
+                {
+                    if (slot.hasItem == true)
+                    {
+                        GameObject item = slot.gameObject.transform.GetChild(0).gameObject;
+                        itemInSlot.Add(item);
+                    }
+                }
             }
         }
-        
-        return item;
+        return itemInSlot;
     }
 }

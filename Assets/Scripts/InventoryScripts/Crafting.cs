@@ -13,7 +13,7 @@ public class Crafting : MonoBehaviour
         foreach (GameObject item in items)
         {
             InventoryItem type = item.GetComponent<InventoryItem>();
-            if (type.itemType == resource)
+            if (type.item == resource)
             {
                 int count = type.currentCount;
                 countToAdd += count;
@@ -37,7 +37,7 @@ public class Crafting : MonoBehaviour
         foreach (GameObject item in items)
         {
             InventoryItem type = item.GetComponent<InventoryItem>();
-            if (type.itemType == resource)
+            if (type.item == resource)
             {
                 int count = type.currentCount;
                 if (countToAdd == 0)

@@ -114,7 +114,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (GameObject item in items)
         {
             InventoryItem type = item.GetComponent<InventoryItem>();
-            if (type.itemType == ammoType)
+            if (type.item == ammoType)
             {
                 int count = type.currentCount;
                 if (gun.ammoInClip == 0)

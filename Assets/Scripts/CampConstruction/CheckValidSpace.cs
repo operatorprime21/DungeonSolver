@@ -160,14 +160,17 @@ public class CheckValidSpace : MonoBehaviour
 
     public void CompleteBuilding()
     {
-        Instantiate(buildingPrefab, this.transform.position, Quaternion.identity);
-        BuildingFunctions function = buildingPrefab.GetComponent<BuildingFunctions>();
+        GameObject newBuilding = Instantiate(buildingPrefab, this.transform.position, Quaternion.identity);
+        BuildingFunctions function = newBuilding.GetComponent<BuildingFunctions>();
         if (function.type == BuildingFunctions.BuildType.storage)
         {
             Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
-            Vector3 UIpos = GameObject.Find("boxUIpos").transform.position;
-            GameObject boxUI = Instantiate(function.storageUI, UIpos, Quaternion.identity, mainCv.transform);
-            boxUI.SetActive(false);
+            Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
+            GameObject box = Instantiate(function.storageToSpawn, UIpos, Quaternion.identity, mainCv.transform);
+            Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+            inven.storages.Add(box);
+            function.AssignStorage(box);
+            //function.storageUI.SetActive(false);
         }
         Destroy(this.gameObject);
     }

@@ -20,7 +20,7 @@ public class Slot : MonoBehaviour
             itemToAdd.transform.parent = this.transform;
             hasItem = true;
         }
-        else if (itemToAdd.itemType == itemInThisSlot.itemType) //Check if the list is not empty and already has at least one item occupied
+        else if (itemToAdd.item == itemInThisSlot.item) //Check if the list is not empty and already has at least one item occupied
         {
             if (itemInThisSlot.currentCount < maxCapForItem)//Check if the item cap has not reached for this particular type of item
             {

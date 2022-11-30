@@ -14,6 +14,4 @@ public class SurvivorManager : MonoBehaviour
             survInfo.UI.SetActive(true);
          }
     }
-
-    
 }
