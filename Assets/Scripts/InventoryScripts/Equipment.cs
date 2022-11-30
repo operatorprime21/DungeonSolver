@@ -11,6 +11,7 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         EquipWeapon(); //For testing purposes
+        //Need to implement equipping and unequipping better
     }
 
     public void EquipWeapon()

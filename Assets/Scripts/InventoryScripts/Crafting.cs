@@ -5,7 +5,7 @@ using UnityEngine;
 public class Crafting : MonoBehaviour
 {
     private GameObject canvas;
-    bool CheckResource(InventoryItem.Item resource, int reqAmount)
+    public bool CheckResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
         List<GameObject> items = inventory.ReturnInventory();
