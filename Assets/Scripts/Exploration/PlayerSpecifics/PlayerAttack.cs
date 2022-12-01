@@ -13,14 +13,14 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask mask;
     public GameObject forward;
 
-    public GameObject slot;
+    private GameObject slot;
     public GameObject inventory;
 
 
     public void BeginAttack() //Called by a button press
     {
-        //Get current equip slot
-        //Get the equipment on the slot
+        Equipment equipped = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
+        slot = equipped.handGear;
         WeaponBase weapon = slot.GetComponent<WeaponBase>();
         StartCoroutine(Attack(weapon, weapon.range, weapon.damage, weapon.windup, weapon.recovery));
     }

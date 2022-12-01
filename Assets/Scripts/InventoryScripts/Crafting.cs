@@ -5,7 +5,8 @@ using UnityEngine;
 public class Crafting : MonoBehaviour
 {
     private GameObject canvas;
-    public bool CheckResource(InventoryItem.Item resource, int reqAmount)
+    public Recipe recipe;
+    bool CheckResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
         List<GameObject> items = inventory.ReturnInventory();
@@ -19,7 +20,6 @@ public class Crafting : MonoBehaviour
                 countToAdd += count;
             }
         }
-        Debug.Log(countToAdd);
         if (countToAdd < reqAmount)
         {
             return false;
@@ -91,11 +91,11 @@ public class Crafting : MonoBehaviour
         }
     }
 
-    public void Craft(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
+    public void CheckAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
     {
         for (int r = 0; r < type.Count + 1; r++)
         {
-            if (r == 0)
+            if (r < type.Count )
             {
                 if (CheckResource(type[r], typeReq[r]) == false)
                 {
@@ -103,35 +103,57 @@ public class Crafting : MonoBehaviour
                     break;
                 }
             }
-            if (r == type.Count)
+            if (r == type.Count )
             {
-                GameObject inventory = GameObject.Find("InventoryUI");
-                
-                for (int i = 0; i < 8; i++)
-                {
-                    GameObject nextSlot = inventory.transform.Find("Slot (" + i + ")").gameObject;
-                    Slot slot = nextSlot.GetComponent<Slot>();
-                    if (slot.hasItem == false)
-                    {
-                        canvas = GameObject.Find("Main Canvas");
-                        Vector3 spawnSlot = slot.transform.position;
-                        GameObject itemMake = Instantiate(result, spawnSlot, Quaternion.identity, slot.transform);
-                        slot.hasItem = true;
-                        InventoryItem itemInfo = itemMake.GetComponent<InventoryItem>();
-                        slot.maxCapForItem = itemInfo.maxCountPerSlot;
-                        itemInfo.currentCount = 1;
-                        itemInfo.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
-                        itemInfo.lastSlot = slot.transform;
-                        itemInfo.slot = slot.gameObject;
-                        for (int c = 0; c < type.Count; c++)
-                        {
-                            ConsumeResource(type[c], typeReq[c]);
-                        }
-                        break;
-                    }
-                }
+                ConsumeAllResource(type, typeReq, result);
             }
         }
+    }
+
+    private void ConsumeAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
+    {
+        GameObject inventory = GameObject.Find("InventoryUI");
+
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject nextSlot = inventory.transform.Find("Slot (" + i + ")").gameObject;
+            Slot slot = nextSlot.GetComponent<Slot>();
+            if (slot.hasItem == false)
+            {
+                for (int c = 0; c < type.Count; c++)
+                {
+                    ConsumeResource(type[c], typeReq[c]);
+                }
+                if(recipe.timeToMake == Recipe.RecipeType.instant)
+                {
+                    MakeItem(result, slot);
+                    break;
+                }
+                else if(recipe.timeToMake == Recipe.RecipeType.timed)
+                {
+                    StartCoroutine(recipe.WaitUntilFinish(recipe.time, result, slot));
+                    break;
+                }
+            }
+            
+        }
+    }
+
+
+
+    public void MakeItem(GameObject result, Slot slot)
+    {
+        canvas = GameObject.Find("Main Canvas");
+        Vector3 spawnSlot = slot.transform.position;
+        GameObject itemMake = Instantiate(result, spawnSlot, Quaternion.identity, slot.transform);
+        slot.hasItem = true;
+        InventoryItem itemInfo = itemMake.GetComponent<InventoryItem>();
+        slot.itemInThisSlot = itemInfo;
+        slot.maxCapForItem = itemInfo.maxCountPerSlot;
+        itemInfo.currentCount = 1;
+        itemInfo.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
+        itemInfo.lastSlot = slot.transform;
+        itemInfo.slot = slot.gameObject;
     }
 }
    

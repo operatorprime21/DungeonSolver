@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
 
     public float health;
     public float attackRange;
+    public float attackDamage;
     private bool inAttackAnim;
 
     // Start is called before the first frame update
@@ -60,7 +61,7 @@ public class Enemy : MonoBehaviour
                     LockOnPlayer();
                     if(distanceToPlayer <= attackRange && inAttackAnim == false)
                     {
-                        StartCoroutine(DoDamage(20));
+                        StartCoroutine(DoDamage(attackDamage));
                     }
                 }
                 else seeingPlayer = false;
@@ -110,7 +111,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(health+"HP left");
     }
 
-    IEnumerator DoDamage(int damage)
+    IEnumerator DoDamage(float damage)
     {
         inAttackAnim = true;
         yield return new WaitForSeconds(0.5f);

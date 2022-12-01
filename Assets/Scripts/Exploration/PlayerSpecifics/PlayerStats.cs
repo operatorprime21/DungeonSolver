@@ -57,11 +57,11 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float d)
     {
-        Equipment armor = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
-        if(armor.bodyGear != null)
+        Equipment equipped = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
+        if(equipped.bodyGear != null)
         {
-            int dr = armor.bodyGear.GetComponent<ArmorBase>().dmgReduce;
-            d -= dr;
+            ArmorBase armor = equipped.bodyGear.GetComponent<ArmorBase>();
+            d -= armor.dmgReduce;
         }
         currentHealth = currentHealth - d;
         healthM.value = currentHealth;

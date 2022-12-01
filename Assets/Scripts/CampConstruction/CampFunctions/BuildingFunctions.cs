@@ -30,13 +30,13 @@ public class BuildingFunctions : MonoBehaviour
     { 
         host,             //Done
         cellGenerator,    //Done
-        foodGenerator,    //Immediate next task
+        foodGenerator,    //Crafting done, just need to make the actual recipes now
         fanStations,      //For later progression
         fence,            //Might actually skip this
         storage,          //Done
-        meleeWorkShop,    //Immediate next task
-        firearmWorkshop,  //Immediate next task
-        armoryWorkshop,   //Immediate next task
+        meleeWorkShop,    //Crafting done, just need to make the actual recipes now
+        firearmWorkshop,  //Crafting done, just need to make the actual recipes now
+        armoryWorkshop,   //Crafting done, just need to make the actual recipes now
         trainingStation1, //Done
         trainingStation2, //Done
         trainingStation3, //Done

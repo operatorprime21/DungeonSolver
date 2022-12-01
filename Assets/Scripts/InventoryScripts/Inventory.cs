@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    //Need to keep InventoryUI (as a whole) not destroyed loading through levels along with some buttons
 
 
     public void ToggleInventory()

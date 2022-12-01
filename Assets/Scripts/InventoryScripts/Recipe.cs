@@ -7,30 +7,27 @@ public class Recipe : MonoBehaviour
     public List<InventoryItem.Item> resourceToLook = new List<InventoryItem.Item>();
     public List<int> resourceToCount = new List<int>();
     public GameObject itemToMake;
-    public Time time;
-    public enum Time
-    { 
-        simple,
-        complex,
+    public RecipeType timeToMake;
+    public float time;
+    public enum RecipeType
+    {
+        instant,
+        timed,
     }
-
     private void OnMouseDown()
     {
         Crafting craft = GameObject.Find("InventoryManager").GetComponent<Crafting>();
-        if (this.time == Time.simple)
-        {  
-            craft.Craft(resourceToLook, resourceToCount, itemToMake);
-        }
-        else if (this.time == Time.complex)
-        {
-            //Implement the timer into craft here
-            //Need to check have enough for recipe first, thenn start coroutine if possible
-        }
+        craft.recipe = this;
+        craft.CheckAllResource(resourceToLook, resourceToCount, itemToMake);
     }
 
-    public IEnumerator CraftTimer(float time)
+    public IEnumerator WaitUntilFinish(float time, GameObject result, Slot slot)
     {
+        Crafting craft = GameObject.Find("InventoryManager").GetComponent<Crafting>();
+        this.gameObject.SetActive(false);
         yield return new WaitForSeconds(time);
-
+        //Change this down the line so that it activates a "claim" UI first. Same goes for every other buildings really. Clicking claim will *then* spawn in the item.
+        craft.MakeItem(result, slot);
+        this.gameObject.SetActive(true);
     }
 }
