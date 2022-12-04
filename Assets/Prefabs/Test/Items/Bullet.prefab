@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4881af18edc779d429616cc0d8700ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: 2
+  item: 4
   maxCountPerSlot: 8
   currentCount: 1
   slot: {fileID: 0}

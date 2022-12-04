@@ -23,6 +23,8 @@ public class InventoryItem : MonoBehaviour
         //Necessities/Crafting materials/Resources
         wood,
         cloth,
+        stick,
+        plank,
         ammo,
         nail,
         emptyBottle,
@@ -33,7 +35,7 @@ public class InventoryItem : MonoBehaviour
         scrapMetal,
         ductTape,
         rope,
-        pipe,//
+        pipe,
         plasticScrap,//
 
         potato,
@@ -117,13 +119,21 @@ public class InventoryItem : MonoBehaviour
                 maxCountPerSlot = 5;
                 itemType = Type.resource;
                 break;
+            case InventoryItem.Item.stick:
+                maxCountPerSlot = 20;
+                itemType = Type.resource;
+                break;
+            case InventoryItem.Item.plank:
+                maxCountPerSlot = 10;
+                itemType = Type.resource;
+                break;
             case InventoryItem.Item.cloth:
                 maxCountPerSlot = 12;
                 itemType = Type.resource;
                 break;
             case InventoryItem.Item.ammo:
                 maxCountPerSlot = 8;
-                itemType = Type.resource;
+                itemType = Type.consumable;
                 break;
             case InventoryItem.Item.nail:
                 maxCountPerSlot = 15;

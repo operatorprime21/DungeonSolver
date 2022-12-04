@@ -8,6 +8,7 @@ public class Recipe : MonoBehaviour
     public List<int> resourceToCount = new List<int>();
     public GameObject itemToMake;
     public RecipeType timeToMake;
+    public int amountToMake;
     public float time;
     public enum RecipeType
     {
@@ -27,7 +28,7 @@ public class Recipe : MonoBehaviour
         this.gameObject.SetActive(false);
         yield return new WaitForSeconds(time);
         //Change this down the line so that it activates a "claim" UI first. Same goes for every other buildings really. Clicking claim will *then* spawn in the item.
-        craft.MakeItem(result, slot);
+        craft.MakeItem(result, slot, amountToMake);
         this.gameObject.SetActive(true);
     }
 }

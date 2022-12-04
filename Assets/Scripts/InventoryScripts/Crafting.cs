@@ -126,7 +126,7 @@ public class Crafting : MonoBehaviour
                 }
                 if(recipe.timeToMake == Recipe.RecipeType.instant)
                 {
-                    MakeItem(result, slot);
+                    MakeItem(result, slot, recipe.amountToMake);
                     break;
                 }
                 else if(recipe.timeToMake == Recipe.RecipeType.timed)
@@ -141,8 +141,9 @@ public class Crafting : MonoBehaviour
 
 
 
-    public void MakeItem(GameObject result, Slot slot)
+    public void MakeItem(GameObject result, Slot slot, int amount)
     {
+
         canvas = GameObject.Find("Main Canvas");
         Vector3 spawnSlot = slot.transform.position;
         GameObject itemMake = Instantiate(result, spawnSlot, Quaternion.identity, slot.transform);
@@ -150,7 +151,7 @@ public class Crafting : MonoBehaviour
         InventoryItem itemInfo = itemMake.GetComponent<InventoryItem>();
         slot.itemInThisSlot = itemInfo;
         slot.maxCapForItem = itemInfo.maxCountPerSlot;
-        itemInfo.currentCount = 1;
+        itemInfo.currentCount = amount;
         itemInfo.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
         itemInfo.lastSlot = slot.transform;
         itemInfo.slot = slot.gameObject;
