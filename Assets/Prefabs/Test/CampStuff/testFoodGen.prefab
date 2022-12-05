@@ -361,9 +361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9beb9b953277c0742ae636444b2d874d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reqPer: 0
-  reqAdp: 0
-  reqInw: 0
+  redBody: 0
+  reqSoul: 0
+  reqMind: 0
   reqCell: 20
   survivor: []
   maxOccupant: 3
@@ -377,6 +377,7 @@ MonoBehaviour:
   amountResReq: 
   storageToSpawn: {fileID: 0}
   storageUI: {fileID: 0}
-  recipeListToSpawn: {fileID: 2508324603863839443, guid: 895b3b67886747a469e64ef3ac524ded, type: 3}
+  recipeListToSpawn: {fileID: 0}
   recipeList: {fileID: 0}
+  fType: 0
   isWorking: 0

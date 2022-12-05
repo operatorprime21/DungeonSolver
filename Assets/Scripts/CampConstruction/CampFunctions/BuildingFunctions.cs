@@ -28,6 +28,7 @@ public class BuildingFunctions : MonoBehaviour
 
     public GameObject recipeListToSpawn;
     public GameObject recipeList;
+    public Recipe recipeWorking;
     public enum BuildType
     { 
         host,             //Done
@@ -180,7 +181,11 @@ public class BuildingFunctions : MonoBehaviour
             cam.buildingInfo.SetActive(false);
             if(this.fType == functionType.craft)
             {
-                Function();
+                recipeList.SetActive(true);
+
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(recipeList);
+                cam.UItoClose.Add(cam.buttonExitMenu);
             }
             else
             {
@@ -212,25 +217,23 @@ public class BuildingFunctions : MonoBehaviour
             survInfo.UI.transform.Find("unassignBuilding").gameObject.SetActive(true);
         }
         ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
+        Inventory totalInv = GameObject.Find("InventoryManager").GetComponent<Inventory>();
         CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+        Crafting crafter = GameObject.Find("InventoryManager").GetComponent<Crafting>();
+        Slot slot = crafter.FindEmptySlot(totalInv);
         switch (this.type)
         {
             case BuildType.cellGenerator:
                 inv.ChangeCell(amountToIncrease);
                 break;
             case BuildType.foodGenerator:
-                recipeList.SetActive(true);
-
-                cam.buttonExitMenu.SetActive(true);
-                cam.UItoClose.Add(recipeList);
-                cam.UItoClose.Add(cam.buttonExitMenu);
+                inv.ChangeFood(amountToIncrease);
                 break;
             case BuildType.fanStations:
                 //Clears fog from a fixed number of tiles (enable validity). 
                 break;
             case BuildType.storage:
                 storageUI.SetActive(true);
-
                 cam.buttonExitMenu.SetActive(true);
                 cam.UItoClose.Add(storageUI);
                 cam.UItoClose.Add(cam.buttonExitMenu);
@@ -238,27 +241,15 @@ public class BuildingFunctions : MonoBehaviour
                 break;
             case BuildType.meleeWorkShop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
-                recipeList.SetActive(true);
-
-                cam.buttonExitMenu.SetActive(true);
-                cam.UItoClose.Add(recipeList);
-                cam.UItoClose.Add(cam.buttonExitMenu);
+                crafter.MakeItem(recipeWorking.itemToMake, slot, 1);
                 break;
             case BuildType.firearmWorkshop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
-                recipeList.SetActive(true);
-
-                cam.buttonExitMenu.SetActive(true);
-                cam.UItoClose.Add(recipeList);
-                cam.UItoClose.Add(cam.buttonExitMenu);
+                crafter.MakeItem(recipeWorking.itemToMake, slot, 1);
                 break;
             case BuildType.armoryWorkshop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
-                recipeList.SetActive(true);
-
-                cam.buttonExitMenu.SetActive(true);
-                cam.UItoClose.Add(recipeList);
-                cam.UItoClose.Add(cam.buttonExitMenu);
+                crafter.MakeItem(recipeWorking.itemToMake, slot, 1);
                 break;
             case BuildType.trainingStation1:
                 foreach (GameObject surv in survivor)

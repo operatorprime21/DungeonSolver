@@ -10,6 +10,8 @@ public class Recipe : MonoBehaviour
     public RecipeType timeToMake;
     public int amountToMake;
     public float time;
+
+    public GameObject recipeOwner;
     public enum RecipeType
     {
         instant,
@@ -28,15 +30,5 @@ public class Recipe : MonoBehaviour
         Crafting craft = GameObject.Find("InventoryManager").GetComponent<Crafting>();
         craft.recipe = this;
         craft.CheckAllResource(resourceToLook, resourceToCount, itemToMake);
-    }
-
-    public IEnumerator WaitUntilFinish(float time, GameObject result, Slot slot)
-    {
-        Crafting craft = GameObject.Find("InventoryManager").GetComponent<Crafting>();
-        this.gameObject.SetActive(false);
-        yield return new WaitForSeconds(time);
-        //Change this down the line so that it activates a "claim" UI first. Same goes for every other buildings really. Clicking claim will *then* spawn in the item.
-        craft.MakeItem(result, slot, amountToMake);
-        this.gameObject.SetActive(true);
     }
 }

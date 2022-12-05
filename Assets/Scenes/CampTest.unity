@@ -447,6 +447,7 @@ MonoBehaviour:
   timeToMake: 2
   amountToMake: 0
   time: 0
+  recipeOwner: {fileID: 0}
 --- !u!1 &48655335
 GameObject:
   m_ObjectHideFlags: 0
@@ -11093,7 +11094,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1473195939
 RectTransform:
@@ -12649,6 +12650,7 @@ MonoBehaviour:
   timeToMake: 0
   amountToMake: 0
   time: 0
+  recipeOwner: {fileID: 0}
 --- !u!212 &1640470643
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -126,39 +126,36 @@ public class Crafting : MonoBehaviour
             inventory.inventory = new List<GameObject>();
             building.Build();
         }
-        else if(recipe.timeToMake == Recipe.RecipeType.units)
+        else if (recipe.timeToMake == Recipe.RecipeType.units || recipe.timeToMake == Recipe.RecipeType.timed)
         {
-            inventory.gameObject.GetComponent<ResourceHolder>().ChangeFood(recipe.amountToMake);
+            BuildingFunctions building = recipe.recipeOwner.GetComponent<BuildingFunctions>();
+            building.StartCoroutine(building.TimeToFinishFunction(building.timeToGen));
         }
-        else
+        else if (recipe.timeToMake == Recipe.RecipeType.instant)
         {
-            for (int i = 0; i < 8; i++)
+            MakeItem(result, FindEmptySlot(inventory), recipe.amountToMake);
+            inventory.inventory = new List<GameObject>();
+        }
+        
+    }
+
+    public Slot FindEmptySlot(Inventory inventory)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject playerInventory = inventory.inventoryUI;
+            GameObject nextSlot = playerInventory.transform.Find("Slot (" + i + ")").gameObject;
+            Slot slot = nextSlot.GetComponent<Slot>();
+            if (slot.hasItem == false)
             {
-                GameObject playerInventory = inventory.inventoryUI;
-                GameObject nextSlot = playerInventory.transform.Find("Slot (" + i + ")").gameObject;
-                Slot slot = nextSlot.GetComponent<Slot>();
-                if (slot.hasItem == false)
-                {
-                    if (recipe.timeToMake == Recipe.RecipeType.instant)
-                    {
-                        MakeItem(result, slot, recipe.amountToMake);
-                        inventory.inventory = new List<GameObject>();
-                        break;
-                    }
-                    else if (recipe.timeToMake == Recipe.RecipeType.timed)
-                    {
-                        StartCoroutine(recipe.WaitUntilFinish(recipe.time, result, slot));
-                        inventory.inventory = new List<GameObject>();
-                        break;
-                    }
-                }
+                return slot;
             }
         }
+        return null;
     }
 
     public void MakeItem(GameObject result, Slot slot, int amount)
     {
-
         canvas = GameObject.Find("Main Canvas");
         Vector3 spawnSlot = slot.transform.position;
         GameObject itemMake = Instantiate(result, spawnSlot, Quaternion.identity, slot.transform);

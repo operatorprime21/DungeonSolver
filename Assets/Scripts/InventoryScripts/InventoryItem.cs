@@ -21,71 +21,71 @@ public class InventoryItem : MonoBehaviour
     public enum Item
     {
         //Necessities/Crafting materials/Resources
-        wood,
-        cloth,
-        stick,
-        plank,
-        ammo,
-        nail,
-        emptyBottle,
-        arrow,
-        bandage,
+        wood,     //Found
+        cloth,   //Found
+        stick,   //Crafted or Found
+        plank,   //Crafted or Found
+        ammo,     //Crafted or Found
+        nail,  //Found 
+        emptyBottle,   //Late Release
+        arrow,    //Crafted
+        bandage,    //Crafted
 
-        gunPowder,
-        scrapMetal,
-        ductTape,
-        rope,
-        pipe,
-        plasticScrap,//
+        gunPowder,    //Found
+        scrapMetal,   //Found
+        ductTape,     //Late Release
+        rope,   //Found 
+        pipe,   //Found or Crafted
+        plasticScrap,    //Found
 
-        potato,
-        cannedMeat,
-        cannedFish,
-        bread,
-        glass,//
-        egg,
-        wheat,
-        rawMeat,
-        medicalKit,
-        painKillers,//
-        lockpick,//
+        potato,   //Found
+        cannedMeat,    //Found or Built
+        cannedFish,   //Late Release
+        bread,   //Crafted
+        glass,    //Late Release 
+        egg,    //Found
+        wheat,    //Found 
+        rawMeat,   //Found
+        medicalKit,   //Late Release
+        painKillers,    //Late Release
+        lockpick,    //Late Release
 
-        batteryCell,
-        gasTank,//
-        wires,
-        motherboards,
-        cogs,
-        rubberStraps,
-        copperNickle,
+        batteryCell,  //Found
+        gasTank,   //Late Release
+        wires,    //Found
+        motherboards,   //Crafted
+        cogs,   //Late Release
+        rubberStraps,   //Found
+        copperNickle,    //Found
 
         //Melee
-        woodenPlank,
-        crowBar,
-        policeBaton,
-        knife,
-        shovel,
-        machete,
-        bigKnife,
-        rake,
-        hammer,
-        largeHammer,
+        woodenPlank,  //Crafted
+        crowBar,   //Found or Built
+        policeBaton,  //Found
+        knife,   //Found or Built
+        shovel,    //Built
+        machete,    //Built  
+        bigKnife,    //Late Release
+        rake,     //Late Release
+        hammer,   //Late Release
+        largeHammer,    //Late Release
 
         //Ranged 
-        pistol,
-        crossbow,
-        levelActionRifle,
-        sawedOffShotgun,
-        automaticPistol,
+        pistol, //Found or Built
+        crossbow, //Crafted
+        levelActionRifle,  //Built
+        sawedOffShotgun,  //Built
+        automaticPistol,   //Late Release
 
         //Armor
-        sweater,
-        bulletProofVest,
-        hazmatSuit,
-        footballSuit,
-        heavyJacket,
+        sweater,   //Found or Built
+        bulletProofVest,   //Found
+        hazmatSuit,   //Late Release
+        footballSuit,  //Built
+        heavyJacket,   //Late Release
 
-        //Misc
-        bagExtender1,
+        //Misc. Late Release
+        bagExtender1,  
         bagExtender2,
         flashlight1,
         flashlight2,

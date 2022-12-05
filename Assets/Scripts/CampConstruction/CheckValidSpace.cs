@@ -182,6 +182,7 @@ public class CheckValidSpace : MonoBehaviour
         Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
         Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
         GameObject box = Instantiate(uiToMake, UIpos, Quaternion.identity, mainCv.transform);
+        
         box.SetActive(false);
         return box;
     }
