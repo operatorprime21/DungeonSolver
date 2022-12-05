@@ -6,9 +6,9 @@ public class BuildingFunctions : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public int reqPer;
-    public int reqAdp;
-    public int reqInw;
+    public int redBody;
+    public int reqSoul;
+    public int reqMind;
 
     public int reqCell;
     public List<GameObject> survivor = new List<GameObject>();
@@ -25,6 +25,8 @@ public class BuildingFunctions : MonoBehaviour
 
     public GameObject storageToSpawn;
     public GameObject storageUI;
+
+    public GameObject recipeListToSpawn;
     public GameObject recipeList;
     public enum BuildType
     { 
@@ -42,11 +44,25 @@ public class BuildingFunctions : MonoBehaviour
         trainingStation3, //Done
     }
 
+    public functionType fType;
+    public enum functionType
+    {
+        craft,
+        others,
+    }
+
+
 
     public bool isWorking;
     void Start()
     {
         timer = this.gameObject.transform.Find("Canvas").transform.Find("timer").GetComponent<TMP_Text>();
+        if(this.type == BuildType.storage)
+        {
+            Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+            inven.storages.Add(storageUI);
+            storageUI.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -99,26 +115,26 @@ public class BuildingFunctions : MonoBehaviour
 
     public bool CheckStatReq()
     {
-        int sumPer = 0;
-        int sumAdp = 0;
-        int sumInw = 0;
+        int sumBody = 0;
+        int sumSoul = 0;
+        int sumMind = 0;
         foreach (GameObject surv in survivor)
         {
             if (surv != null)
             {
                 SurvivorBase survStat = surv.GetComponent<SurvivorBase>();
-                sumPer += survStat.body;
-                sumInw += survStat.mind;
-                sumAdp += survStat.soul;
+                sumBody += survStat.body;
+                sumMind += survStat.mind;
+                sumSoul += survStat.soul;
             }
             else return false;
         }
 
-        if (sumPer >= reqPer)
+        if (sumBody >= redBody)
         {
-            if (sumAdp >= reqAdp)
+            if (sumSoul >= reqSoul)
             {
-                if (sumInw >= reqInw)
+                if (sumMind >= reqMind)
                 {
                     return true;
                 }
@@ -159,10 +175,18 @@ public class BuildingFunctions : MonoBehaviour
                 survInfo.currentHunger -= hungerDrain;
                 survInfo.UI.transform.Find("unassignBuilding").gameObject.SetActive(false);
             }
-            isWorking = true;
+            
             CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
             cam.buildingInfo.SetActive(false);
-            StartCoroutine(TimeToFinishFunction(timeToGen));
+            if(this.fType == functionType.craft)
+            {
+                Function();
+            }
+            else
+            {
+                StartCoroutine(TimeToFinishFunction(timeToGen));
+            }
+            
         }
         else
         {
@@ -172,10 +196,10 @@ public class BuildingFunctions : MonoBehaviour
 
     public IEnumerator TimeToFinishFunction(float time)
     {
+        isWorking = true;
         StartCoroutine(SetTimer(time));
         yield return new WaitForSeconds(time);
         isWorking = false;
-        
         Function();
 
     }
@@ -188,23 +212,25 @@ public class BuildingFunctions : MonoBehaviour
             survInfo.UI.transform.Find("unassignBuilding").gameObject.SetActive(true);
         }
         ResourceHolder inv = GameObject.Find("InventoryManager").GetComponent<ResourceHolder>();
+        CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
         switch (this.type)
         {
             case BuildType.cellGenerator:
                 inv.ChangeCell(amountToIncrease);
                 break;
             case BuildType.foodGenerator:
-                inv.ChangeFood(amountToIncrease);
-                //Consume different type of resources from a recipe to produce higher amounts. 
+                recipeList.SetActive(true);
+
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(recipeList);
+                cam.UItoClose.Add(cam.buttonExitMenu);
                 break;
             case BuildType.fanStations:
                 //Clears fog from a fixed number of tiles (enable validity). 
                 break;
             case BuildType.storage:
-                Debug.Log(storageUI);
                 storageUI.SetActive(true);
 
-                CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
                 cam.buttonExitMenu.SetActive(true);
                 cam.UItoClose.Add(storageUI);
                 cam.UItoClose.Add(cam.buttonExitMenu);
@@ -212,12 +238,27 @@ public class BuildingFunctions : MonoBehaviour
                 break;
             case BuildType.meleeWorkShop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                recipeList.SetActive(true);
+
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(recipeList);
+                cam.UItoClose.Add(cam.buttonExitMenu);
                 break;
             case BuildType.firearmWorkshop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                recipeList.SetActive(true);
+
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(recipeList);
+                cam.UItoClose.Add(cam.buttonExitMenu);
                 break;
             case BuildType.armoryWorkshop:
                 //Works like crafting. Requires special recipes only accessible from these buildings. Consumes resources and makes only 1 at a time
+                recipeList.SetActive(true);
+
+                cam.buttonExitMenu.SetActive(true);
+                cam.UItoClose.Add(recipeList);
+                cam.UItoClose.Add(cam.buttonExitMenu);
                 break;
             case BuildType.trainingStation1:
                 foreach (GameObject surv in survivor)
@@ -267,6 +308,10 @@ public class BuildingFunctions : MonoBehaviour
     public void AssignStorage(GameObject ui)
     {
         storageUI = ui;
-        Debug.Log(storageUI + "??????");
+    }
+
+    public void AssignRecipe(GameObject ui)
+    {
+        recipeList = ui;
     }
 }

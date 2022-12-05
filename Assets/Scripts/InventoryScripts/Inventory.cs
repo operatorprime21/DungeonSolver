@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
-    public List<InventoryItem> inventory = new List<InventoryItem>();
+    public List<GameObject> inventory = new List<GameObject>();
     public List<GameObject> storages = new List<GameObject>();
     private bool toggled = false;
     public GameObject inventoryUI;
@@ -54,26 +54,24 @@ public class Inventory : MonoBehaviour
     public List<GameObject> ReturnTotalInventory()
     {
         List<GameObject> itemInSlot = new List<GameObject>();
-        if(ReturnInventory()!= null)
+        List<GameObject> playerInventory = ReturnInventory();
+        inventory = itemInSlot.Union(playerInventory).ToList();
+        
+        foreach (GameObject storage in storages)
         {
-            itemInSlot.Union(ReturnInventory()).ToList();
-        }
-
-        if(storages != null)
-        {
-            foreach (GameObject storage in storages)
-            {
-                SlotHolder storageInfo = storage.GetComponent<SlotHolder>();
-                foreach (Slot slot in storageInfo.slots)
-                {
-                    if (slot.hasItem == true)
-                    {
-                        GameObject item = slot.gameObject.transform.GetChild(0).gameObject;
-                        itemInSlot.Add(item);
-                    }
-                }
-            }
-        }
-        return itemInSlot;
+             if(storage!= null)
+             {
+                  SlotHolder storageInfo = storage.GetComponent<SlotHolder>();
+                  foreach (Slot slot in storageInfo.slots)
+                  { 
+                       if (slot.hasItem == true)
+                       {
+                           GameObject item = slot.transform.GetChild(0).gameObject;
+                           inventory.Add(item);
+                       }
+                  }
+             }  
+        } 
+        return inventory;
     }
 }

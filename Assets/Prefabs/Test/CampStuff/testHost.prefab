@@ -377,5 +377,7 @@ MonoBehaviour:
   amountResReq: 
   storageToSpawn: {fileID: 2210549459500798383, guid: 138fbc01660434a4c81dc43b4978b7e6, type: 3}
   storageUI: {fileID: 0}
+  recipeListToSpawn: {fileID: 0}
   recipeList: {fileID: 0}
+  fType: 1
   isWorking: 0

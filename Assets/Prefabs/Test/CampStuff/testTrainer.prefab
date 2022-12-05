@@ -375,4 +375,9 @@ MonoBehaviour:
   hungerDrain: 0
   resReqFor: []
   amountResReq: 
+  storageToSpawn: {fileID: 0}
+  storageUI: {fileID: 0}
+  recipeListToSpawn: {fileID: 0}
+  recipeList: {fileID: 0}
+  fType: 1
   isWorking: 0

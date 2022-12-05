@@ -14,8 +14,16 @@ public class Recipe : MonoBehaviour
     {
         instant,
         timed,
+        building,
+        units,
     }
     private void OnMouseDown()
+    {
+        BeginInventoryScan();
+        Debug.Log("clicked");
+    }
+
+    public void BeginInventoryScan()
     {
         Crafting craft = GameObject.Find("InventoryManager").GetComponent<Crafting>();
         craft.recipe = this;

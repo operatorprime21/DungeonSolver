@@ -164,15 +164,26 @@ public class CheckValidSpace : MonoBehaviour
         BuildingFunctions function = newBuilding.GetComponent<BuildingFunctions>();
         if (function.type == BuildingFunctions.BuildType.storage)
         {
-            Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
-            Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
-            GameObject box = Instantiate(function.storageToSpawn, UIpos, Quaternion.identity, mainCv.transform);
-            Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-            inven.storages.Add(box);
+            GameObject box = CreateNewUI(function, function.storageToSpawn);
             function.AssignStorage(box);
-            //function.storageUI.SetActive(false);
+            Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+            inven.storages.Add(box); 
+        }
+        else if (function.type == BuildingFunctions.BuildType.foodGenerator || function.type == BuildingFunctions.BuildType.armoryWorkshop || function.type == BuildingFunctions.BuildType.meleeWorkShop || function.type == BuildingFunctions.BuildType.firearmWorkshop)
+        {
+            GameObject box = CreateNewUI(function, function.recipeListToSpawn);
+            function.AssignRecipe(box);
         }
         Destroy(this.gameObject);
+    }
+
+    private GameObject CreateNewUI(BuildingFunctions function, GameObject uiToMake)
+    {
+        Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
+        Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
+        GameObject box = Instantiate(uiToMake, UIpos, Quaternion.identity, mainCv.transform);
+        box.SetActive(false);
+        return box;
     }
 
     IEnumerator SetTimer(float time)

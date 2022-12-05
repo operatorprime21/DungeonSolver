@@ -9,7 +9,7 @@ public class Crafting : MonoBehaviour
     bool CheckResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-        List<GameObject> items = inventory.ReturnInventory();
+        List<GameObject> items = inventory.ReturnTotalInventory();
         int countToAdd = 0;
         foreach (GameObject item in items)
         {
@@ -32,7 +32,7 @@ public class Crafting : MonoBehaviour
     void ConsumeResource(InventoryItem.Item resource, int reqAmount)
     {
         Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-        List<GameObject> items = inventory.ReturnInventory();
+        List<GameObject> items = inventory.ReturnTotalInventory();
         int countToAdd = 0;
         foreach (GameObject item in items)
         {
@@ -100,6 +100,8 @@ public class Crafting : MonoBehaviour
                 if (CheckResource(type[r], typeReq[r]) == false)
                 {
                     Debug.Log("Not enough resources");
+                    Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+                    inventory.inventory = new List<GameObject>();
                     break;
                 }
             }
@@ -112,34 +114,47 @@ public class Crafting : MonoBehaviour
 
     private void ConsumeAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
     {
-        GameObject inventory = GameObject.Find("InventoryUI");
-
-        for (int i = 0; i < 8; i++)
+        for (int c = 0; c < type.Count; c++)
         {
-            GameObject nextSlot = inventory.transform.Find("Slot (" + i + ")").gameObject;
-            Slot slot = nextSlot.GetComponent<Slot>();
-            if (slot.hasItem == false)
+            ConsumeResource(type[c], typeReq[c]);
+        }
+
+        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+        if (recipe.timeToMake == Recipe.RecipeType.building)
+        {
+            BuildingBase building = recipe.gameObject.transform.parent.GetComponent<BuildingBase>();
+            inventory.inventory = new List<GameObject>();
+            building.Build();
+        }
+        else if(recipe.timeToMake == Recipe.RecipeType.units)
+        {
+            inventory.gameObject.GetComponent<ResourceHolder>().ChangeFood(recipe.amountToMake);
+        }
+        else
+        {
+            for (int i = 0; i < 8; i++)
             {
-                for (int c = 0; c < type.Count; c++)
+                GameObject playerInventory = inventory.inventoryUI;
+                GameObject nextSlot = playerInventory.transform.Find("Slot (" + i + ")").gameObject;
+                Slot slot = nextSlot.GetComponent<Slot>();
+                if (slot.hasItem == false)
                 {
-                    ConsumeResource(type[c], typeReq[c]);
-                }
-                if(recipe.timeToMake == Recipe.RecipeType.instant)
-                {
-                    MakeItem(result, slot, recipe.amountToMake);
-                    break;
-                }
-                else if(recipe.timeToMake == Recipe.RecipeType.timed)
-                {
-                    StartCoroutine(recipe.WaitUntilFinish(recipe.time, result, slot));
-                    break;
+                    if (recipe.timeToMake == Recipe.RecipeType.instant)
+                    {
+                        MakeItem(result, slot, recipe.amountToMake);
+                        inventory.inventory = new List<GameObject>();
+                        break;
+                    }
+                    else if (recipe.timeToMake == Recipe.RecipeType.timed)
+                    {
+                        StartCoroutine(recipe.WaitUntilFinish(recipe.time, result, slot));
+                        inventory.inventory = new List<GameObject>();
+                        break;
+                    }
                 }
             }
-            
         }
     }
-
-
 
     public void MakeItem(GameObject result, Slot slot, int amount)
     {
