@@ -326,7 +326,7 @@ MonoBehaviour:
   - {fileID: 5179769652705397753}
   - {fileID: 5179769652120529555}
   tileCost: 16
-  buildingPrefab: {fileID: 6973452199925330801, guid: fdaf714eaf251af43bcaa84f025af4ef, type: 3}
+  buildingPrefab: {fileID: 6973452199925330801, guid: c6fc16edd5f8db640a26ffbe5737a8e1, type: 3}
   startingPos: {x: -5, y: 0, z: 0}
   timeToBuild: 20
   timer: {fileID: 7410872299988933941}

@@ -169,10 +169,15 @@ public class CheckValidSpace : MonoBehaviour
             Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
             inven.storages.Add(box); 
         }
-        else if (function.type == BuildingFunctions.BuildType.foodGenerator || function.type == BuildingFunctions.BuildType.armoryWorkshop || function.type == BuildingFunctions.BuildType.meleeWorkShop || function.type == BuildingFunctions.BuildType.firearmWorkshop)
+        else if (function.fType == BuildingFunctions.functionType.craft)
         {
             GameObject box = CreateNewUI(function, function.recipeListToSpawn);
             function.AssignRecipe(box);
+            RecipeHolder recs = box.gameObject.GetComponent<RecipeHolder>();
+            foreach(Recipe rec in recs.recipes)
+            {
+                rec.recipeOwner = newBuilding;
+            }
         }
         Destroy(this.gameObject);
     }

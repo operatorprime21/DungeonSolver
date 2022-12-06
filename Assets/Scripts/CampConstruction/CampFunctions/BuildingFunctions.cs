@@ -234,7 +234,10 @@ public class BuildingFunctions : MonoBehaviour
                 break;
             case BuildType.storage:
                 storageUI.SetActive(true);
+                totalInv.ToggleInventory();
                 cam.buttonExitMenu.SetActive(true);
+
+                cam.UItoClose.Add(totalInv.inventoryUI);
                 cam.UItoClose.Add(storageUI);
                 cam.UItoClose.Add(cam.buttonExitMenu);
                 //Opens the box ui
