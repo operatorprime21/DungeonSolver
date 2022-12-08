@@ -13,5 +13,19 @@ public class Equipment : MonoBehaviour
 
     }
 
-
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Equipment")
+        {
+            InventoryItem equip = collision.gameObject.GetComponent<InventoryItem>();
+           if(equip.itemType == InventoryItem.Type.weapon)
+            {
+                handGear = collision.gameObject;
+            }
+           else if (equip.itemType == InventoryItem.Type.armor)
+            {
+                bodyGear = collision.gameObject;
+            }
+        }
+    }
 }

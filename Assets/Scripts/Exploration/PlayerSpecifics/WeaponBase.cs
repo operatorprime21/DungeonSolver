@@ -8,11 +8,12 @@ public class WeaponBase : MonoBehaviour
     public enum Weapon
     { 
         woodenPlank,
-        crowBar,
+        shovel,
         policeBaton,
         knife,
         pistol,
         crossbow,
+        leverActionRifle
     }
     public WeaponType type; 
     public enum WeaponType
@@ -49,7 +50,7 @@ public class WeaponBase : MonoBehaviour
                 this.windup = 1.5f;
                 this.recovery = 1f;
                 break;
-            case WeaponBase.Weapon.crowBar:
+            case WeaponBase.Weapon.shovel:
                 this.type = WeaponType.melee;
                 this.range = 12;
                 this.damage = 15;
@@ -71,6 +72,15 @@ public class WeaponBase : MonoBehaviour
                 this.recovery = 0.2f;
                 break;
             case WeaponBase.Weapon.pistol: 
+                this.type = WeaponType.rangedHitscan;
+                this.range = 50;
+                this.damage = 30;
+                this.windup = 3f;
+                this.recovery = 2.5f;
+                this.clipSize = 6;
+                this.ammoInClip = Random.Range(0, clipSize + 1);
+                break;
+            case WeaponBase.Weapon.leverActionRifle:
                 this.type = WeaponType.rangedHitscan;
                 this.range = 50;
                 this.damage = 30;

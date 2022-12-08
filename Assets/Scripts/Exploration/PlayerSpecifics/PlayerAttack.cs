@@ -19,10 +19,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void BeginAttack() //Called by a button press
     {
-        Equipment equipped = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
+        Equipment equipped = GameObject.Find("Status").GetComponent<Equipment>();
         slot = equipped.handGear;
         WeaponBase weapon = slot.GetComponent<WeaponBase>();
-        StartCoroutine(Attack(weapon, weapon.range, weapon.damage, weapon.windup, weapon.recovery));
+        if(weapon != null)
+        {
+            StartCoroutine(Attack(weapon, weapon.range, weapon.damage, weapon.windup, weapon.recovery));
+        }
     }
 
     public void AttackCooldownReset() //Called by end of animation frame and coroutine

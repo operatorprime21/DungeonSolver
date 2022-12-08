@@ -13139,7 +13139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1632442465
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16678,6 +16678,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1473195939}
     m_Modifications:
+    - target: {fileID: 8912539246463870351, guid: f5c2b9c85299ea94d87b8b2c7654d76f, type: 3}
+      propertyPath: resourceToLook.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8912539246806458720, guid: f5c2b9c85299ea94d87b8b2c7654d76f, type: 3}
       propertyPath: m_Name
       value: RecipeTest

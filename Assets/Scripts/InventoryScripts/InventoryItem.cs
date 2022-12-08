@@ -8,7 +8,7 @@ public class InventoryItem : MonoBehaviour
     // Start is called before the first frame update
     public Item item;
     public int maxCountPerSlot;
-    private Type itemType;
+    public Type itemType;
     public int currentCount;
     private Camera cam;
     public GameObject slot;
@@ -53,7 +53,7 @@ public class InventoryItem : MonoBehaviour
         batteryCell,  //Found
         gasTank,   //Late Release
         wires,    //Found
-        motherboards,   //Crafted
+        circuitBoard,   //Crafted
         cogs,   //Late Release
         rubberStraps,   //Found
         copperNickle,    //Found
@@ -73,7 +73,7 @@ public class InventoryItem : MonoBehaviour
         //Ranged 
         pistol, //Found or Built
         crossbow, //Crafted
-        levelActionRifle,  //Built
+        leverActionRifle,  //Built
         sawedOffShotgun,  //Built
         automaticPistol,   //Late Release
 
@@ -92,7 +92,7 @@ public class InventoryItem : MonoBehaviour
 
     }
 
-    private enum Type
+    public enum Type
     { 
         resource,
         consumable,
@@ -234,7 +234,7 @@ public class InventoryItem : MonoBehaviour
                 maxCountPerSlot = 2;
                 itemType = Type.resource;
                 break;
-            case InventoryItem.Item.motherboards:
+            case InventoryItem.Item.circuitBoard:
                 maxCountPerSlot = 2;
                 itemType = Type.resource;
                 break;
@@ -299,7 +299,7 @@ public class InventoryItem : MonoBehaviour
                 maxCountPerSlot = 1;
                 itemType = Type.weapon;
                 break;
-            case InventoryItem.Item.levelActionRifle:
+            case InventoryItem.Item.leverActionRifle:
                 maxCountPerSlot = 1;
                 itemType = Type.weapon;
                 break;
