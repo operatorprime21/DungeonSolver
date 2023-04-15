@@ -8,34 +8,29 @@ public class PlayerStats : MonoBehaviour
     public float startHealth;
     public float maxHealth;
     public float currentHealth;
-
-    public float maxThirst;
-    public float currentThirst;
+    public float currentHunger;
 
     public float maxHunger;
-    public float currentHunger;
 
     public bool hasArmor;
 
     public Slider healthM;
-    public Slider thirstM;
     public Slider hungerM;
+
 
     private void Start()
     {
         currentHealth = maxHealth;
-        currentThirst = maxThirst;
         currentHunger = maxHunger;
 
-        healthM.maxValue = maxHealth;
-        thirstM.maxValue = maxThirst;
-        hungerM.maxValue = maxHunger;
+        //healthM.maxValue = maxHealth;
 
         healthM.value = currentHealth;
-        hungerM.value = currentHunger;
-        thirstM.value = currentThirst;
 
-        StartCoroutine(DrainThirst(0.5f));
+        //hungerM.value = currentHunger;
+
+        
+        //StartCoroutine(DrainThirst(0.5f));
     }
 
     private void Update()
@@ -58,7 +53,7 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(float d)
     {
         Equipment equipped = this.gameObject.transform.Find("Equipment").GetComponent<Equipment>();
-        if(equipped.bodyGear != null)
+        if(equipped.bodyGear != null) //Armor reduction is a simple calculation where the damage done to the player is reduced by a single amount
         {
             ArmorBase armor = equipped.bodyGear.GetComponent<ArmorBase>();
             d -= armor.dmgReduce;
@@ -67,21 +62,21 @@ public class PlayerStats : MonoBehaviour
         healthM.value = currentHealth;
         
     }
-    private void ConsumeEnergy(float e)
-    {
-        currentHunger = currentHunger - e;
-        hungerM.value = currentHunger;
-    }
-    IEnumerator DrainThirst(float t)
-    {
-        for(int s = 0; s < 3; s++)
-        {
-            currentThirst = currentThirst - t;
-            thirstM.value = currentThirst;
-            yield return new WaitForSeconds(1f);
-            s--;
-        }
-    }
+    //private void ConsumeEnergy(float e)
+    //{
+    //    currentHunger = currentHunger - e;
+    //    hungerM.value = currentHunger;
+    //}
+    //IEnumerator DrainThirst(float t)
+    //{
+    //    for(int s = 0; s < 3; s++)
+    //    {
+    //        currentHunger = currentHunger - t;
+    //        hungerM.value = currentHunger;
+    //        yield return new WaitForSeconds(1f);
+    //        s--;
+    //    }
+    //}
 
     public void Death()
     {

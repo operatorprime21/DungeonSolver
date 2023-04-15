@@ -10,7 +10,7 @@ public class CameraControl : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // Update finds the player and move to their position so the player is the center of the screen
     void Update()
     {
         GameObject player = GameObject.Find("Player");

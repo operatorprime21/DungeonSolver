@@ -8,7 +8,7 @@ public class SurvivorManager : MonoBehaviour
 
     private void Start()
     {
-         foreach(SurvivorBase survInfo in survivorList)
+         foreach(SurvivorBase survInfo in survivorList)//Determines if the survivior is saved at the camp or not
          {
             if(survInfo.isSaved == true)
             survInfo.UI.SetActive(true);

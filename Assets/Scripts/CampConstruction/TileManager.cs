@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0)) //Handles giving the tile hovered variable for placing tiles
         {
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             Vector3 worldPos = mainCam.ScreenToWorldPoint(mousePos);

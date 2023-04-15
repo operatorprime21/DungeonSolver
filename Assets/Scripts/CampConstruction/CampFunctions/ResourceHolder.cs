@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
-public class ResourceHolder : MonoBehaviour
+public class ResourceHolder : MonoBehaviour //Handles the three core resources and changing their UI accordingly
 {
     // Start is called before the first frame update
     public int powerCell;
@@ -11,9 +11,9 @@ public class ResourceHolder : MonoBehaviour
     public int foodUnits;
     public List<InventoryItem> resources = new List<InventoryItem>();
 
-    public TMP_Text cell;
-    public TMP_Text unit;
-    public TMP_Text fruit;
+    public Text cell;
+    public Text unit;
+    public Text fruit;
     // Update is called once per frame
     void Update()
     {

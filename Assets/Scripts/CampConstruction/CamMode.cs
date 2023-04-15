@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-
-public class CamMode : MonoBehaviour
+public class CamMode : MonoBehaviour //Manages camera modes at first but now became the manager of the entirety of every UI
 {
     public bool isInBuildMode;
     public GameObject cam;
@@ -15,6 +15,7 @@ public class CamMode : MonoBehaviour
     public GameObject SurvList;
     public GameObject confirmSpeedUpFunction;
     public GameObject buttonCamMode;
+    public GameObject buttonAttack;
 
     public GameObject buttonToggleInventory;
     public GameObject buttonInteract;
@@ -34,6 +35,15 @@ public class CamMode : MonoBehaviour
     public GameObject buttonAssign;
     public GameObject buttonUnassign;
 
+    public GameObject buttonExplore;
+    public GameObject buttonReturnHome;
+
+    public GameObject healthSlider;
+    public GameObject hungerSlider;
+    public GameObject status;
+    public GameObject currencies;
+
+    public bool playerExists;
     public int fruitCost;
     public bool isInPlacementMode;
 
@@ -54,6 +64,7 @@ public class CamMode : MonoBehaviour
             buttonInteract.SetActive(true);
             buttonOpenBPList.SetActive(false);
             buttonOpenSurvList.SetActive(false);
+            buttonExplore.SetActive(true);
         }
         else
         {
@@ -69,6 +80,7 @@ public class CamMode : MonoBehaviour
             buttonInteract.SetActive(false);
             buttonOpenBPList.SetActive(true);
             buttonOpenSurvList.SetActive(true);
+            buttonExplore.SetActive(false);
         }
     }
 
@@ -108,7 +120,8 @@ public class CamMode : MonoBehaviour
         UItoOpen.Add(buttonOpenBPList);
     }
 
-    public void CloseUI()
+    public void CloseUI() //To make the exit button reusable, it closes and opens every button that enters a list of buttons and UI according to the situation. So when every
+        //time the exit button shows up, all UI elements that needs to be turned on and off are passed into these according lists.
     {
         foreach (GameObject uiClose in UItoClose)
         {
@@ -125,10 +138,10 @@ public class CamMode : MonoBehaviour
         buildCamScript.enabled = true;
     }
 
-    public void ConfirmSpeedUpBuilding()
+    public void ConfirmSpeedUpBuilding()  //Consumes Fruit and stops coroutines, finishing whatever the objects are doing
     {
         GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
-        confirmSpeedUpBuilding.SetActive(false);
+        confirmSpeedUpBuilding.SetActive(false); 
 
         tileChecker.GetComponent<CheckValidSpace>().CompleteBuilding();
 
@@ -137,7 +150,7 @@ public class CamMode : MonoBehaviour
         buildCamScript.enabled = true;
     }
 
-    public void ConfirmSpeedUpFunction()
+    public void ConfirmSpeedUpFunction()  //Consumes Fruit and stops coroutines, finishing whatever the objects are doing
     {
         GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
         confirmSpeedUpFunction.SetActive(false);
@@ -180,7 +193,7 @@ public class CamMode : MonoBehaviour
     }
 
 
-    public void AssignSurvivor()
+    public void AssignSurvivor() //Similar principles to if the player selects from the building first. 
     {
         if (isInPlacementMode == true)
         {
@@ -202,5 +215,29 @@ public class CamMode : MonoBehaviour
     public void ConfirmFunction()
     {
         buildingToAssign.GetComponent<BuildingFunctions>().CheckFunctionCost();
+    }
+
+    public void Explore()  //Poor attempt at making the two sections connect. 
+    {
+        SceneManager.LoadScene(1);
+        healthSlider.SetActive(true);
+        //hungerSlider.SetActive(true);
+        buttonCamMode.SetActive(false);
+        currencies.SetActive(false);
+        buttonExplore.SetActive(false);
+        buttonReturnHome.SetActive(true);
+        buttonAttack.SetActive(true);
+    }
+
+    public void ReturnHome() //Poor attempt at making the two sections connect. 
+    {
+        SceneManager.LoadScene(0);
+        healthSlider.SetActive(false);
+        //hungerSlider.SetActive(false);
+        buttonCamMode.SetActive(true);
+        currencies.SetActive(true);
+        buttonExplore.SetActive(true);
+        buttonReturnHome.SetActive(false);
+        buttonAttack.SetActive(false);
     }
 }

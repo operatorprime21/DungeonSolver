@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     //Need to keep InventoryUI (as a whole) not destroyed loading through levels along with some buttons
 
 
-    public void ToggleInventory()
+    public void ToggleInventory() //Simply opens the inventory UI and closes it
     {
         if (toggled == false)
         {
@@ -35,10 +35,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public List<GameObject> ReturnInventory()
+    public List<GameObject> ReturnInventory() //Loops through all slots thats in the inventory UI to grab any item within. Adds them to a list
     { 
         List<GameObject> itemInSlot = new List<GameObject>();
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < 20; i++)
         {
             GameObject nextSlot = inventoryUI.transform.Find("Slot ("+i+")").gameObject;
             Slot slot = nextSlot.GetComponent<Slot>();
@@ -51,7 +51,8 @@ public class Inventory : MonoBehaviour
         return itemInSlot;
     }
 
-    public List<GameObject> ReturnTotalInventory()
+    public List<GameObject> ReturnTotalInventory()  //Including the items from ReturnInventory(), this returns every single item from every Storage building the player has built.
+        //This is done through looping the list of storages that the storage buildings added their own contents to upon finish construction
     {
         List<GameObject> itemInSlot = new List<GameObject>();
         List<GameObject> playerInventory = ReturnInventory();

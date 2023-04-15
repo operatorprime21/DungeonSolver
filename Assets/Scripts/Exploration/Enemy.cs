@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
 
     public void OnMouseDown() //Lets the player lock on to a certain enemy. Sets bool to change the view direction functions already existing in the movement script
     {
-        PlayerMovement playerController = player.GetComponent<PlayerMovement>(); //Get reference to script
+        PlayerMovement playerController = player.GetComponent<PlayerMovement>(); 
         if(playerController.lockedOnEnemy == this)
         {
             playerController.lockedOnEnemy = null;
@@ -111,7 +111,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(health+"HP left");
     }
 
-    IEnumerator DoDamage(float damage)
+    IEnumerator DoDamage(float damage) //Doing damage, setting cooldowns, windup, all the stop
     {
         inAttackAnim = true;
         yield return new WaitForSeconds(0.5f);

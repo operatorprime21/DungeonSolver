@@ -353,8 +353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 5
-  maxCountPerSlot: 2
-  currentCount: 2
+  maxCountPerSlot: 4
+  itemType: 1
+  currentCount: 0
   slot: {fileID: 0}
   count: {fileID: 6043075817366782802}
   lastSlot: {fileID: 0}

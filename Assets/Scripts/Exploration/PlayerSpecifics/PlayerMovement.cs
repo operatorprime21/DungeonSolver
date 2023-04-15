@@ -18,18 +18,28 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         destination = this.transform.position;
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();//An attempt at managing switching between the two modes, making sure theres no more than 1 player object at any time.
+        if (cam.playerExists == false)
+        {
+            cam.playerExists = true;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         if (Input.GetMouseButtonDown(0) && manualAim == false)
         {
             destination = ReturnDestination();
         }
         
-        this.transform.position = Vector3.MoveTowards(this.transform.position, destination, speed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, destination, speed * Time.deltaTime); //Player is constantly trying to move to the destination vector variable
+        //Movement highly depends on how this variable is handled, but mostly just tap to set.
 
         if (lockedOnEnemy == null)
         {
@@ -49,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 destination = cam.ScreenToWorldPoint(mousePos);
-        if (Physics2D.Raycast(cam.transform.position, destination - this.transform.position, Mathf.Infinity, uiMask))
+
+        //Some poor attempts at preventing the player from moving if the player click on a UI element or click on somewhere that is blocked.
+        if (Physics2D.Raycast(destination, destination - this.transform.position, Mathf.Infinity, uiMask))
         {
             Debug.Log("clicked UI");
             destination = this.transform.position;
@@ -60,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Hitting a wall");
             return this.transform.position;
         }
-        else if(Physics2D.Raycast(this.transform.position, destination - this.transform.position, Mathf.Infinity, blockingMask))
+        else if(Physics2D.Raycast(this.transform.position, destination - this.transform.position, 5f, blockingMask))
         {
             Debug.Log("Returning wall");
             RaycastHit2D hit = Physics2D.Raycast(this.transform.position, destination - this.transform.position, Mathf.Infinity, blockingMask);
@@ -78,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         manualAim = false;
     }
 
-    private void Rotate()
+    private void Rotate() //Rotate uses angle modifiers and multiplies everything by a difference in x 
     {
         Vector3 vectorDifference = aimedAt - this.transform.position;
         float angle = Mathf.Atan2(vectorDifference.y, vectorDifference.x) * Mathf.Rad2Deg - angleMod;

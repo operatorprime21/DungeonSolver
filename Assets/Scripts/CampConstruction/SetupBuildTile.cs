@@ -17,11 +17,11 @@ public class SetupBuildTile : MonoBehaviour
         
     }
 
-    void SetupTile()
+    void SetupTile() //Spawns tile at 1 intervals in the x and y. Tiles are sized 1x1 so it fits perfectly.
     {
-        for(int row = 0; row < 50; row++)
+        for(int row = -50; row < 50; row++)
         {
-            for(int col = 0; col < 50; col++)
+            for(int col = -50; col < 50; col++)
             {
                 GameObject tile = Instantiate(singleTile, new Vector3(row, col, 0), Quaternion.identity);
                 tile.name = row + "." + col;
@@ -29,9 +29,4 @@ public class SetupBuildTile : MonoBehaviour
             }
         }
     }
-
-    /*Aight, how the fuck do I plan to do this
-    First, every tile and every structure has a collider, we know that much
-    The assign position .ie the empty object that hold the whole structure is where we need to start to add tiles from (tile list at element 0)
-    */
 }

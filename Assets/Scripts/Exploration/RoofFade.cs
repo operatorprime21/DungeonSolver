@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoofFade : MonoBehaviour
 {
     private Animator roof;
+    //Supposed to simulate fading in and out of a roof but it just ends up causing a lot of problems. 
     private void Start()
     {
         roof = this.GetComponent<Animator>();

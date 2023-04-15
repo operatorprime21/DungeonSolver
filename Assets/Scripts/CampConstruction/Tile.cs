@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public bool isValid = true;
-    // Start is called before the first frame update
+    // Simply handles different bools to let tile checkers know if tiles can be built on or not
 
     public bool ReturnValid()
     {

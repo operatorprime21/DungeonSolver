@@ -24,8 +24,10 @@ public class Slot : MonoBehaviour
         {
             if (itemInThisSlot.currentCount < maxCapForItem)//Check if the item cap has not reached for this particular type of item
             {
-                int capLeft = maxCapForItem - itemInThisSlot.currentCount;
-                if(capLeft >= itemToAdd.currentCount)
+                int capLeft = maxCapForItem - itemInThisSlot.currentCount; 
+                //Short way to understand this: If the current stack is maxed, kick the item back to its old slot. If its not maxed, deduce the stack from the item and add to the stack.
+                //if the stack to add caps out before the item being transfered count is depleted, kick that item back with its remaining stacks. If it fully depletes, destroy the item
+                if(capLeft >= itemToAdd.currentCount)  
                 {
                     Destroy(itemToAdd.gameObject);
                     itemInThisSlot.currentCount += itemToAdd.currentCount;

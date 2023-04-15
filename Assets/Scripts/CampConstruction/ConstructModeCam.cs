@@ -8,14 +8,14 @@ public class ConstructModeCam : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0)) //Gets the first point of click
         {
             Camera cam = this.GetComponent<Camera>();
             Vector3 FirstmousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             tappedPos = cam.ScreenToWorldPoint(FirstmousePos);
         }
 
-        else if(Input.GetMouseButton(0))
+        else if(Input.GetMouseButton(0)) //Dragging the mouse while clicking moves the camera according to how the current mouse position is to the first clicked position
         {
             Camera cam = this.GetComponent<Camera>();
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);

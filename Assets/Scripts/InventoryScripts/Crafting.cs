@@ -6,21 +6,21 @@ public class Crafting : MonoBehaviour
 {
     private GameObject canvas;
     public Recipe recipe;
-    bool CheckResource(InventoryItem.Item resource, int reqAmount)
+    bool CheckResource(InventoryItem.Item resource, int reqAmount) //Check a specific resource and the amount of said resource the recipe wants
     {
-        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-        List<GameObject> items = inventory.ReturnTotalInventory();
-        int countToAdd = 0;
+        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>(); //Get reference to the manager
+        List<GameObject> items = inventory.ReturnTotalInventory(); //Get everything the player has, both in inventory and other storages. Note: This isnt supposed to work in Expeditions, only player inventory
+        int countToAdd = 0; //Create a new variable to add the total available amount
         foreach (GameObject item in items)
         {
             InventoryItem type = item.GetComponent<InventoryItem>();
-            if (type.item == resource)
+            if (type.item == resource) //Check if item is the same one that we need
             {
-                int count = type.currentCount;
-                countToAdd += count;
+                int count = type.currentCount; //Then adds its count in the stack
+                countToAdd += count;  //Adds up all the counts to the variable
             }
         }
-        if (countToAdd < reqAmount)
+        if (countToAdd < reqAmount) //Check if the required amount is met
         {
             return false;
         }
@@ -31,13 +31,15 @@ public class Crafting : MonoBehaviour
     }
     void ConsumeResource(InventoryItem.Item resource, int reqAmount)
     {
-        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-        List<GameObject> items = inventory.ReturnTotalInventory();
-        int countToAdd = 0;
+        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>(); //Get reference to the manager
+        List<GameObject> items = inventory.ReturnTotalInventory();//Get everything the player has, both in inventory and other storages. Note: This isnt supposed to work in Expeditions, only player inventory
+        int countToAdd = 0;//Create a new variable to add the total available amount
         foreach (GameObject item in items)
         {
             InventoryItem type = item.GetComponent<InventoryItem>();
-            if (type.item == resource)
+            if (type.item == resource) //Short explanation: After going through each required item, it goes through the current stack and compare to the remaining amount left to consume
+                //Each case takes into account if the amount left to consume is greater or equal to the current count of the item in the stack or not, if so it destroys the item and deduce that count from the amount to consume
+                //It goes on until the remaining to consume is less than a stack of an item. In which case it deduces the remaining amount from the stack and sets the amount to consume to 0, stopping the loop
             {
                 int count = type.currentCount;
                 if (countToAdd == 0)
@@ -46,7 +48,7 @@ public class Crafting : MonoBehaviour
                     {
                         countToAdd = reqAmount;
                         type.currentCount -= reqAmount;
-                        type.count.text = type.currentCount.ToString();
+                        type.count.text = type.currentCount.ToString(); 
                         break;
                     }
                     else if (reqAmount == count)
@@ -97,9 +99,9 @@ public class Crafting : MonoBehaviour
         {
             if (r < type.Count )
             {
-                if (CheckResource(type[r], typeReq[r]) == false)
+                if (CheckResource(type[r], typeReq[r]) == false) //Going through the two lists (the items to find and the accordingly ordered amount to find), the crafting runs the bool function for every one of them
                 {
-                    Debug.Log("Not enough resources");
+                    Debug.Log("Not enough resources");  //The moment one bool returns false, break and discontinue the process
                     Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
                     inventory.inventory = new List<GameObject>();
                     break;
@@ -107,41 +109,43 @@ public class Crafting : MonoBehaviour
             }
             if (r == type.Count )
             {
-                ConsumeAllResource(type, typeReq, result);
+                ConsumeAllResource(type, typeReq, result); //if all bool returns true, begin consuming everything
             }
         }
     }
 
     private void ConsumeAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
     {
-        for (int c = 0; c < type.Count; c++)
+        for (int c = 0; c < type.Count; c++)  
         {
-            ConsumeResource(type[c], typeReq[c]);
+            ConsumeResource(type[c], typeReq[c]);  //Consumes every resource, using the two list 
         }
 
-        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-        if (recipe.timeToMake == Recipe.RecipeType.building)
+        Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>(); //Depends on what the type of recipe it is, do things differently
+        if (recipe.timeToMake == Recipe.RecipeType.building) 
         {
             BuildingBase building = recipe.gameObject.transform.parent.GetComponent<BuildingBase>();
             inventory.inventory = new List<GameObject>();
             building.Build();
         }
-        else if (recipe.timeToMake == Recipe.RecipeType.units || recipe.timeToMake == Recipe.RecipeType.timed)
+        else if (recipe.timeToMake == Recipe.RecipeType.units || recipe.timeToMake == Recipe.RecipeType.timed) //These tells the game that a building is handling these and it would take time to go through that
         {
             BuildingFunctions building = recipe.recipeOwner.GetComponent<BuildingFunctions>();
             building.StartCoroutine(building.TimeToFinishFunction(building.timeToGen));
         }
-        else if (recipe.timeToMake == Recipe.RecipeType.instant)
+        else if (recipe.timeToMake == Recipe.RecipeType.instant) //This is the version of recipes that the player can craft straight from their inventory
         {
-            MakeItem(result, FindEmptySlot(inventory), recipe.amountToMake);
-            inventory.inventory = new List<GameObject>();
+            if(FindEmptySlot(inventory)!= null)
+            {
+                MakeItem(result, FindEmptySlot(inventory), recipe.amountToMake);
+                inventory.inventory = new List<GameObject>();
+            }
         }
-        
     }
 
     public Slot FindEmptySlot(Inventory inventory)
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 20; i++) //Loops through player inventory to check for an empty slot
         {
             GameObject playerInventory = inventory.inventoryUI;
             GameObject nextSlot = playerInventory.transform.Find("Slot (" + i + ")").gameObject;
@@ -154,7 +158,7 @@ public class Crafting : MonoBehaviour
         return null;
     }
 
-    public void MakeItem(GameObject result, Slot slot, int amount)
+    public void MakeItem(GameObject result, Slot slot, int amount) //Creates an item in an empty slot and fill in all the info an item and the slot needs
     {
         canvas = GameObject.Find("Main Canvas");
         Vector3 spawnSlot = slot.transform.position;

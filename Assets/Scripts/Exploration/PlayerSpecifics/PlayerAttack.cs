@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     public void BeginAttack() //Called by a button press
     {
         Equipment equipped = GameObject.Find("Status").GetComponent<Equipment>();
-        slot = equipped.handGear;
+        slot = equipped.handGear; //Gets all the details of the "hand gear" variable in equipment object
         WeaponBase weapon = slot.GetComponent<WeaponBase>();
         if(weapon != null)
         {
@@ -33,13 +33,13 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
     }
 
-    IEnumerator Attack(WeaponBase weapon, int range, int damage, float windup, float recovery) 
+    IEnumerator Attack(WeaponBase weapon, float range, int damage, float windup, float recovery) 
     {
         if (isAttacking == false)
         {
             isAttacking = true;
             yield return new WaitForSeconds(windup); //Simulate an attack windup
-            switch (weapon.type)
+            switch (weapon.type) //Reads whatever type of weapon the player is holding and make an attack according to said type
             {
                 case WeaponBase.WeaponType.melee:
                     CreateMeleeHitbox(range, damage);
@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void CreateMeleeHitbox(int range, int damage)
+    public void CreateMeleeHitbox(float range, int damage)
     {
         Collider2D enemyInRange = Physics2D.OverlapCircle(this.transform.position, range, enemyMask); //Produce a circle overlap around the player detecting anything with the enemy layermask
         List<Collider2D> enemiesInRange = new List<Collider2D>(); //Create a new list to consider multiple enemies within the hitbox range
@@ -83,32 +83,33 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void HitscanBullet(WeaponBase gun, int range, int damage)
+    public void HitscanBullet(WeaponBase gun, float range, int damage)
     {
         //Check current clip first
         if(gun.ammoInClip > 0)
         {
             gun.ammoInClip--;
-            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector3.forward + aimDir, range, mask);
+            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized; //Get the forward direction of the player
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector3.forward + aimDir, range, mask); //Raycast in the direction
             if (hit.collider.tag == "Enemy")
             {
-                Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.green, 2f);
+               // Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.green, 2f);
 
                 Enemy enemyScript = hit.collider.GetComponent<Enemy>(); //Get enemy script reference
-                enemyScript.ReceiveDamage(damage); //Do damage to the first enemy thats hit
+                enemyScript.ReceiveDamage(damage); //Do damage to the first enemy that the raycast hits
             }
             else
             {
-                Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.red, 2f);
+                //Debug.DrawRay(this.transform.position, (Vector3.forward + aimDir) * range, Color.red, 2f);
             }
         }
         else
         {
-            Reload(gun, InventoryItem.Item.ammo);
+            Reload(gun, InventoryItem.Item.ammo); 
         }
     }
     //Note: This function will serve as a baseline for any future crafting/building related behaviors that require automatic grabbing from inventory
+    //See:  Crafting.CheckResource, Crafting.CheckAllResources, Crafting.ConsumeResources and Crafting.ConsumeAllResources for details
     private static void Reload(WeaponBase gun, InventoryItem.Item ammoType) 
     {
         Debug.Log("EmptyClip");
@@ -175,12 +176,12 @@ public class PlayerAttack : MonoBehaviour
     {
         if(weapon.ammoInClip > 0)
         {
-            weapon.ammoInClip--;
-            GameObject projPref = weapon.projPrefab;
-            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized;
-            float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90;
+            weapon.ammoInClip--; //Reduce the clip size
+            GameObject projPref = weapon.projPrefab;  
+            Vector3 aimDir = (forward.transform.position - this.transform.position).normalized; //Get the direction of the player
+            float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90; //Get the rotation of the player
             Quaternion p = Quaternion.AngleAxis(angle, Vector3.forward);
-            GameObject arrow = Instantiate(projPref, this.transform.position, p);
+            GameObject arrow = Instantiate(projPref, this.transform.position, p); //Spawns the projectile with the rotation of the player
         }
         else
         {

@@ -7,7 +7,7 @@ public class ListSlider : MonoBehaviour
     public Vector3 tappedPos;
     // Start is called before the first frame update
     private void Update()
-    {
+    { //Summary: Similar to other sliders, this just takes the first point of tapping and the point the player drags and change the location of the item according to the x coordinates difference of said two points
         if (Input.GetMouseButtonDown(0))
         {
             Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -23,7 +23,7 @@ public class ListSlider : MonoBehaviour
             Vector3 transformV3 = posToMove - tappedPos;
             Vector3 camTransform = new Vector3(transformV3.x, 0, 0);
 
-            this.gameObject.transform.position += camTransform;
+            this.gameObject.transform.position += camTransform*0.01f;
         }
     }
 }

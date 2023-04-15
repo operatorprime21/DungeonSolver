@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SurvivorUI : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class SurvivorUI : MonoBehaviour
     public GameObject buttonUnassign;
     void Start()
     {
-        buttonAsign = this.transform.Find("assignBuilding").gameObject;
-        buttonUnassign = this.transform.Find("unassignBuilding").gameObject;
+        buttonAsign = this.transform.Find("button_assign").gameObject;
+        buttonUnassign = this.transform.Find("button_unassign").gameObject;
 
         buttonUnassign.SetActive(false);
         SetUIstat();
@@ -24,7 +25,7 @@ public class SurvivorUI : MonoBehaviour
         SurvivorBase surv = survivor.GetComponent<SurvivorBase>();
         for (int s = 0; s < 3; s++)
         {
-            TMP_Text stat = this.transform.Find("stat (" + s + ")").GetComponent<TMP_Text>();
+            Text stat = this.transform.Find("stat (" + s + ")").GetComponent<Text>();
             if (s == 0)
             {
                 stat.text = "Body: " + surv.body.ToString();
@@ -61,8 +62,8 @@ public class SurvivorUI : MonoBehaviour
     public void AssignPlace()
     {
         //Turn off list ui and other buttons
-        //show something that tells the player that they are in "select building mode"
-        //
+        //show something that tells the player that they are in "select building mode". Too late for that
+        //Inserts this survivor into the variable in a manager to assign it to a building
         CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
         cam.survivorToPlace = survivor;
         cam.buttonAssign = buttonAsign;
@@ -86,13 +87,14 @@ public class SurvivorUI : MonoBehaviour
         }
     }
 
-    public void UnassignPlace()
+    public void UnassignPlace() // Remove the survivor from the building's list and set every other variable accordingly
     {
         SurvivorBase survInfo = survivor.GetComponent<SurvivorBase>();
         survInfo.assignedBuilding.GetComponent<BuildingFunctions>().survivor.Remove(survivor);
         survInfo.assignedBuilding = null;
         
         CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
+        cam.isInPlacementMode = false;
         cam.buttonAssign = buttonAsign;
         cam.buttonUnassign = buttonUnassign;
         cam.SurvList.SetActive(false);

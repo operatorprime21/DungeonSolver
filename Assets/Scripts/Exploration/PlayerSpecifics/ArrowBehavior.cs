@@ -7,12 +7,13 @@ public class ArrowBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject, 5f);
+        Destroy(this.gameObject, 5f); //Dictate life time if the arrow fires into nothing
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Constant forward movement
         this.transform.position += transform.up * Time.deltaTime * 10f;
     }
 
@@ -20,8 +21,8 @@ public class ArrowBehavior : MonoBehaviour
     {
         if(collider.tag == "Enemy")
         {
-            collider.GetComponent<Enemy>().ReceiveDamage(25);
-            Destroy(this.gameObject);
+            collider.GetComponent<Enemy>().ReceiveDamage(25); //Deal damage on colliding with an enemy
+            Destroy(this.gameObject); //Destroys itself upon colliding with any enemy
         }
         if(collider.tag == "Player")
         {
@@ -29,7 +30,7 @@ public class ArrowBehavior : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject); //Destroys itself upon colliding with any obstacle
         }
     }
 }

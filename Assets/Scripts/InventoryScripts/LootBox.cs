@@ -32,29 +32,29 @@ public class LootBox : MonoBehaviour
     void InitRandomItems()
     {
         Vector3 UIpos = GameObject.Find("boxUIpos").transform.position;
-        thisBoxUI = Instantiate(boxUI, UIpos, Quaternion.identity, canvas.transform);
-        thisBoxUI.SetActive(false);
+        thisBoxUI = Instantiate(boxUI, UIpos, Quaternion.identity, canvas.transform); //Creates a new box UI of slots
+        thisBoxUI.SetActive(false); 
         for (int r = 0; r < row; r++)
         {
-            for (int c = 0; c < col; c++)
+            for (int c = 0; c < col; c++) //Loop through each slot
             {
-                int randomItem = Random.Range(0, itemlist.items.Count);
+                int randomItem = Random.Range(0, itemlist.items.Count); //Pick a random item
                 if (randomItem != 0)
                 {
-                    int rItemCount = Random.Range(1, itemlist.items[randomItem].maxCountPerSlot+1);
+                    int rItemCount = Random.Range(1, 4); //Randomize stack count
                     //currentItemCount =+ rItemCount;
                     //if(currentItemCount >= maxItemSpawn)
-                    //{//Currenntly not functional. Item spawning are still overexceeding the limit of the box. Need further investigationn
+                    //{
                     //    break;
                     //}
                     //else
                     //{
-                        InventoryItem newItem = itemlist.items[randomItem];
-                        newItem.currentCount = rItemCount;
-                        TestHolding.Add(newItem);
-                        Transform slotToFill = thisBoxUI.transform.Find("Slot (" + r + ", " + c + ")");
-                        InventoryItem itemUI = Instantiate(newItem, slotToFill.transform.position, Quaternion.identity, canvas.transform);
-                        itemUI.transform.parent = canvas.transform;
+                        InventoryItem newItem = itemlist.items[randomItem]; 
+                        newItem.currentCount = rItemCount; //Generate an item based on the two randomized variables
+                        TestHolding.Add(newItem); //What did I need this for again?
+                        Transform slotToFill = thisBoxUI.transform.Find("Slot (" + r + ", " + c + ")"); //Find the slot according to the loop
+                        InventoryItem itemUI = Instantiate(newItem, slotToFill.transform.position, Quaternion.identity, canvas.transform); //Spawns the new item into a slot
+                        itemUI.transform.parent = canvas.transform; //Change the item's and the slot's variables as if it were to be inserted into the slot naturally
                         itemUI.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
                         Slot SlotInfo = slotToFill.GetComponent<Slot>();
                         SlotInfo.AddItem(itemUI);
@@ -69,16 +69,16 @@ public class LootBox : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            ItemList list = GameObject.Find("ItemList").GetComponent<ItemList>();
-            list.UItoToggle = thisBoxUI;
+            ItemList list = GameObject.Find("searcher").GetComponent<ItemList>();
+            list.UItoToggle = thisBoxUI; //Make sure the player gets to open this box when near
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            ItemList list = GameObject.Find("ItemList").GetComponent<ItemList>();
-            list.UItoToggle = null;
+            ItemList list = GameObject.Find("searcher").GetComponent<ItemList>();
+            list.UItoToggle = null; //Make sure the player gets to open this box when near
         }
     }
 

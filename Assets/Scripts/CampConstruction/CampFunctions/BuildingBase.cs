@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BuildingBase : MonoBehaviour
 {
-    public GameObject sizeChecker;
-    private Recipe recipe; 
+    public GameObject sizeChecker; //Holds the prefab
+    private Recipe recipe; //Recipe holding the necessary resource to build the building
 
     public void CheckResource()
     {
@@ -16,13 +16,16 @@ public class BuildingBase : MonoBehaviour
 
     public void Build()
     {
+        //Gets the camera for checking mouse point
             Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
+        //Spawns the size checker prefab at the point of click
             Instantiate(sizeChecker, new Vector3(itemPos.x, itemPos.y, 0f), Quaternion.identity);
+        //Turns off the list of building blueprints and the exit button
             GameObject BPListUI = GameObject.Find("Main Canvas").transform.Find("BlueprintList").gameObject;
             BPListUI.SetActive(false);
-            GameObject buttonExit = GameObject.Find("Main Canvas").transform.Find("ExitMenu").gameObject;
+            GameObject buttonExit = GameObject.Find("Main Canvas").transform.Find("button_x").gameObject;
             buttonExit.SetActive(false);
     }
 }

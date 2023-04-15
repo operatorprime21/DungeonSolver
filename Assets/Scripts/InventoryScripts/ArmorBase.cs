@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ArmorBase : MonoBehaviour
 {
+    //Plans for Mutation Events: Equipping Survivors with armor gets them stat changes and better
+    //outcome from Invasions.
     public int survStatPos;
     public int survStatNeg;
 
-    public int dmgReduce;
-    public Armor armor;
+    public int dmgReduce; //Determines how much damage is reduced from an incoming attack (flat value)
+    public Armor armor; //List of available Armors
 
     // Start is called before the first frame update
     public enum Armor

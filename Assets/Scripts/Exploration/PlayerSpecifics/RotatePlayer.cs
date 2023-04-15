@@ -18,25 +18,25 @@ public class RotatePlayer : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && touched == true)
         {
-            firstClickedPoint = Input.mousePosition.x;
+            firstClickedPoint = Input.mousePosition.x;  //Get input point at x
         }
 
         if(Input.GetMouseButton(0) && touched == true)
         {
-            float currentClickPoint = Input.mousePosition.x;
-            float xMultiplier = firstClickedPoint - currentClickPoint;
-            xMultiplier = Mathf.Clamp(xMultiplier, -100, 100);
-            Vector3 playerPos = player.transform.position;
-            player.transform.Rotate(new Vector3(0, 0, xMultiplier*0.01f));
+            float currentClickPoint = Input.mousePosition.x; //Get second input point as the mouse moves at x
+            float xMultiplier = firstClickedPoint - currentClickPoint;  //find the difference
+            xMultiplier = Mathf.Clamp(xMultiplier, -100, 100); //give it max values
+            Vector3 playerPos = player.transform.position; 
+            player.transform.Rotate(new Vector3(0, 0, xMultiplier*0.01f)); //then change rotation accordingly with the x 
         }
     }
 
     private void OnMouseDown()
     {
-        touched = true;
+        touched = true; //Change variables to make sure manual and auto aiming doesnt clash
         player.GetComponent<PlayerMovement>().manualAim = true;
         player.GetComponent<PlayerMovement>().lockedOnEnemy = null;
-        player.GetComponent<PlayerMovement>().aimedAt = player.transform.position;
+        player.GetComponent<PlayerMovement>().aimedAt = player.transform.position; 
     }
 
     private void OnMouseUp()

@@ -15,7 +15,7 @@ public class Equipment : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Equipment")
+        if(collision.tag == "Equipment") //Handles equipping items  by colliding with the correct type and putting them in a public variable
         {
             InventoryItem equip = collision.gameObject.GetComponent<InventoryItem>();
            if(equip.itemType == InventoryItem.Type.weapon)
