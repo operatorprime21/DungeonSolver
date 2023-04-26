@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool isValid = true;
+    public bool canMoveOn = true;
+    public bool canBuildOn;
+    public Vector3 tilePosition;
     // Simply handles different bools to let tile checkers know if tiles can be built on or not
 
-    public bool ReturnValid()
+    public bool ReturnCanMove()
     {
-        return isValid;
+        return canMoveOn;
     }
 
-    public void SwitchValid()
+    public bool ReturnCanBuild()
     {
-        isValid = !isValid;
+        return canBuildOn;
+    }
+    public void SwitchCanBuild()
+    {
+        canBuildOn = !canBuildOn;
+    }
+    public void SwitchCanMove()
+    {
+        canMoveOn = !canMoveOn;
     }
 }

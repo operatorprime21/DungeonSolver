@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -143,7 +143,7 @@ public class CamMode : MonoBehaviour //Manages camera modes at first but now bec
         GameObject.Find("InventoryManager").GetComponent<ResourceHolder>().ChangeFruit(fruitCost);
         confirmSpeedUpBuilding.SetActive(false); 
 
-        tileChecker.GetComponent<CheckValidSpace>().CompleteBuilding();
+        //tileChecker.GetComponent<CheckValidSpace>().CompleteBuilding();
 
         tileChecker = null;
         ConstructModeCam buildCamScript = cam.GetComponent<ConstructModeCam>();

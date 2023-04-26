@@ -18,19 +18,19 @@ public class CheckValidSpace : MonoBehaviour
     //For testing only
 
     private bool isChecking; //Just to make sure the checker prefab doesnt mess up on spawn
-    private bool buildIsStarted; //Begins build time
-    public float timeToBuild; //Build time
+    //private bool buildIsStarted; //Begins build time
+    //public float timeToBuild; //Build time
     public TMP_Text timer;
 
     public int fruitCost;
     private void Awake()
     {
         isChecking = false;
-        buildIsStarted = false;
+        //buildIsStarted = false;
     }
     private void OnMouseDrag()
     {
-        if(isChecking == true && buildIsStarted == false)
+        if(isChecking == true /*buildIsStarted == false*/)
         {
             Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
@@ -60,7 +60,7 @@ public class CheckValidSpace : MonoBehaviour
         foreach(GameObject tile in tileToCheck)
         {
             Tile validity = tile.GetComponent<Tile>();
-            if (validity.ReturnValid() == true) //Returns if the tile is free, if it does, continue for every other tile
+            if (validity.ReturnCanBuild() == true) //Returns if the tile is free, if it does, continue for every other tile
             {
                 foreach(GameObject square in sprites)
                 {
@@ -93,119 +93,127 @@ public class CheckValidSpace : MonoBehaviour
             tileToCheck.Remove(collision.gameObject); //Removes tiles out of the list on exitting the collider
         }
     }
-
-    private void OnMouseUp() 
+    private void OnMouseUp()
     {
-        if(buildIsStarted == false)
+        if (allSlotsFree == true)
         {
-            if (allSlotsFree == true)  //Deciding to let go lets the checker begin the build timer
-            {
-                Debug.Log("Successfully placed");
-                foreach (GameObject slot in tileToCheck)
-                {
-                    slot.GetComponent<Tile>().SwitchValid(); //Make sure every tile that it is placed on are no longer available
-                }
-                //Find all relevant UI and toggle them accordingly
-                GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("button_changeCam").gameObject;
-                buttonChangeMode.SetActive(true);
-                GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("button_building_blueprints").gameObject;
-                buttonOpenBP.SetActive(true);
-                GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("button_manage_survivor").gameObject;
-                buttonOpenSurvList.SetActive(true);
-
-                StartCoroutine(BuildTimer(timeToBuild));
-                buildIsStarted = true; //Begins timer
-            }
-            else
-            {
-                Debug.Log("Not enough slots to place");
-                this.transform.position = startingPos;
-                //Find all relevant UI and toggle them accordingly
-                GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("button_changeCam").gameObject;
-                buttonChangeMode.SetActive(true);
-                GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("button_building_blueprints").gameObject;
-                buttonOpenBP.SetActive(true);
-                GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("button_manage_survivor").gameObject;
-                buttonOpenSurvList.SetActive(true);
-
-                Destroy(this.gameObject); //Removes the checker on failure
-            }
-        }
-    }
-    private void OnMouseDown()
-    {
-        if(buildIsStarted == false) //Originally this was to allow the player to move the building before construction starts. This is no longer in play
-        {
-            isChecking = true;
             foreach (GameObject slot in tileToCheck)
             {
-                slot.GetComponent<Tile>().SwitchValid(); 
-            }
-        } 
-        else //Opens the according UI to ask the user if they want to speed up
-        {
-            GameObject.Find("Main Canvas").GetComponent<Canvas>().transform.Find("SpeedUpBuild").gameObject.SetActive(true);
-            Text confirm = GameObject.Find("Main Canvas").transform.Find("SpeedUpBuild").transform.Find("confirm").GetComponent<Text>();
-            confirm.text = "Speed up build using " + fruitCost.ToString() + " Cornea Fruits?";
-            GameObject.Find("UIManager").GetComponent<CamMode>().AssignSpeedUpBuild(buildingPrefab, -fruitCost, this.gameObject);
-        }
-    }
-
-    IEnumerator BuildTimer(float time)  //Timer to build the building object. 
-    {
-        this.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
-        StartCoroutine(SetTimer(time));
-        yield return new WaitForSeconds(time);
-        CompleteBuilding();
-    }
-
-    public void CompleteBuilding()
-    {
-        GameObject newBuilding = Instantiate(buildingPrefab, this.transform.position, Quaternion.identity); //Builds the building on the exact location of the checker. Building is identical to checker  in size
-        BuildingFunctions function = newBuilding.GetComponent<BuildingFunctions>();
-        if (function.type == BuildingFunctions.BuildType.storage) //Spawns a new storage and puts it in the master inventory list
-        { 
-            GameObject box = CreateNewUI(function, function.storageToSpawn);  
-            function.AssignStorage(box);
-            Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
-            inven.storages.Add(box); 
-        }
-        else if (function.fType == BuildingFunctions.functionType.craft) //Spawns a new recipe  list and make sure the building owner is correct
-        {
-            GameObject box = CreateNewUI(function, function.recipeListToSpawn);
-            function.AssignRecipe(box);
-            RecipeHolder recs = box.gameObject.GetComponent<RecipeHolder>();
-            foreach(Recipe rec in recs.recipes)
-            {
-                rec.recipeOwner = newBuilding;
+                slot.GetComponent<Tile>().SwitchCanBuild(); //Make sure every tile that it is placed on are no longer available
+                slot.GetComponent<Tile>().canMoveOn=true;
             }
         }
-        Destroy(this.gameObject);
+            
+    }
+    //private void OnMouseUp() 
+    //{
+    //    if(buildIsStarted == false)
+    //    {
+    //        if (allSlotsFree == true)  //Deciding to let go lets the checker begin the build timer
+    //        {
+    //            Debug.Log("Successfully placed");
+    //            foreach (GameObject slot in tileToCheck)
+    //            {
+    //                slot.GetComponent<Tile>().SwitchValid(); //Make sure every tile that it is placed on are no longer available
+    //            }
+    //            //Find all relevant UI and toggle them accordingly
+    //            GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("button_changeCam").gameObject;
+    //            buttonChangeMode.SetActive(true);
+    //            GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("button_building_blueprints").gameObject;
+    //            buttonOpenBP.SetActive(true);
+    //            GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("button_manage_survivor").gameObject;
+    //            buttonOpenSurvList.SetActive(true);
+
+    //            StartCoroutine(BuildTimer(timeToBuild));
+    //            buildIsStarted = true; //Begins timer
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Not enough slots to place");
+    //            this.transform.position = startingPos;
+    //            //Find all relevant UI and toggle them accordingly
+    //            GameObject buttonChangeMode = GameObject.Find("Main Canvas").transform.Find("button_changeCam").gameObject;
+    //            buttonChangeMode.SetActive(true);
+    //            GameObject buttonOpenBP = GameObject.Find("Main Canvas").transform.Find("button_building_blueprints").gameObject;
+    //            buttonOpenBP.SetActive(true);
+    //            GameObject buttonOpenSurvList = GameObject.Find("Main Canvas").transform.Find("button_manage_survivor").gameObject;
+    //            buttonOpenSurvList.SetActive(true);
+
+    //            Destroy(this.gameObject); //Removes the checker on failure
+    //        }
+    //    }
+    //}
+    private void OnMouseDown()
+    {
+          isChecking = true;
+          foreach (GameObject slot in tileToCheck)
+          {
+              slot.GetComponent<Tile>().SwitchCanBuild(); 
+          }
+        //else //Opens the according UI to ask the user if they want to speed up
+        //{
+        //    GameObject.Find("Main Canvas").GetComponent<Canvas>().transform.Find("SpeedUpBuild").gameObject.SetActive(true);
+        //    Text confirm = GameObject.Find("Main Canvas").transform.Find("SpeedUpBuild").transform.Find("confirm").GetComponent<Text>();
+        //    confirm.text = "Speed up build using " + fruitCost.ToString() + " Cornea Fruits?";
+        //    GameObject.Find("UIManager").GetComponent<CamMode>().AssignSpeedUpBuild(buildingPrefab, -fruitCost, this.gameObject);
+        //}
     }
 
-    private GameObject CreateNewUI(BuildingFunctions function, GameObject uiToMake) //Creating UI elements so that they work properly in the canvas
-    {
-        Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
-        Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
-        GameObject box = Instantiate(uiToMake, UIpos, Quaternion.identity, mainCv.transform);
+    //IEnumerator BuildTimer(float time)  //Timer to build the building object. 
+    //{
+    //    this.transform.Find("Canvas").GetComponent<Canvas>().overrideSorting = true;
+    //    StartCoroutine(SetTimer(time));
+    //    yield return new WaitForSeconds(time);
+    //    CompleteBuilding();
+    //}
+
+    //public void CompleteBuilding()
+    //{
+    //    GameObject newBuilding = Instantiate(buildingPrefab, this.transform.position, Quaternion.identity); //Builds the building on the exact location of the checker. Building is identical to checker  in size
+    //    BuildingFunctions function = newBuilding.GetComponent<BuildingFunctions>();
+    //    if (function.type == BuildingFunctions.BuildType.storage) //Spawns a new storage and puts it in the master inventory list
+    //    { 
+    //        GameObject box = CreateNewUI(function, function.storageToSpawn);  
+    //        function.AssignStorage(box);
+    //        Inventory inven = GameObject.Find("InventoryManager").GetComponent<Inventory>();
+    //        inven.storages.Add(box); 
+    //    }
+    //    else if (function.fType == BuildingFunctions.functionType.craft) //Spawns a new recipe  list and make sure the building owner is correct
+    //    {
+    //        GameObject box = CreateNewUI(function, function.recipeListToSpawn);
+    //        function.AssignRecipe(box);
+    //        RecipeHolder recs = box.gameObject.GetComponent<RecipeHolder>();
+    //        foreach(Recipe rec in recs.recipes)
+    //        {
+    //            rec.recipeOwner = newBuilding;
+    //        }
+    //    }
+    //    Destroy(this.gameObject);
+    //}
+
+    //private GameObject CreateNewUI(BuildingFunctions function, GameObject uiToMake) //Creating UI elements so that they work properly in the canvas
+    //{
+    //    Canvas mainCv = GameObject.Find("Main Canvas").GetComponent<Canvas>();
+    //    Vector3 UIpos = mainCv.gameObject.transform.Find("boxUIpos").transform.position;
+    //    GameObject box = Instantiate(uiToMake, UIpos, Quaternion.identity, mainCv.transform);
         
-        box.SetActive(false);
-        return box;
-    }
+    //    box.SetActive(false);
+    //    return box;
+    //}
 
-    IEnumerator SetTimer(float time) //Timer indicator
-    {
-        if (time >= 0)
-        {
-            timer.text = time.ToString();
-            yield return new WaitForSeconds(1f);
-            time -= 1;
-            StartCoroutine(SetTimer(time));
-        }
-        else
-        {
-            timer.text = null;
-        }
-    }
+    //IEnumerator SetTimer(float time) //Timer indicator
+    //{
+    //    if (time >= 0)
+    //    {
+    //        timer.text = time.ToString();
+    //        yield return new WaitForSeconds(1f);
+    //        time -= 1;
+    //        StartCoroutine(SetTimer(time));
+    //    }
+    //    else
+    //    {
+    //        timer.text = null;
+    //    }
+    //}
     
 }

@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ab4edb1a1957c45a6aee746bf8fba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isValid: 1
+  canMoveOn: 1
+  canBuildOn: 1
+  tilePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &7748996086208072482
 GameObject:
   m_ObjectHideFlags: 0
