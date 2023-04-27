@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = releasePos.x - tapPos.x;
         float y = releasePos.y - tapPos.y;
-        GameObject tiles = GameObject.Find("Tiles");
+        GameObject tiles = GameObject.Find("level1");
         float tileX = this.transform.position.x;
         float tileY = this.transform.position.y;
         if (Mathf.Abs(x) < Mathf.Abs(y))
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Debug.Log("can move up");
                         tileToMoveTo = new Vector3(tileX, newTileY, 0);
-                        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        
                         StartCoroutine(Move());
                     }
                     else
@@ -135,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Debug.Log("can move down");
                         tileToMoveTo = new Vector3(tileX, newTileY, 0);
-                        this.transform.rotation = Quaternion.Euler(0, 0, 180);
+                        
                         StartCoroutine(Move());
                     }
                     else
@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Debug.Log("can move right");
                         tileToMoveTo = new Vector3(newTileX, tileY, 0);
-                        this.transform.rotation = Quaternion.Euler(0, 0, 270);
+                        
                         StartCoroutine(Move());
                     }
                     else
@@ -188,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Debug.Log("can move left");
                         tileToMoveTo = new Vector3(newTileX, tileY, 0);
-                        this.transform.rotation = Quaternion.Euler(0, 0, 90);
+                        
                         StartCoroutine(Move());
                     }
                     else

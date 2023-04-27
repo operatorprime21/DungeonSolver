@@ -64,7 +64,7 @@ public class CheckValidSpace : MonoBehaviour
             {
                 foreach(GameObject square in sprites)
                 {
-                    square.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, 0.5f);  //as long as all tiles within the list is free, make the image green
+                    square.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);  //as long as all tiles within the list is free, make the image green
                 }
                 allSlotsFree = true; //Only sets after every tile is free
             }
@@ -100,8 +100,16 @@ public class CheckValidSpace : MonoBehaviour
             foreach (GameObject slot in tileToCheck)
             {
                 slot.GetComponent<Tile>().SwitchCanBuild(); //Make sure every tile that it is placed on are no longer available
-                slot.GetComponent<Tile>().canMoveOn=true;
+                slot.GetComponent<Tile>().canMoveOn = true;
             }
+            foreach (GameObject square in sprites)
+            {
+                square.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot place here");
         }
             
     }

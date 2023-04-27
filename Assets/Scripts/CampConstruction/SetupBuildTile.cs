@@ -45,7 +45,7 @@ public class SetupBuildTile : MonoBehaviour
                 {
                     LevelManager manager = this.GetComponentInParent<LevelManager>();
                     manager.endTile = tile.GetComponent<Tile>();
-                    tile.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f, 0.5f);
+                    tile.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f, 0.5f);
                 }
                 foreach (Vector2 border in levelBorder)
                 {
@@ -53,7 +53,7 @@ public class SetupBuildTile : MonoBehaviour
                     {
                         tile.GetComponent<Tile>().canMoveOn = false;
                         tile.GetComponent<Tile>().canBuildOn = false;
-                        tile.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 0.5f);
+                        tile.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, 1f);
                     }
                 }
             }
