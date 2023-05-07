@@ -6,8 +6,8 @@ using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
-    public List<GameObject> inventory = new List<GameObject>();
-    public List<GameObject> storages = new List<GameObject>();
+    public List<InventoryItem> inventory = new List<InventoryItem>();
+    //public List<GameObject> storages = new List<GameObject>();
     private bool toggled = false;
     public GameObject inventoryUI;
     // Start is called before the first frame update
@@ -35,44 +35,33 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public List<GameObject> ReturnInventory() //Loops through all slots thats in the inventory UI to grab any item within. Adds them to a list
+    public List<InventoryItem> ReturnInventory() //Loops through all slots thats in the inventory UI to grab any item within. Adds them to a list
     { 
-        List<GameObject> itemInSlot = new List<GameObject>();
-        for(int i = 0; i < 20; i++)
-        {
-            GameObject nextSlot = inventoryUI.transform.Find("Slot ("+i+")").gameObject;
-            Slot slot = nextSlot.GetComponent<Slot>();
-            if(slot.hasItem == true)
-            {
-                GameObject item = nextSlot.transform.GetChild(0).gameObject;
-                itemInSlot.Add(item);
-            }
-        }
-        return itemInSlot;
-    }
-
-    public List<GameObject> ReturnTotalInventory()  //Including the items from ReturnInventory(), this returns every single item from every Storage building the player has built.
-        //This is done through looping the list of storages that the storage buildings added their own contents to upon finish construction
-    {
-        List<GameObject> itemInSlot = new List<GameObject>();
-        List<GameObject> playerInventory = ReturnInventory();
-        inventory = itemInSlot.Union(playerInventory).ToList();
-        
-        foreach (GameObject storage in storages)
-        {
-             if(storage!= null)
-             {
-                  SlotHolder storageInfo = storage.GetComponent<SlotHolder>();
-                  foreach (Slot slot in storageInfo.slots)
-                  { 
-                       if (slot.hasItem == true)
-                       {
-                           GameObject item = slot.transform.GetChild(0).gameObject;
-                           inventory.Add(item);
-                       }
-                  }
-             }  
-        } 
         return inventory;
     }
+
+    //public List<GameObject> ReturnTotalInventory()  //Including the items from ReturnInventory(), this returns every single item from every Storage building the player has built.
+    //    //This is done through looping the list of storages that the storage buildings added their own contents to upon finish construction
+    //{
+    //    List<GameObject> itemInSlot = new List<GameObject>();
+    //    List<GameObject> playerInventory = ReturnInventory();
+    //    inventory = itemInSlot.Union(playerInventory).ToList();
+        
+    //    //foreach (GameObject storage in storages)
+    //    //{
+    //    //     if(storage!= null)
+    //    //     {
+    //    //          SlotHolder storageInfo = storage.GetComponent<SlotHolder>();
+    //    //          foreach (Slot slot in storageInfo.slots)
+    //    //          { 
+    //    //               if (slot.hasItem == true)
+    //    //               {
+    //    //                   GameObject item = slot.transform.GetChild(0).gameObject;
+    //    //                   inventory.Add(item);
+    //    //               }
+    //    //          }
+    //    //     }  
+    //    //} 
+    //    return inventory;
+    //}
 }

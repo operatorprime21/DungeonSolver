@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 releasePos;
     [SerializeField] private Vector3 tileToMoveTo;
     [SerializeField] private Tile currentTile;
+    public string orientation = "down";
+    [SerializeField] private Animator playerAnim;
     private float startTime;
     [SerializeField] private bool canMove = false;
     //public Vector3 destination;
@@ -25,11 +27,12 @@ public class PlayerMovement : MonoBehaviour
     public LevelManager levelManager;
     void Start()
     {
+        playerAnim = this.gameObject.GetComponent<Animator>();
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         levelManager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
         this.transform.position = levelManager.playerStart;
         currentTile = levelManager.startTile;
-        startTime = Time.time;
+        
         //destination = this.transform.position;
         //CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
         //if (cam.playerExists == false)
@@ -49,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         {
             tapPos = TappedPos();
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && canMove == false)
         {
             releasePos = ReleasePos();
             ReturnDirection();
@@ -59,9 +62,22 @@ public class PlayerMovement : MonoBehaviour
         {
             this.transform.position = Vector3.Lerp(this.transform.position, tileToMoveTo, movingTime);
         }
+        if(this.transform.position == tileToMoveTo && canMove == true)
+        {
+            canMove = false;
+            this.transform.position = tileToMoveTo;
+            currentTile = GameObject.Find(this.transform.position.x + "." + (this.transform.position.y-0.5f)).GetComponent<Tile>();
+            levelManager.PlayerStep(currentTile);
+            if (currentTile.hasItem == true)
+            {
+                playerAnim.Play("side_grab");
+            }
+            else
+            {
+                playerAnim.Play(orientation + "_idle");
+            }
+        }
         //Note: Since move distance is always 1, does not require calculating fraction
-
-
         //this.transform.position = Vector3.MoveTowards(this.transform.position, destination, speed * Time.deltaTime); //Player is constantly trying to move to the destination vector variable
         ////Movement highly depends on how this variable is handled, but mostly just tap to set.
 
@@ -95,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         float y = releasePos.y - tapPos.y;
         GameObject tiles = GameObject.Find("level1");
         float tileX = this.transform.position.x;
-        float tileY = this.transform.position.y;
+        float tileY = this.transform.position.y-0.5f;
         if (Mathf.Abs(x) < Mathf.Abs(y))
         {
             if (y > 0)
@@ -105,17 +121,14 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    Debug.Log("Try to move up");
                     if (tileScript.canMoveOn == true)
                     {
-                        Debug.Log("can move up");
-                        tileToMoveTo = new Vector3(tileX, newTileY, 0);
-                        
-                        StartCoroutine(Move());
+                        orientation = "up";
+                        MoveToTile(newTileY, tileX, orientation, 1);
                     }
                     else
                     {
-                        Debug.Log("cannot move up");
+                        Debug.LogError("cannot move up");
                     }
                 }
                 else
@@ -130,17 +143,14 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    Debug.Log("Try to move down");
                     if (tileScript.canMoveOn == true)
                     {
-                        Debug.Log("can move down");
-                        tileToMoveTo = new Vector3(tileX, newTileY, 0);
-                        
-                        StartCoroutine(Move());
+                        orientation = "down";
+                        MoveToTile(newTileY, tileX, orientation, 1);
                     }
                     else
                     {
-                        Debug.Log("cannot move down");
+                        Debug.LogError("cannot move down");
                     }
                 }
                 else
@@ -158,17 +168,14 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    Debug.Log("Try to move right");
                     if (tileScript.canMoveOn == true)
                     {
-                        Debug.Log("can move right");
-                        tileToMoveTo = new Vector3(newTileX, tileY, 0);
-                        
-                        StartCoroutine(Move());
+                        orientation = "side";
+                        MoveToTile(tileY, newTileX, orientation, -1);
                     }
                     else
                     {
-                        Debug.Log("cannot move right");
+                        Debug.LogError("cannot move right");
                     }
                 }
                 else
@@ -183,17 +190,14 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    Debug.Log("Try to move left");
                     if (tileScript.canMoveOn == true)
                     {
-                        Debug.Log("can move left");
-                        tileToMoveTo = new Vector3(newTileX, tileY, 0);
-                        
-                        StartCoroutine(Move());
+                        orientation = "side";
+                        MoveToTile(tileY, newTileX, orientation, 1);
                     }
                     else
                     {
-                        Debug.Log("cannot move left");
+                        Debug.LogError("cannot move left");
                     }
                 }
                 else
@@ -204,17 +208,41 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Abort Moving");
+            Debug.LogError("Abort Moving");
         }
         tapPos = new Vector3(0,0,0);
         releasePos = new Vector3(0, 0, 0);
     }
-    IEnumerator Move()
+
+    private void MoveToTile(float tileY, float newTileX, string orientation, int side)
     {
+        playerAnim.Play(orientation + "_walk");
+        tileToMoveTo = new Vector3(newTileX, tileY + 0.5f, 0);
+        if(orientation == "side")
+        {
+            this.transform.localScale = new Vector3(side, 1, 1);
+        }
+        startTime = Time.time;
         canMove = true;
-        yield return new WaitForSeconds(0.5f);
-        canMove = false;
-        currentTile = GameObject.Find(this.transform.position.x + "." + this.transform.position.y).GetComponent<Tile>();
+    }
+
+    public void GetItem()
+    {
+        SpriteRenderer sprite = currentTile.GetComponent<SpriteRenderer>();
+        sprite.sprite = currentTile.noItemSprite;
+        Inventory inventory = this.gameObject.GetComponent<Inventory>();
+        foreach (InventoryItem item in currentTile.item)
+        {
+            inventory.inventory.Add(item);
+        }
+        currentTile.item = null;
+        currentTile.hasItem = false;
+        ReturnToIdle();
+    }
+
+    private void ReturnToIdle()
+    {
+        playerAnim.Play(orientation + "_idle");
     }
 
     //Some poor attempts at preventing the player from moving if the player click on a UI element or click on somewhere that is blocked.

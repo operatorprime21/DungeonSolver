@@ -8,16 +8,16 @@ public class InventoryItem : MonoBehaviour
 {
     // Start is called before the first frame update
     public Item item;
-    public int maxCountPerSlot;
-    public Type itemType;
-    public int currentCount;
-    private Camera cam;
-    public GameObject slot;
-    private GameObject canvas;
-    public TMP_Text count;
-    private GameObject player;
+    //public int maxCountPerSlot;
+    //public Type itemType;
+    //public int currentCount;
+    //private Camera cam;
+    //public GameObject slot;
+    //private GameObject canvas;
+    //public TMP_Text count;
+    //private GameObject player;
 
-    public Transform lastSlot;
+    //public Transform lastSlot;
 
     public enum Item
     {
@@ -93,84 +93,84 @@ public class InventoryItem : MonoBehaviour
 
     }
 
-    public enum Type
-    { 
-        resource,
-        consumable,
-        misc,
-        weapon,
-        armor
-    }
+    //public enum Type
+    //{ 
+    //    resource,
+    //    consumable,
+    //    misc,
+    //    weapon,
+    //    armor
+    //}
 
 
     private void Start()
     {
-        canvas = GameObject.Find("Main Canvas");
-        player = GameObject.Find("Player");
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        count.text = currentCount.ToString();
+        //canvas = GameObject.Find("Main Canvas");
+        //player = GameObject.Find("Player");
+        //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //count.text = currentCount.ToString();
     }
 
 
 
-    private void OnMouseDrag()
-    {
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-        Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
-        this.transform.position = new Vector3(itemPos.x, itemPos.y, 0f);
-    }
+    //private void OnMouseDrag()
+    //{
+    //    Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+    //    Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
+    //    this.transform.position = new Vector3(itemPos.x, itemPos.y, 0f);
+    //}
 
-    private void OnMouseUp()
-    {
-        if (slot != null)
-        {
-            Slot SlotInfo = slot.GetComponent<Slot>();
-            SlotInfo.AddItem(this);
-        }
-        if (slot == null)
-        {
-            DenyStacking();
-            Debug.Log("No slots asigned");
-        }
-    }
+    //private void OnMouseUp()
+    //{
+    //    if (slot != null)
+    //    {
+    //        Slot SlotInfo = slot.GetComponent<Slot>();
+    //        SlotInfo.AddItem(this);
+    //    }
+    //    if (slot == null)
+    //    {
+    //        DenyStacking();
+    //        Debug.Log("No slots asigned");
+    //    }
+    //}
 
-    private void OnMouseDown()
-    {
-        if (slot != null)
-        {
-            Slot SlotInfo = slot.GetComponent<Slot>();
-            SlotInfo.RemoveItem();
-            this.transform.parent = canvas.transform;
-            SlotInfo.hasItem = false;
-        }
-    }
+    //private void OnMouseDown()
+    //{
+    //    if (slot != null)
+    //    {
+    //        Slot SlotInfo = slot.GetComponent<Slot>();
+    //        SlotInfo.RemoveItem();
+    //        this.transform.parent = canvas.transform;
+    //        SlotInfo.hasItem = false;
+    //    }
+    //}
 
-    public void DenyStacking()
-    {
-        this.transform.position = lastSlot.transform.position;
-        this.transform.parent = lastSlot.transform;
-    }
+    //public void DenyStacking()
+    //{
+    //    this.transform.position = lastSlot.transform.position;
+    //    this.transform.parent = lastSlot.transform;
+    //}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Slot")
-        {
-            slot = collision.gameObject;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.tag == "Slot")
+    //    {
+    //        slot = collision.gameObject;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Slot")
-        {
-            slot = null;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Slot")
+    //    {
+    //        slot = null;
+    //    }
+    //}
 
-    public void removeBool()
-    {
-        Slot SlotInfo = slot.GetComponent<Slot>();
-        SlotInfo.hasItem = false;
-    }
+    //public void removeBool()
+    //{
+    //    Slot SlotInfo = slot.GetComponent<Slot>();
+    //    SlotInfo.hasItem = false;
+    //}
 
 }

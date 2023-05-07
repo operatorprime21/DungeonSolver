@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 7119603256290495392}
   - component: {fileID: 7119603256290495393}
   - component: {fileID: 7119603256290495390}
-  - component: {fileID: 7119603256290495394}
-  - component: {fileID: 7119603256290495399}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -121,41 +119,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.5
-  levelStartTile: {x: 0, y: 0, z: 0}
---- !u!50 &7119603256290495394
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7119603256290495391}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!58 &7119603256290495399
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7119603256290495391}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.48333332
+  cam: {fileID: 0}
+  tapPos: {x: 0, y: 0, z: 0}
+  releasePos: {x: 0, y: 0, z: 0}
+  tileToMoveTo: {x: 0, y: 0, z: 0}
+  currentTile: {fileID: 0}
+  orientation: 
+  playerAnim: {fileID: 0}
+  canMove: 0
+  levelManager: {fileID: 0}

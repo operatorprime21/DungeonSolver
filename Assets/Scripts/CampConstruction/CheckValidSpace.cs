@@ -12,7 +12,7 @@ public class CheckValidSpace : MonoBehaviour
     public int tileCost; //Makes sure the tiles within are handled properly
     private bool allSlotsFree; //Final check to see if there is enough space to build
 
-    public GameObject buildingPrefab;
+    //public GameObject buildingPrefab;
     //For testing only
     public Vector3 startingPos;
     //For testing only
@@ -20,9 +20,9 @@ public class CheckValidSpace : MonoBehaviour
     private bool isChecking; //Just to make sure the checker prefab doesnt mess up on spawn
     //private bool buildIsStarted; //Begins build time
     //public float timeToBuild; //Build time
-    public TMP_Text timer;
+    //public TMP_Text timer;
 
-    public int fruitCost;
+    //public int fruitCost;
     private void Awake()
     {
         isChecking = false;

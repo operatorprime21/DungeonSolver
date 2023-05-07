@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
     public Vector3 playerStart;
     public Tile startTile;
     public Tile endTile;
+
+    public int steps;
     void Start()
     {
 
@@ -17,5 +19,31 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayerStep(Tile playerTile) //Reads everything that can happen when the player makes a move
+    {
+        if(steps > 0)
+        {
+            steps--;
+        }
+        else
+        {
+            RanOutOfSteps();
+        }
+        if(playerTile == endTile)
+        {
+            ReachedGoal();
+        }
+
+    }
+    public void RanOutOfSteps()
+    {
+        Debug.Log("Game Over!");
+    }
+
+    public void ReachedGoal()
+    {
+        Debug.Log("Level Complete!");
     }
 }
