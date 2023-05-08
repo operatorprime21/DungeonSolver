@@ -8,12 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Sprites (Assets)/Not In Use/HONETi/Elements/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CampTest.unity
     guid: 33e87defe5c695a47b0eaba0c36324b6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ExplorePrototype.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 5b8c7a651f24d204da24e1bcd17385c5
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 2ef8b2dd690dbe841abb3800021a2c64
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cc1894c3356fef04a987750ea63afe2f, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 235cd250c05903b47b394675881284ef, type: 2}
