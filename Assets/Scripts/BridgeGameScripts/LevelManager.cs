@@ -9,11 +9,13 @@ public class LevelManager : MonoBehaviour
     public Vector3 playerStart;
     public Tile startTile;
     public Tile endTile;
+    public int camSize;
 
     public int steps;
     void Start()
     {
-
+        Camera cam = Camera.main;
+        cam.orthographicSize = camSize;
     }
 
     // Update is called once per frame

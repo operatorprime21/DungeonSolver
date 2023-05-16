@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3d2ceb4de2a713147abc06da178fec62
+guid: e6a97ade6c5c72d41bc9eb8beecbaedb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -63,7 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -113,23 +113,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_0
+      name: custom_0
       rect:
         serializedVersion: 2
         x: 1
@@ -143,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6b3ea060ced26a4390e4930c0d39871
-      internalID: -1567964484
+      spriteID: 588710c6288b9d648b2d0907dd73535a
+      internalID: -2137952242
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_1
+      name: custom_1
       rect:
         serializedVersion: 2
         x: 49
@@ -164,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9b91efd33398324b89074cc90019e68
-      internalID: -2146411482
+      spriteID: 6a2b691d946e36e46bb15fedaaed0129
+      internalID: -741647037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_2
+      name: custom_2
       rect:
         serializedVersion: 2
         x: 97
@@ -185,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0293a5663361bff48a3b630b329730da
-      internalID: 523131504
+      spriteID: c22f7bd8f8df8f84fa60c000408a8959
+      internalID: -1096740644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_3
+      name: custom_3
       rect:
         serializedVersion: 2
         x: 145
@@ -206,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b43f3edaf232164b91996b88ab725d3
-      internalID: -1377307584
+      spriteID: d01434337d76d2941b9572db5b410687
+      internalID: 1148069982
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_4
+      name: custom_4
       rect:
         serializedVersion: 2
         x: 193
@@ -227,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10d048ae2d0500f4698dc951e447353b
-      internalID: -897556785
+      spriteID: 386ebc5410a7f954ab5411ec814a2779
+      internalID: 1338667612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_5
+      name: custom_5
       rect:
         serializedVersion: 2
         x: 241
@@ -248,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91a0125da9869aa4198be1a4d63df8fb
-      internalID: -2126427977
+      spriteID: 0f1d4b61646cbcd4f9295dffcb9b8380
+      internalID: 678106321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_6
+      name: custom_6
       rect:
         serializedVersion: 2
         x: 289
@@ -269,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 234d7dbb2719c7e4a9e1140e7dfcef9c
-      internalID: 1649755853
+      spriteID: c62a023fd36c60b498675e12fdef7f93
+      internalID: -1058963285
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_7
+      name: custom_7
       rect:
         serializedVersion: 2
         x: 337
@@ -290,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8545ce14d585ae4c97899c6c0a44622
-      internalID: 1638015245
+      spriteID: 4b4b999168a6ae94bb84ee49abf578e4
+      internalID: -658962505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_8
+      name: custom_8
       rect:
         serializedVersion: 2
         x: 385
@@ -311,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e888b72037b2f348a99f018567b1cbe
-      internalID: 326128903
+      spriteID: c11e900d74bbffe498e39f41515d2922
+      internalID: 1813663995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_9
+      name: custom_9
       rect:
         serializedVersion: 2
         x: 433
@@ -332,14 +320,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7f88cf2bf8308e40a4e061878216d67
-      internalID: -1676403434
+      spriteID: 42e305f7d00834e4da5522dce17848af
+      internalID: -1653379818
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_10
+      name: custom_10
       rect:
         serializedVersion: 2
         x: 1
@@ -353,14 +341,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 238c014353a551048b2784877033acb5
-      internalID: -805613688
+      spriteID: 6fb6cd3e88015cb4f9dc846f0b0edfe1
+      internalID: 2010083421
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_11
+      name: custom_11
       rect:
         serializedVersion: 2
         x: 49
@@ -374,14 +362,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a6716a1d2a4f2e48a913b930eeddfbf
-      internalID: -1764658195
+      spriteID: 18a36ec567002e74f8612c85e625a1a8
+      internalID: 529689118
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_12
+      name: custom_12
       rect:
         serializedVersion: 2
         x: 97
@@ -395,14 +383,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ad68234c093e03478e7e5600df6cb8f
-      internalID: 1262507914
+      spriteID: 01766f1c53d03aa439d7b8aa9f0c96ec
+      internalID: 1967397107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_13
+      name: custom_13
       rect:
         serializedVersion: 2
         x: 145
@@ -416,14 +404,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 364a80ed2179ba142a42ba57c18bd5dd
-      internalID: -1767500149
+      spriteID: 0ab5fcba512f30e418033299e1f99b82
+      internalID: -372807442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_14
+      name: custom_14
       rect:
         serializedVersion: 2
         x: 193
@@ -437,14 +425,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5da651e1ab1371f45bcaedf656c7e1e1
-      internalID: -1661207689
+      spriteID: 084a91a91f95e9a4eaf409377ed22958
+      internalID: -954120944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_15
+      name: custom_15
       rect:
         serializedVersion: 2
         x: 241
@@ -458,14 +446,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6793d7d77a210544faf71cf662f264a3
-      internalID: 1374693508
+      spriteID: c03198e100017bc4294a182952ba2ebf
+      internalID: 2042332739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_16
+      name: custom_16
       rect:
         serializedVersion: 2
         x: 289
@@ -479,14 +467,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a27550053d6446947a1610d4ad09200d
-      internalID: -931596664
+      spriteID: 606c6198559d28748a4f6428a29b2c18
+      internalID: 299114145
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_17
+      name: custom_17
       rect:
         serializedVersion: 2
         x: 337
@@ -500,14 +488,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b996c884823ad7340825d6715451542e
-      internalID: 334307402
+      spriteID: e60023d37ee745646944bd0e62639f36
+      internalID: -1536990711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_18
+      name: custom_18
       rect:
         serializedVersion: 2
         x: 385
@@ -521,14 +509,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73eadbd30db809d43b6a4c55e31499df
-      internalID: -444405054
+      spriteID: f7c3f88a9753abe4499bcbdb02a213e2
+      internalID: -69208898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_19
+      name: custom_19
       rect:
         serializedVersion: 2
         x: 433
@@ -542,14 +530,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7d6f9fbad6f9354eb037163ab8a4594
-      internalID: 1829853508
+      spriteID: 6935a0c90a0e43a43bccf22ac9a1ba57
+      internalID: 1426153613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_20
+      name: custom_20
       rect:
         serializedVersion: 2
         x: 1
@@ -563,14 +551,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 953bcaf699234a346b1d3fbd7746e9ea
-      internalID: -61074203
+      spriteID: 90753e91976639d4abd83906fd270e57
+      internalID: 1722309041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_21
+      name: custom_21
       rect:
         serializedVersion: 2
         x: 49
@@ -584,14 +572,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13afbf7e30e0a0b459ce757aaf14f0bd
-      internalID: 1506119597
+      spriteID: 0b39ceb1d13a05045a75176f2f0c1397
+      internalID: 775882958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_22
+      name: custom_22
       rect:
         serializedVersion: 2
         x: 97
@@ -605,14 +593,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b5ff65422154294888b96d4786f9deb
-      internalID: -71541186
+      spriteID: fa7f59177bec55e4aaa056d87e342237
+      internalID: -1526023311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_23
+      name: custom_23
       rect:
         serializedVersion: 2
         x: 145
@@ -626,14 +614,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 801aa5dfe82cf1a44928f0b69ead85af
-      internalID: -720249829
+      spriteID: 81e888cd6edb9dd44805b1f3bf829b1d
+      internalID: -1790729695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_24
+      name: custom_24
       rect:
         serializedVersion: 2
         x: 193
@@ -647,14 +635,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e53fd07f3a3d4a04d8b1badea1fcab1a
-      internalID: -1897985242
+      spriteID: 002c302ca780f4c40a3f8afc84c43a5f
+      internalID: -1524946398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_25
+      name: custom_25
       rect:
         serializedVersion: 2
         x: 241
@@ -668,14 +656,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 097598ff7181b0542a850c9da87ec4b0
-      internalID: -1022510737
+      spriteID: 73468ece5c7da3b4b8e669215cf387db
+      internalID: -795271460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_26
+      name: custom_26
       rect:
         serializedVersion: 2
         x: 289
@@ -689,14 +677,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c2defb14ca8c254fa583f32b53a0242
-      internalID: 1438166664
+      spriteID: ac486dd58b3d55d4fa608ee665aea289
+      internalID: -1537710673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_27
+      name: custom_27
       rect:
         serializedVersion: 2
         x: 337
@@ -710,14 +698,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ed328693592db44fba1e6be16f79ae5
-      internalID: -1136946594
+      spriteID: 76cc868e53c25c34789f448de888a907
+      internalID: -1411370765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_28
+      name: custom_28
       rect:
         serializedVersion: 2
         x: 385
@@ -731,14 +719,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6da8b5d769d29149af42eed5f0b5547
-      internalID: 727492593
+      spriteID: f2d921519cc36cb4ea6839e5f34270fe
+      internalID: 982999331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_29
+      name: custom_29
       rect:
         serializedVersion: 2
         x: 433
@@ -752,14 +740,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0192d8cc34f1f394ca39896141089a15
-      internalID: 5731083
+      spriteID: 99cfd704d98bfaf4e992b866a678135e
+      internalID: 2040295236
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_30
+      name: custom_30
       rect:
         serializedVersion: 2
         x: 1
@@ -773,14 +761,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bbf3e31a76fa924d8d97c6121026f5a
-      internalID: -1340898215
+      spriteID: 8d0582644fdb5c54caca7b8c989d9343
+      internalID: -1241898247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_31
+      name: custom_31
       rect:
         serializedVersion: 2
         x: 49
@@ -794,14 +782,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f2bdaeb737791f429bde3954cd0d3e9
-      internalID: 1970708674
+      spriteID: 8da3c7d906d1588428be5662eb32fcb1
+      internalID: -1755807924
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_32
+      name: custom_32
       rect:
         serializedVersion: 2
         x: 97
@@ -815,14 +803,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af3d035aaa9a6a8408c7fcc89781eb2d
-      internalID: -865704671
+      spriteID: 2ebdf4d28d753c241a5c567d6e9303d9
+      internalID: 359551417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_33
+      name: custom_33
       rect:
         serializedVersion: 2
         x: 145
@@ -836,14 +824,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b543ae42677e18b418e980c71f9ae772
-      internalID: -175398475
+      spriteID: 02bda716f4a2a0c4b967fafc481d12c7
+      internalID: 1268470108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_34
+      name: custom_34
       rect:
         serializedVersion: 2
         x: 193
@@ -857,14 +845,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e0d3e2f644a8f04da03f04376f30731
-      internalID: -1950250952
+      spriteID: e40e6eb5f2c182f44b47a6b7eda2225c
+      internalID: -1127444189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_35
+      name: custom_35
       rect:
         serializedVersion: 2
         x: 241
@@ -878,14 +866,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fb8e4b321fe9d94d834042f9bc2b0fd
-      internalID: 1537434234
+      spriteID: 133212c964c566e448fe92bc9bc77966
+      internalID: 559262214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_36
+      name: custom_36
       rect:
         serializedVersion: 2
         x: 289
@@ -899,14 +887,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5eb77ae25d68b74b890d42bbb28d4bf
-      internalID: 991592641
+      spriteID: ede39f944cdfda0479d64a23de11f3ea
+      internalID: 184982724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_37
+      name: custom_37
       rect:
         serializedVersion: 2
         x: 337
@@ -920,14 +908,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dab65424d3e7f3b47a8dcaf5613b2358
-      internalID: -1621880591
+      spriteID: 4637f83a6b353b84389445a21f362c01
+      internalID: -1412929516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_38
+      name: custom_38
       rect:
         serializedVersion: 2
         x: 385
@@ -941,14 +929,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2518aae538898a74f9d0e879868e1daa
-      internalID: -616670870
+      spriteID: 69e57c8a30156b34fa2ae2ebd19f7faf
+      internalID: -45758781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_39
+      name: custom_39
       rect:
         serializedVersion: 2
         x: 433
@@ -962,14 +950,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3162b0153412b14d89a541c5742c550
-      internalID: -1150445891
+      spriteID: 215b5fa28c2336245902eaba91ef61b7
+      internalID: 748864762
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_40
+      name: custom_40
       rect:
         serializedVersion: 2
         x: 1
@@ -983,14 +971,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1044fe50a8b01a46bdc9367e30ed898
-      internalID: -698449133
+      spriteID: cff4ac068335e6c4487d4cb6d70e4780
+      internalID: 1286412829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_41
+      name: custom_41
       rect:
         serializedVersion: 2
         x: 49
@@ -1004,14 +992,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9aaf225fbe15cb49bb1f53403ce4aa4
-      internalID: 135737201
+      spriteID: cfb3c15bba59e7647955fc842edab8c9
+      internalID: -1756750882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_42
+      name: custom_42
       rect:
         serializedVersion: 2
         x: 97
@@ -1025,14 +1013,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05339703d2bee7e48bacea290ba5a82a
-      internalID: -1668815459
+      spriteID: 252ca182dee36f74e8a7bf218f7a0a97
+      internalID: -950167959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_43
+      name: custom_43
       rect:
         serializedVersion: 2
         x: 145
@@ -1046,14 +1034,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed03b768ff48bf94290c66ad0ebd6e74
-      internalID: 869101931
+      spriteID: 1a181ae804767a9469b78de8dec45ed5
+      internalID: 1050306558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_44
+      name: custom_44
       rect:
         serializedVersion: 2
         x: 193
@@ -1067,14 +1055,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df40779904851984182d99c60549d022
-      internalID: -1569512156
+      spriteID: f2dd5ca076cb2534daa4eba44490784d
+      internalID: -1563197311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_45
+      name: custom_45
       rect:
         serializedVersion: 2
         x: 241
@@ -1088,14 +1076,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 194a4c61da08f2442a2ccd9300b4b5ac
-      internalID: 703322602
+      spriteID: fb157d39f9d3b3e4d86a667dc921ff2c
+      internalID: 1066429793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_46
+      name: custom_46
       rect:
         serializedVersion: 2
         x: 289
@@ -1109,14 +1097,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9ced5a03c297a447b4f47f0d99f3f82
-      internalID: -654216346
+      spriteID: 2cddf830a93a72c45be0d5eb602e3361
+      internalID: -1959326473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_47
+      name: custom_47
       rect:
         serializedVersion: 2
         x: 337
@@ -1130,14 +1118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4946d5f8a2e46146ad0023db4f796f0
-      internalID: -1188690754
+      spriteID: 7e67ce92054b3e44aa430a7862cd938d
+      internalID: 1745757223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_48
+      name: custom_48
       rect:
         serializedVersion: 2
         x: 385
@@ -1151,14 +1139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1b3203701624a94cb7ac2661a9bbd83
-      internalID: -920350449
+      spriteID: a14575367c7125d4bb432949462d2462
+      internalID: 855745478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-large-buttons-horizontal_49
+      name: custom_49
       rect:
         serializedVersion: 2
         x: 433
@@ -1172,8 +1160,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c90ad16c9e8a8234ebd8c7892f55d052
-      internalID: 1753113601
+      spriteID: 7608568bda3e45f448ee19c85e5fff81
+      internalID: -1470620873
       vertices: []
       indices: 
       edges: []
@@ -1189,56 +1177,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui-large-buttons-horizontal_17: 334307402
-      ui-large-buttons-horizontal_47: -1188690754
-      ui-large-buttons-horizontal_5: -2126427977
-      ui-large-buttons-horizontal_43: 869101931
-      ui-large-buttons-horizontal_49: 1753113601
-      ui-large-buttons-horizontal_10: -805613688
-      ui-large-buttons-horizontal_29: 5731083
-      ui-large-buttons-horizontal_22: -71541186
-      ui-large-buttons-horizontal_14: -1661207689
-      ui-large-buttons-horizontal_28: 727492593
-      ui-large-buttons-horizontal_1: -2146411482
-      ui-large-buttons-horizontal_3: -1377307584
-      ui-large-buttons-horizontal_9: -1676403434
-      ui-large-buttons-horizontal_38: -616670870
-      ui-large-buttons-horizontal_20: -61074203
-      ui-large-buttons-horizontal_4: -897556785
-      ui-large-buttons-horizontal_33: -175398475
-      ui-large-buttons-horizontal_34: -1950250952
-      ui-large-buttons-horizontal_30: -1340898215
-      ui-large-buttons-horizontal_0: -1567964484
-      ui-large-buttons-horizontal_42: -1668815459
-      ui-large-buttons-horizontal_40: -698449133
-      ui-large-buttons-horizontal_27: -1136946594
-      ui-large-buttons-horizontal_18: -444405054
-      ui-large-buttons-horizontal_37: -1621880591
-      ui-large-buttons-horizontal_15: 1374693508
-      ui-large-buttons-horizontal_16: -931596664
-      ui-large-buttons-horizontal_35: 1537434234
-      ui-large-buttons-horizontal_36: 991592641
-      ui-large-buttons-horizontal_12: 1262507914
-      ui-large-buttons-horizontal_19: 1829853508
-      ui-large-buttons-horizontal_48: -920350449
-      ui-large-buttons-horizontal_45: 703322602
-      ui-large-buttons-horizontal_23: -720249829
-      ui-large-buttons-horizontal_7: 1638015245
-      ui-large-buttons-horizontal_8: 326128903
-      ui-large-buttons-horizontal_24: -1897985242
-      ui-large-buttons-horizontal_11: -1764658195
-      ui-large-buttons-horizontal_25: -1022510737
-      ui-large-buttons-horizontal_2: 523131504
-      ui-large-buttons-horizontal_31: 1970708674
-      ui-large-buttons-horizontal_39: -1150445891
-      ui-large-buttons-horizontal_21: 1506119597
-      ui-large-buttons-horizontal_41: 135737201
-      ui-large-buttons-horizontal_13: -1767500149
-      ui-large-buttons-horizontal_32: -865704671
-      ui-large-buttons-horizontal_6: 1649755853
-      ui-large-buttons-horizontal_44: -1569512156
-      ui-large-buttons-horizontal_26: 1438166664
-      ui-large-buttons-horizontal_46: -654216346
+      custom_25: -795271460
+      custom_6: -1058963285
+      custom_23: -1790729695
+      custom_21: 775882958
+      custom_42: -950167959
+      custom_5: 678106321
+      custom_0: -2137952242
+      custom_32: 359551417
+      custom_18: -69208898
+      custom_13: -372807442
+      custom_41: -1756750882
+      custom_20: 1722309041
+      custom_37: -1412929516
+      custom_44: -1563197311
+      custom_49: -1470620873
+      custom_43: 1050306558
+      custom_17: -1536990711
+      custom_15: 2042332739
+      custom_40: 1286412829
+      custom_9: -1653379818
+      custom_31: -1755807924
+      custom_22: -1526023311
+      custom_12: 1967397107
+      custom_7: -658962505
+      custom_4: 1338667612
+      custom_26: -1537710673
+      custom_8: 1813663995
+      custom_14: -954120944
+      custom_35: 559262214
+      custom_19: 1426153613
+      custom_2: -1096740644
+      custom_33: 1268470108
+      custom_38: -45758781
+      custom_3: 1148069982
+      custom_28: 982999331
+      custom_34: -1127444189
+      custom_1: -741647037
+      custom_24: -1524946398
+      custom_11: 529689118
+      custom_30: -1241898247
+      custom_46: -1959326473
+      custom_47: 1745757223
+      custom_39: 748864762
+      custom_45: 1066429793
+      custom_48: 855745478
+      custom_27: -1411370765
+      custom_36: 184982724
+      custom_16: 299114145
+      custom_29: 2040295236
+      custom_10: 2010083421
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
