@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     public List<InventoryItem> item = new List<InventoryItem>();
     public Vector3 tilePosition;
 
-    public Sprite noItemSprite;
+    public Sprite inactiveSprite;
     // Simply handles different bools to let tile checkers know if tiles can be built on or not
 
     public bool ReturnCanMove()

@@ -5,16 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
-    [SerializeField] private Camera cam;
-    [SerializeField] private Vector3 tapPos;
-    [SerializeField] private Vector3 releasePos;
+    public Camera cam;
+    [SerializeField] public Vector3 tapPos;
+    [SerializeField] public Vector3 releasePos;
     [SerializeField] private Vector3 tileToMoveTo;
-    [SerializeField] private Tile currentTile;
+    public Tile currentTile;
     public string orientation = "down";
     [SerializeField] private Animator playerAnim;
     private float startTime;
-    [SerializeField] private bool canMove = false;
+    [SerializeField] public bool canMove = false;
     [SerializeField] private Vector3 tileToMoveFrom;
+
+    public bool altControlOn;
     //public Vector3 destination;
     //public Vector3 aimedAt;
     //public float angleMod;
@@ -25,15 +27,9 @@ public class PlayerMovement : MonoBehaviour
     //public LayerMask blockingMask;
     // Start is called before the first frame update
 
-    public LevelManager levelManager;
+
     void Start()
     {
-        playerAnim = this.gameObject.GetComponent<Animator>();
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        levelManager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
-        this.transform.position = levelManager.playerStart;
-        currentTile = levelManager.startTile;
-        
         //destination = this.transform.position;
         //CamMode cam = GameObject.Find("UIManager").GetComponent<CamMode>();
         //if (cam.playerExists == false)
@@ -49,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && altControlOn == false)
         {
             tapPos = TappedPos();
         }
-        if (Input.GetMouseButtonUp(0) && canMove == false)
+        if (Input.GetMouseButtonUp(0) && canMove == false && altControlOn == false)
         {
             releasePos = ReleasePos();
             ReturnDirection();
@@ -68,7 +64,8 @@ public class PlayerMovement : MonoBehaviour
             canMove = false;
             this.transform.position = tileToMoveTo;
             currentTile = GameObject.Find(this.transform.position.x + "." + (this.transform.position.y-0.5f)).GetComponent<Tile>();
-            levelManager.PlayerStep(currentTile);
+            LevelManager levelManage = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
+            levelManage.PlayerStep(currentTile);
             if (currentTile.hasItem == true)
             {
                 playerAnim.Play("side_grab");
@@ -107,12 +104,12 @@ public class PlayerMovement : MonoBehaviour
         return releasePoint;
     }
 
-    private void ReturnDirection()
+    public void ReturnDirection()
     {
         
         float x = releasePos.x - tapPos.x;
         float y = releasePos.y - tapPos.y;
-        GameObject tiles = GameObject.Find("level1");
+        GameObject tiles = GameObject.FindWithTag("level");
         float tileX = this.transform.position.x;
         float tileY = this.transform.position.y-0.5f;
         if (Mathf.Abs(x) < Mathf.Abs(y))
@@ -233,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
     public void GetItem()
     {
         SpriteRenderer sprite = currentTile.GetComponent<SpriteRenderer>();
-        sprite.sprite = currentTile.noItemSprite;
+        sprite.sprite = currentTile.inactiveSprite;
         Inventory inventory = this.gameObject.GetComponent<Inventory>();
         foreach (InventoryItem item in currentTile.item)
         {

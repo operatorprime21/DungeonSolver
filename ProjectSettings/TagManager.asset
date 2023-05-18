@@ -9,7 +9,7 @@ TagManager:
   - Enemy
   - Structure
   - Tile
-  - Equipment
+  - level
   layers:
   - Default
   - TransparentFX
