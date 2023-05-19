@@ -7,9 +7,13 @@ public class Crafting : MonoBehaviour
     //private GameObject canvas;
     public Recipe recipe;
     private Camera cam;
+    public GameObject dragDrop;
+
+    [SerializeField] private GameObject objectToMake;
     private void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        dragDrop = GameObject.Find("Canvas").transform.Find("DragDrop").gameObject;
     }
     bool CheckResource(InventoryItem.Item resource, int reqAmount) //Check a specific resource and the amount of said resource the recipe wants
     {
@@ -118,7 +122,13 @@ public class Crafting : MonoBehaviour
         //}
 
     }
-
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)&&dragDrop.activeInHierarchy)
+        {
+            TapToPlace();
+        }
+    }
     public void CheckAllResource(List<InventoryItem.Item> item, List<int> countReq, GameObject result)
     {
         for (int r = 0; r < item.Count+1; r++)
@@ -133,21 +143,22 @@ public class Crafting : MonoBehaviour
             }
             if(r == item.Count)
             {
+                dragDrop.SetActive(true);
+                objectToMake = result;
+                GameObject craftMenu = GameObject.Find("Canvas").transform.Find("CraftMenu").gameObject;
+                craftMenu.SetActive(false);
                 ConsumeAllResource(item, countReq, result); //if all bool returns true, begin consuming everything
             }
         }
     }
 
-    private void ConsumeAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
+    public void ConsumeAllResource(List<InventoryItem.Item> type, List<int> typeReq, GameObject result)
     {
-        for (int c = 0; c < type.Count; c++)  
+        for (int c = 0; c < type.Count; c++)
         {
             ConsumeResource(type[c], typeReq[c]);  //Consumes every resource, using the two list 
         }
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
-        Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
-        Instantiate(result, new Vector3(itemPos.x, itemPos.y, 0f), Quaternion.identity);
-        PlacingAnim();
+    }
         //Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>(); //Depends on what the type of recipe it is, do things differently
         //if (recipe.timeToMake == Recipe.RecipeType.building) 
         //{
@@ -168,6 +179,17 @@ public class Crafting : MonoBehaviour
         //        inventory.inventory = new List<GameObject>();
         //    }
         //}
+    
+
+    private void TapToPlace()
+    {
+        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+        Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
+        Instantiate(objectToMake, new Vector3(itemPos.x, itemPos.y, 0f), Quaternion.identity);
+        dragDrop.SetActive(false);
+        GameObject.Find("Canvas").GetComponent<PauseButton>().ExitCraftMenu();
+        objectToMake = null;
+        PlacingAnim();
     }
 
     private void PlacingAnim()

@@ -100,11 +100,22 @@ public class LevelManager : MonoBehaviour
     }
     public void RanOutOfSteps()
     {
-        Debug.Log("Game Over!");
+        GameObject loseScreen = GameObject.Find("Canvas").transform.Find("LostScreen").gameObject;
+        GameObject levelUI = GameObject.Find("Canvas").transform.Find("LevelUI").gameObject;
+        GameObject playerControls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
+        playerControls.SetActive(false);
+        levelUI.SetActive(false);
+        loseScreen.SetActive(true);
+
     }
 
     public void ReachedGoal()
     {
-        SceneManager.LoadScene(0);
+        GameObject levelUI = GameObject.Find("Canvas").transform.Find("LevelUI").gameObject;
+        levelUI.SetActive(false);
+        GameObject playerControls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
+        playerControls.SetActive(false);
+        GameObject winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
+        winScreen.SetActive(true);
     }
 }

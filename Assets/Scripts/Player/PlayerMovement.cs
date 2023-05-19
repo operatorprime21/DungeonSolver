@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float startTime;
     [SerializeField] public bool canMove = false;
     [SerializeField] private Vector3 tileToMoveFrom;
+    [SerializeField] private bool blocked = false;
 
     public bool altControlOn;
     //public Vector3 destination;
@@ -61,18 +62,31 @@ public class PlayerMovement : MonoBehaviour
         }
         if(this.transform.position == tileToMoveTo && canMove == true)
         {
-            canMove = false;
-            this.transform.position = tileToMoveTo;
-            currentTile = GameObject.Find(this.transform.position.x + "." + (this.transform.position.y-0.5f)).GetComponent<Tile>();
-            LevelManager levelManage = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
-            levelManage.PlayerStep(currentTile);
-            if (currentTile.hasItem == true)
+            if(blocked == false)
             {
-                playerAnim.Play("side_grab");
+                canMove = false;
+                this.transform.position = tileToMoveTo;
+                Tile newTile = GameObject.Find(this.transform.position.x + "." + (this.transform.position.y - 0.5f)).GetComponent<Tile>();
+                if(newTile != currentTile)
+                {
+                    currentTile = newTile;
+                    LevelManager levelManage = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
+                    levelManage.PlayerStep(currentTile);
+                }
+                
+                if (currentTile.hasItem == true)
+                {
+                    playerAnim.Play("side_grab");
+                }
+                else
+                {
+                    playerAnim.Play(orientation + "_idle");
+                }
             }
             else
             {
-                playerAnim.Play(orientation + "_idle");
+                tileToMoveTo = tileToMoveFrom;
+                blocked = false;
             }
         }
         //Note: Since move distance is always 1, does not require calculating fraction
@@ -128,7 +142,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogError("cannot move up");
+                        orientation = "up";
+                        CannotMoveToTile(0.1f, 0f, orientation, 1);
                     }
                 }
                 else
@@ -150,7 +165,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogError("cannot move down");
+                        orientation = "down";
+                        CannotMoveToTile(-0.1f, 0f, orientation, 1);
                     }
                 }
                 else
@@ -175,7 +191,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogError("cannot move right");
+                        orientation = "side";
+                        CannotMoveToTile(0f, 0.1f, orientation, -1);
                     }
                 }
                 else
@@ -197,7 +214,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogError("cannot move left");
+                        orientation = "side";
+                        CannotMoveToTile(0f, -0.1f, orientation, 1);
                     }
                 }
                 else
@@ -214,12 +232,25 @@ public class PlayerMovement : MonoBehaviour
         releasePos = new Vector3(0, 0, 0);
     }
 
-    private void MoveToTile(float tileY, float newTileX, string orientation, int side)
+    private void MoveToTile(float tileY, float TileX, string orientation, int side)
     {
         playerAnim.Play(orientation + "_walk");
         tileToMoveFrom = new Vector3(currentTile.tilePosition.x, currentTile.tilePosition.y + 0.5f, 0);
-        tileToMoveTo = new Vector3(newTileX, tileY + 0.5f, 0);
+        tileToMoveTo = new Vector3(TileX, tileY + 0.5f, 0);
         if(orientation == "side")
+        {
+            this.transform.localScale = new Vector3(side, 1, 1);
+        }
+        startTime = Time.time;
+        canMove = true;
+    }
+    private void CannotMoveToTile(float stutterY, float stutterX, string orientation, int side)
+    {
+        blocked = true;
+        playerAnim.Play(orientation + "_walk");
+        tileToMoveFrom = new Vector3(currentTile.tilePosition.x, currentTile.tilePosition.y + 0.5f, 0);
+        tileToMoveTo = new Vector3(currentTile.tilePosition.x + stutterX, currentTile.tilePosition.y + stutterY + 0.5f, 0);
+        if (orientation == "side")
         {
             this.transform.localScale = new Vector3(side, 1, 1);
         }
