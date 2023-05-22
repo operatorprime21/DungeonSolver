@@ -106,6 +106,7 @@ public class CheckValidSpace : MonoBehaviour
             {
                 square.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             }
+            this.GetComponent<BoxCollider2D>().size = new Vector2(0, 0);
         }
         else
         {

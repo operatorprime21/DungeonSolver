@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
                     levelManage.PlayerStep(currentTile);
                 }
                 
-                if (currentTile.hasItem == true)
+                if (currentTile.tileType != Tile.tileSpecial.none)
                 {
                     playerAnim.Play("side_grab");
                 }
@@ -120,7 +120,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ReturnDirection()
     {
-        
         float x = releasePos.x - tapPos.x;
         float y = releasePos.y - tapPos.y;
         GameObject tiles = GameObject.FindWithTag("level");
@@ -258,21 +257,12 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
     }
 
-    public void GetItem()
+    public void InteractTile()
     {
-        SpriteRenderer sprite = currentTile.GetComponent<SpriteRenderer>();
-        sprite.sprite = currentTile.inactiveSprite;
-        Inventory inventory = this.gameObject.GetComponent<Inventory>();
-        foreach (InventoryItem item in currentTile.item)
-        {
-            inventory.inventory.Add(item);
-        }
-        currentTile.item = null;
-        currentTile.hasItem = false;
-        ReturnToIdle();
+        currentTile.Interaction();
     }
 
-    private void ReturnToIdle()
+    public void ReturnToIdle()
     {
         playerAnim.Play(orientation + "_idle");
     }
