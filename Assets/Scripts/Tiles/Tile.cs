@@ -18,6 +18,8 @@ public class Tile : MonoBehaviour
     {
         none,
         hasItem,
+        lever,
+        vent,
         interactable,
     };
     public bool ReturnCanMove()
@@ -53,6 +55,14 @@ public class Tile : MonoBehaviour
             item = null;
             tileType = tileSpecial.none;
             Destroy(count);
+        }
+        if(tileType == tileSpecial.vent)
+        {
+            GameObject player = GameObject.Find("Player");
+            //change sprite
+            //change tile to move to and current tile
+            //need new Tile variable to define the other end
+            //relocate player
         }
     }
 }
