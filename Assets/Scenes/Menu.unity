@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 198646177}
   - component: {fileID: 198646176}
   m_Layer: 5
-  m_Name: Level3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 413708307}
   - component: {fileID: 413708306}
   m_Layer: 5
-  m_Name: Level6
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 511847796}
   - component: {fileID: 511847795}
   m_Layer: 5
-  m_Name: Level7
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,7 +1013,7 @@ GameObject:
   - component: {fileID: 664534326}
   - component: {fileID: 664534325}
   m_Layer: 5
-  m_Name: Level2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,11 +1061,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.3882353}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5647059}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1147,7 +1147,7 @@ GameObject:
   - component: {fileID: 697400405}
   - component: {fileID: 697400404}
   m_Layer: 5
-  m_Name: Level9
+  m_Name: 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1661,9 +1661,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'dungeon
+  m_text: 'Treasure
 
-    solver
+    Hunter
 
 '
   m_isRightToLeft: 0
@@ -1755,7 +1755,7 @@ GameObject:
   - component: {fileID: 914171041}
   - component: {fileID: 914171040}
   m_Layer: 5
-  m_Name: Level4
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1889,7 +1889,7 @@ GameObject:
   - component: {fileID: 939734372}
   - component: {fileID: 939734371}
   m_Layer: 5
-  m_Name: Level8
+  m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2571,7 +2571,7 @@ GameObject:
   - component: {fileID: 1376527669}
   - component: {fileID: 1376527668}
   m_Layer: 5
-  m_Name: Level1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3596,7 +3596,7 @@ GameObject:
   - component: {fileID: 1977211400}
   - component: {fileID: 1977211399}
   m_Layer: 5
-  m_Name: Level5
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

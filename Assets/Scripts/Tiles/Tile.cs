@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool canBuildOn;
 
     public List<InventoryItem> item = new List<InventoryItem>();
+    public Tile ventToTile;
     public Vector3 tilePosition;
 
     public Sprite inactiveSprite;
@@ -26,7 +27,6 @@ public class Tile : MonoBehaviour
     {
         return canMoveOn;
     }
-
     public bool ReturnCanBuild()
     {
         return canBuildOn;
@@ -59,10 +59,16 @@ public class Tile : MonoBehaviour
         if(tileType == tileSpecial.vent)
         {
             GameObject player = GameObject.Find("Player");
-            //change sprite
+            SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+            sprite.sprite = inactiveSprite;
+            Vector3 newPos = new Vector3(ventToTile.tilePosition.x, ventToTile.tilePosition.y + 0.5f, 1f);
+            player.transform.position = newPos;
+            player.GetComponent<PlayerMovement>().currentTile = ventToTile;
+            ventToTile.GetComponent<SpriteRenderer>().sprite = ventToTile.inactiveSprite;
             //change tile to move to and current tile
             //need new Tile variable to define the other end
             //relocate player
+            GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
         }
     }
 }

@@ -41,9 +41,12 @@ public class MenuButtons : MonoBehaviour
     public void LoadLevel()
     {
         string levelName = EventSystem.current.currentSelectedGameObject.name;
-        if(levelName == "Level1")
+        int level;
+        int.TryParse(levelName, out level);
+
+        if(SceneManager.GetSceneByBuildIndex(level) != null)
         {
-            SceneManager.LoadScene(levelName);
+            SceneManager.LoadScene(level);
         }
         else
         {

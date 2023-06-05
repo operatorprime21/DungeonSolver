@@ -1960,6 +1960,10 @@ PrefabInstance:
       propertyPath: canBuildOn
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7769241469839478089, guid: 610e636697eba1d468059c12b152d2ba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b92f030922bbda44f80400b8be06e674, type: 3}
     - target: {fileID: 8008209475694015245, guid: 610e636697eba1d468059c12b152d2ba, type: 3}
       propertyPath: canMoveOn
       value: 0
@@ -1987,7 +1991,7 @@ PrefabInstance:
     - target: {fileID: 8338943273714167663, guid: 610e636697eba1d468059c12b152d2ba, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3d8c8ab0265a1164c99f70d57e61524b, type: 3}
+      objectReference: {fileID: 21300000, guid: f5e60905bf1a1d84c88882913941863a, type: 3}
     - target: {fileID: 8338943273714167663, guid: 610e636697eba1d468059c12b152d2ba, type: 3}
       propertyPath: m_Color.b
       value: 1
