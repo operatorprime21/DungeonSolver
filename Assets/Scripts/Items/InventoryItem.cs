@@ -8,6 +8,7 @@ public class InventoryItem : MonoBehaviour
 {
     // Start is called before the first frame update
     public Item item;
+    public string itemName;
     //public int maxCountPerSlot;
     //public Type itemType;
     //public int currentCount;
@@ -23,93 +24,27 @@ public class InventoryItem : MonoBehaviour
     {
         //Necessities/Crafting materials/Resources
         wood,     //Found
-        //cloth,   //Found
-        //stick,   //Crafted or Found
-        //plank,   //Crafted or Found
-        //ammo,     //Crafted or Found
-        //nail,  //Found 
-        //emptyBottle,   //Late Release
-        //arrow,    //Crafted
-        //bandage,    //Crafted
-
-        //gunPowder,    //Found
-        //scrapMetal,   //Found
-        //ductTape,     //Late Release
-        //rope,   //Found 
-        //pipe,   //Found or Crafted
-        //plasticScrap,    //Found
-
-        //potato,   //Found
-        //cannedMeat,    //Found or Built
-        //cannedFish,   //Late Release
-        //bread,   //Found
-        //glass,    //Late Release 
-        //egg,    //Late Release
-        //wheat,    //Late Release
-        //rawMeat,   //Late Release
-        //medicalKit,   //Found or Built
-        //painKillers,    //Late Release
-        //lockpick,    //Late Release
-
-        //batteryCell,  //Found
-        //gasTank,   //Late Release
-        //wires,    //Found
-        //circuitBoard,   //Crafted
-        //cogs,   //Late Release
-        //rubberStraps,   //Late Release
-        //copperNickle,    //Late Release
-
-        ////Melee
-        //woodenPlank,  //Crafted
-        //crowBar,   //Late Release
-        //policeBaton,  //Found
-        //knife,   //Found or Built
-        //shovel,    //Built
-        //machete,    //Late Release
-        //bigKnife,    //Late Release
-        //rake,     //Late Release
-        //hammer,   //Late Release
-        //largeHammer,    //Late Release
-
-        ////Ranged 
-        //pistol, //Found or Built
-        //crossbow, //Crafted
-        //leverActionRifle,  //Built
-        //sawedOffShotgun,  //Late Release
-        //automaticPistol,   //Late Release
-
-        ////Armor
-        //sweater,   //Late Release
-        //bulletProofVest,   //Found
-        //hazmatSuit,   //Late Release
-        //footballSuit,  //Late Release
-        //heavyJacket,   //Late Release
-
-        ////Misc. Late Release
-        //bagExtender1,  
-        //bagExtender2,
-        //flashlight1,
-        //flashlight2,
-
+        
     }
-
-    //public enum Type
-    //{ 
-    //    resource,
-    //    consumable,
-    //    misc,
-    //    weapon,
-    //    armor
-    //}
 
 
     private void Start()
     {
-        //canvas = GameObject.Find("Main Canvas");
-        //player = GameObject.Find("Player");
-        //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        //count.text = currentCount.ToString();
+
     }
+
+    public void FindCorrectUI(int add)
+    {
+        switch(this.item)
+        {
+            case Item.wood: itemName = "wood";
+                break;
+        }
+        GameObject itemUI = GameObject.Find("Canvas").transform.Find("CraftMenu").transform.Find(itemName).gameObject;
+        itemUI.GetComponent<IconProperties>().c += add;
+        itemUI.GetComponent<IconProperties>().SetCount();
+    }
+
 
 
 

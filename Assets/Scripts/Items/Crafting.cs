@@ -58,6 +58,7 @@ public class Crafting : MonoBehaviour
             if (type == resource && countToAdd < reqAmount)
             {
                 countToAdd ++;
+                inventory.inventory[c].FindCorrectUI(-1);
                 inventory.inventory.Remove(inventory.inventory[c]);
                 c--;
             }
@@ -187,7 +188,7 @@ public class Crafting : MonoBehaviour
         Vector3 itemPos = cam.ScreenToWorldPoint(mousePos);
         Instantiate(objectToMake, new Vector3(itemPos.x, itemPos.y, 0f), Quaternion.identity);
         dragDrop.SetActive(false);
-        GameObject.Find("Canvas").GetComponent<PauseButton>().ExitCraftMenu();
+        GameObject.Find("Canvas").GetComponent<Buttons>().ExitCraftMenu();
         objectToMake = null;
         PlacingAnim();
     }

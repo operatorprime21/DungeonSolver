@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
@@ -12,20 +13,44 @@ public class LevelManager : MonoBehaviour
     public Tile endTile;
     public Tile startDoorTile;
     public int camSize;
-    [SerializeField] private bool levelStarted = true;
+    private bool levelStarted = true;
+    private int maxSteps;
+    private int tierProgressSteps;
     public int steps;
-
+    public Slider tierProgress;
     public Sprite doorOpen;
     public Sprite doorClose;
 
     public GameObject playerObj;
 
+    public int reward;
+    public int rewardTier3;
+    public int rewardTier2;
+    public int rewardTier1;
+    public int rewardTier0;
+
+    private float startTime;
+    private bool lerpingTier = false;
+    private float currentBar = 1f;
+    private float destinationBar;
+
+    [SerializeField] private int tier = 3;
+    private float tierThreshold;
+
+    //PROTO
+    public int coin;
+    public TMP_Text endReward;
+
+    public List<GameObject> Stars = new List<GameObject>();
     public TMP_Text textSteps;
     void Start()
     {
         Camera cam = Camera.main;
         cam.orthographicSize = camSize;
         BeginSequence();
+        maxSteps = steps;
+        tierProgressSteps = maxSteps;
+        startTime = 0f;
     }
 
     // Update is called once per frame
@@ -80,6 +105,28 @@ public class LevelManager : MonoBehaviour
                 playerObj.GetComponent<Animator>().Play("down_idle");
             }
         }
+
+        float moving = +(Time.time - startTime) * 2f;
+        if (lerpingTier ==true)
+        {
+            tierProgress.value = Mathf.Lerp(currentBar, destinationBar, moving);
+        }
+        if(tierProgress.value == destinationBar && lerpingTier == true)
+        {
+            if(tierProgress.value != 0)
+            {
+                lerpingTier = false;
+                currentBar = tierProgress.value;
+            }
+            else
+            {
+                startTime = Time.time;
+                currentBar = 0f;
+                destinationBar = 1f;
+                Stars[tier - 1].SetActive(false);
+                Stars[tier + 2].SetActive(false); 
+            }
+        }
     }
 
     public void PlayerStep(Tile playerTile) //Reads everything that can happen when the player makes a move
@@ -88,16 +135,33 @@ public class LevelManager : MonoBehaviour
         {
             steps--;
             textSteps.text = steps.ToString();
+            lerpingTier = true;
+            startTime = Time.time;
+            
+            if (WinTier()==3)
+            {
+                tierThreshold = 0.6f;
+            }
+            else if (WinTier() == 2)
+            {
+                tierThreshold = 0.4f;
+            }
+            else if (WinTier() == 1)
+            {
+                tierThreshold = 0.2f;
+            }
+            else
+            {
+                tierThreshold = 0.0f;
+            }
+            destinationBar = TierBarProgress(tierThreshold);
         }
         else
         {
             RanOutOfSteps();
         }
-        if(playerTile == endTile)
-        {
-            ReachedGoal();
-        }
     }
+
     public void RanOutOfSteps()
     {
         GameObject loseScreen = GameObject.Find("Canvas").transform.Find("LostScreen").gameObject;
@@ -106,7 +170,6 @@ public class LevelManager : MonoBehaviour
         playerControls.SetActive(false);
         levelUI.SetActive(false);
         loseScreen.SetActive(true);
-
     }
 
     public void ReachedGoal()
@@ -116,6 +179,47 @@ public class LevelManager : MonoBehaviour
         GameObject playerControls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
         playerControls.SetActive(false);
         GameObject winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
+        coin += reward;
+        endReward.text = coin.ToString();
         winScreen.SetActive(true);
+    }
+
+    public int WinTier()
+    {
+        float percentage = (float)steps / (float)maxSteps;
+        if (percentage >= 0.6f)
+        {
+            tier = 3;
+            reward = rewardTier3;
+        }
+        else if (percentage >= 0.4f)
+        {
+            tier = 2;
+            reward = rewardTier2;
+        }
+        else if (percentage >= 0.2f)
+        {
+            tier = 1;
+            reward = rewardTier1;
+        }
+        else
+        {
+            tier = 0;
+            reward = rewardTier0;
+        }
+        return tier;
+    }
+
+    public float TierBarProgress(float tierThres)
+    {
+        
+        int stepsProgress = tierProgressSteps - Mathf.FloorToInt(maxSteps * tierThres);
+        int currentProgress = steps - Mathf.FloorToInt(maxSteps * tierThres);
+        float progress = (float)currentProgress / (float)stepsProgress;
+        if(progress == 0)
+        {
+            tierProgressSteps -= stepsProgress;
+        }
+        return progress;
     }
 }

@@ -8,10 +8,10 @@ public class Tile : MonoBehaviour
     public bool canBuildOn;
 
     public List<InventoryItem> item = new List<InventoryItem>();
-    public Tile ventToTile;
+    public Tile connectedTile;
     public Vector3 tilePosition;
 
-    public Sprite inactiveSprite;
+    public Sprite otherSprite;
     public tileSpecial tileType;
     public GameObject count;
     // Simply handles different bools to let tile checkers know if tiles can be built on or not
@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour
         lever,
         vent,
         interactable,
+        end,
     };
     public bool ReturnCanMove()
     {
@@ -42,33 +43,46 @@ public class Tile : MonoBehaviour
    
     public void Interaction()
     {
-        if(tileType == tileSpecial.hasItem)
+        switch (tileType)
         {
-            Inventory inventory = GameObject.Find("Player").GetComponent<Inventory>();
-            SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
-            sprite.sprite = inactiveSprite;
-            GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
-            foreach (InventoryItem item in item)
-            {
-                inventory.inventory.Add(item);
-            }
-            item = null;
-            tileType = tileSpecial.none;
-            Destroy(count);
+            case tileSpecial.hasItem:
+                Inventory inventory = GameObject.Find("Player").GetComponent<Inventory>();
+                SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
+                sprite.sprite = otherSprite;
+                GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
+                foreach (InventoryItem item in item)
+                {
+                    inventory.inventory.Add(item);
+                    item.FindCorrectUI(+1);
+                }
+                item = null;
+                tileType = tileSpecial.none;
+                Destroy(count);
+                break;
+            case tileSpecial.vent:
+                GameObject player = GameObject.Find("Player");
+                SpriteRenderer openedsprite = this.GetComponent<SpriteRenderer>();
+                openedsprite.sprite = otherSprite;
+                Vector3 newPos = new Vector3(connectedTile.tilePosition.x, connectedTile.tilePosition.y + 0.5f, 1f);
+                player.transform.position = newPos;
+                player.GetComponent<PlayerMovement>().currentTile = connectedTile;
+                connectedTile.GetComponent<SpriteRenderer>().sprite = connectedTile.otherSprite;
+                GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
+                break;
+            case tileSpecial.end:
+                GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
+                SpriteRenderer chestsprite = connectedTile.GetComponent<SpriteRenderer>();
+                chestsprite.sprite = otherSprite;
+                StartCoroutine(EndLevel());
+                break;
+
         }
-        if(tileType == tileSpecial.vent)
-        {
-            GameObject player = GameObject.Find("Player");
-            SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
-            sprite.sprite = inactiveSprite;
-            Vector3 newPos = new Vector3(ventToTile.tilePosition.x, ventToTile.tilePosition.y + 0.5f, 1f);
-            player.transform.position = newPos;
-            player.GetComponent<PlayerMovement>().currentTile = ventToTile;
-            ventToTile.GetComponent<SpriteRenderer>().sprite = ventToTile.inactiveSprite;
-            //change tile to move to and current tile
-            //need new Tile variable to define the other end
-            //relocate player
-            GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
-        }
+    }
+
+    private IEnumerator EndLevel()
+    {
+        yield return new WaitForSeconds(2f);
+        LevelManager manager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
+        manager.ReachedGoal();
     }
 }
