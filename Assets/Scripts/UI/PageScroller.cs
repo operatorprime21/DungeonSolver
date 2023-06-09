@@ -48,13 +48,13 @@ public class PageScroller : MonoBehaviour
 
     public void ScrollLeft()
     {
-        if(!moving && FindLevel(1)==true)
+        if(!moving && FindLevel(-1)==true)
         {
             
-            curSelectedLevel++;
+            curSelectedLevel--;
             selectedLevel = levels[curSelectedLevel-1];
             curPos = this.transform.position;
-            destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
+            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
             startTime = Time.time;
             if (selectedLevel.levelIsUnlocked == false)
@@ -79,12 +79,12 @@ public class PageScroller : MonoBehaviour
 
     public void ScrollRight()
     {
-        if (!moving && FindLevel(-1)==true)
+        if (!moving && FindLevel(1)==true)
         {
-            curSelectedLevel--;
+            curSelectedLevel++;
             selectedLevel = levels[curSelectedLevel-1];
             curPos = this.transform.position;
-            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
+            destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
             startTime = Time.time;
             if (selectedLevel.levelIsUnlocked == false)
