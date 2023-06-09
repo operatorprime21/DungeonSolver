@@ -4,15 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MenuButtons : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject levels;
+    public GameObject levelPages;
     public GameObject mainMenu;
+    public bool transitioning = false;
+
+    public Animator menuAnim;
+    public Animator levelSelectorAnim;
+
+    public CoinScript coins;
+    public TMP_Text coinT;
     void Start()
     {
-        
+        coinT.text = coins.amount.ToString();
     }
 
     // Update is called once per frame
@@ -20,38 +29,57 @@ public class MenuButtons : MonoBehaviour
     {
         
     }
+    public void offTransition()
+    {
+        transitioning = false;
+    }
+    public void SetCoinText()
+    {
+        coinT.text = coins.amount.ToString();
+    }
 
     public void LevelSelect()
     {
-        mainMenu.SetActive(false);
-        levels.SetActive(true);
+        if (!transitioning)
+        {
+            menuAnim.Play("menu_fade_out");
+            transitioning = true;
+        }
     }
 
     public void ReturnToMenu()
     {
-        mainMenu.SetActive(true);
-        levels.SetActive(false);
+        if(!transitioning)
+        {
+            levelPages.SetActive(false);
+            levelSelectorAnim.Play("levelselect_fade_out");
+            transitioning = true;
+        }
     }
 
     public void Quit()
     {
-        Application.Quit();
+        if(!transitioning)
+        {
+            Application.Quit();
+        }
     }
 
     public void LoadLevel()
     {
-        string levelName = EventSystem.current.currentSelectedGameObject.name;
-        int level;
-        int.TryParse(levelName, out level);
-
-        if(SceneManager.GetSceneByBuildIndex(level) != null)
+        GameObject info = levelPages.transform.Find("LevelInfo").gameObject;
+        if (info.GetComponent<PageScroller>().moving == false)
         {
-            SceneManager.LoadScene(level);
+            if(levelPages.transform.Find("LevelInfo").gameObject.GetComponent<PageScroller>().selectedLevel.levelIsUnlocked == true && !transitioning)
+            {
+                transitioning = true;
+                levelPages.SetActive(false);
+                string levelName = EventSystem.current.currentSelectedGameObject.name;
+                int level;
+                int.TryParse(levelName, out level);
+                levels.GetComponent<LoadLevel>().level = level;
+                levelSelectorAnim.Play("levelselect_fade_out");
+            }
         }
-        else
-        {
-            Debug.LogError("Level Not Available");
-        }
-        
     }
 }

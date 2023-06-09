@@ -37,8 +37,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int tier = 3;
     private float tierThreshold;
 
+    public int chest;
+    public TMP_Text chestCount;
     //PROTO
-    public int coin;
+    public CoinScript coin;
     public TMP_Text endReward;
 
     public List<GameObject> Stars = new List<GameObject>();
@@ -51,6 +53,7 @@ public class LevelManager : MonoBehaviour
         maxSteps = steps;
         tierProgressSteps = maxSteps;
         startTime = 0f;
+        chestCount.text = chest.ToString();
     }
 
     // Update is called once per frame
@@ -120,49 +123,54 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                startTime = Time.time;
-                currentBar = 0f;
-                destinationBar = 1f;
-                Stars[tier - 1].SetActive(false);
-                Stars[tier + 2].SetActive(false); 
+                if(tier!=0)
+                {
+                    startTime = Time.time;
+                    currentBar = 0f;
+                    destinationBar = 1f;
+                    Stars[tier - 1].SetActive(false);
+                    Stars[tier + 2].SetActive(false);
+                }
+                else
+                {
+                    lerpingTier = false;
+                    Lose();
+                }
             }
         }
     }
 
-    public void PlayerStep(Tile playerTile) //Reads everything that can happen when the player makes a move
+    public void PlayerStep() //Reads everything that can happen when the player makes a move
     {
-        if(steps > 0)
-        {
-            steps--;
-            textSteps.text = steps.ToString();
-            lerpingTier = true;
-            startTime = Time.time;
-            
-            if (WinTier()==3)
+        PlayerMovement player = GameObject.Find("Player").GetComponent<PlayerMovement>();
+            if (steps >= 1 && player.turnsRed ==0)
             {
-                tierThreshold = 0.6f;
+                steps--;
+                textSteps.text = steps.ToString();
+                lerpingTier = true;
+                startTime = Time.time;
+
+                if (WinTier() == 3)
+                {
+                    tierThreshold = 0.6f;
+                }
+                else if (WinTier() == 2)
+                {
+                    tierThreshold = 0.4f;
+                }
+                else if (WinTier() == 1)
+                {
+                    tierThreshold = 0.2f;
+                }
+                else
+                {
+                    tierThreshold = 0.0f;
+                }
+                destinationBar = TierBarProgress(tierThreshold);
             }
-            else if (WinTier() == 2)
-            {
-                tierThreshold = 0.4f;
-            }
-            else if (WinTier() == 1)
-            {
-                tierThreshold = 0.2f;
-            }
-            else
-            {
-                tierThreshold = 0.0f;
-            }
-            destinationBar = TierBarProgress(tierThreshold);
-        }
-        else
-        {
-            RanOutOfSteps();
-        }
     }
 
-    public void RanOutOfSteps()
+    public void Lose()
     {
         GameObject loseScreen = GameObject.Find("Canvas").transform.Find("LostScreen").gameObject;
         GameObject levelUI = GameObject.Find("Canvas").transform.Find("LevelUI").gameObject;
@@ -172,15 +180,15 @@ public class LevelManager : MonoBehaviour
         loseScreen.SetActive(true);
     }
 
-    public void ReachedGoal()
+    public void Win()
     {
         GameObject levelUI = GameObject.Find("Canvas").transform.Find("LevelUI").gameObject;
         levelUI.SetActive(false);
         GameObject playerControls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
         playerControls.SetActive(false);
         GameObject winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
-        coin += reward;
-        endReward.text = coin.ToString();
+        coin.amount += reward;
+        endReward.text = coin.amount.ToString();
         winScreen.SetActive(true);
     }
 
@@ -212,7 +220,6 @@ public class LevelManager : MonoBehaviour
 
     public float TierBarProgress(float tierThres)
     {
-        
         int stepsProgress = tierProgressSteps - Mathf.FloorToInt(maxSteps * tierThres);
         int currentProgress = steps - Mathf.FloorToInt(maxSteps * tierThres);
         float progress = (float)currentProgress / (float)stepsProgress;
@@ -221,5 +228,14 @@ public class LevelManager : MonoBehaviour
             tierProgressSteps -= stepsProgress;
         }
         return progress;
+    }
+
+    public void CheckChest()
+    {
+        chestCount.text = chest.ToString();
+        if(chest == 0)
+        {
+            Win();
+        }
     }
 }

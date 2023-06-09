@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool blocked = false;
 
     public bool altControlOn;
+
+    public int turnsRed;
+    public int turnsBlue;
+    public int turnsGreen;
     //public Vector3 destination;
     //public Vector3 aimedAt;
     //public float angleMod;
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     currentTile = newTile;
                     LevelManager levelManage = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
-                    levelManage.PlayerStep(currentTile);
+                    levelManage.PlayerStep();
                 }
                 
                 if (currentTile.tileType != Tile.tileSpecial.none)
@@ -88,6 +92,15 @@ public class PlayerMovement : MonoBehaviour
                 tileToMoveTo = tileToMoveFrom;
                 blocked = false;
             }
+        }
+
+        if(this.gameObject.transform.localScale.x == -1)
+        {
+            this.gameObject.transform.Find("PlayerCanvas").gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            this.gameObject.transform.Find("PlayerCanvas").gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
         //Note: Since move distance is always 1, does not require calculating fraction
         //this.transform.position = Vector3.MoveTowards(this.transform.position, destination, speed * Time.deltaTime); //Player is constantly trying to move to the destination vector variable
@@ -134,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    if (tileScript.canMoveOn == true)
+                    if (tileScript.canMoveOn == true || (tileScript.canBuildOn == true && turnsBlue > 0))
                     {
                         orientation = "up";
                         MoveToTile(newTileY, tileX, orientation, 1);
@@ -157,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    if (tileScript.canMoveOn == true)
+                    if (tileScript.canMoveOn == true || (tileScript.canBuildOn == true && turnsBlue > 0))
                     {
                         orientation = "down";
                         MoveToTile(newTileY, tileX, orientation, 1);
@@ -183,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    if (tileScript.canMoveOn == true)
+                    if (tileScript.canMoveOn == true || (tileScript.canBuildOn == true && turnsBlue > 0))
                     {
                         orientation = "side";
                         MoveToTile(tileY, newTileX, orientation, -1);
@@ -206,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
                 if (tileToCheck != null)
                 {
                     Tile tileScript = tileToCheck.GetComponent<Tile>();
-                    if (tileScript.canMoveOn == true)
+                    if (tileScript.canMoveOn == true || (tileScript.canBuildOn == true && turnsBlue > 0))
                     {
                         orientation = "side";
                         MoveToTile(tileY, newTileX, orientation, 1);
@@ -242,6 +255,18 @@ public class PlayerMovement : MonoBehaviour
         }
         startTime = Time.time;
         canMove = true;
+        if (turnsRed > 0)
+        {
+            turnsRed -= 1;
+        }
+        if (turnsBlue > 0)
+        {
+            turnsBlue -= 1;
+        }
+        if (turnsGreen > 0)
+        {
+            turnsGreen -= 1;
+        }
     }
     private void CannotMoveToTile(float stutterY, float stutterX, string orientation, int side)
     {
