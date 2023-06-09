@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4f270df2c9b0f42ac8a3841271a824, type: 3}
   m_Name: New Coin Script
   m_EditorClassIdentifier: 
-  amount: 0
+  amount: 6000

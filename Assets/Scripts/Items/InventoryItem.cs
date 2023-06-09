@@ -22,9 +22,15 @@ public class InventoryItem : MonoBehaviour
 
     public enum Item
     {
-        //Necessities/Crafting materials/Resources
-        wood,     //Found
-        
+        wood,         //Ingredients to build tile
+        cloth,        //Ingredient to build tile
+        emptyBottle,  //Used to get potions
+        bluePotion,   //Consume to walk on air
+        redPotion,    //Consume to ignore fire
+        greenPotion,  //Consume to save steps
+        ironKey,      //Used to open locked Silver Chests
+        silverKey,    //Used to open Iron Doors
+        goldKey,      //Used to open locked Gold Chests
     }
 
 
@@ -37,10 +43,35 @@ public class InventoryItem : MonoBehaviour
     {
         switch(this.item)
         {
-            case Item.wood: itemName = "wood";
+            case Item.wood: 
+                itemName = "wood";
+                break;
+            case Item.cloth:
+                itemName = "cloth";
+                break;
+            case Item.emptyBottle:
+                itemName = "emptyBottle";
+                break;
+            case Item.bluePotion:
+                itemName = "bluePotion";
+                break;
+            case Item.redPotion:
+                itemName = "redPotion";
+                break;
+            case Item.greenPotion:
+                itemName = "greenPotion";
+                break;
+            case Item.ironKey:
+                itemName = "ironKey";
+                break;
+            case Item.silverKey:
+                itemName = "silverKey";
+                break;
+            case Item.goldKey:
+                itemName = "goldKey";
                 break;
         }
-        GameObject itemUI = GameObject.Find("Canvas").transform.Find("CraftMenu").transform.Find(itemName).gameObject;
+        GameObject itemUI = GameObject.Find("Canvas").transform.Find("CraftMenu").transform.Find("Page").gameObject.transform.Find(itemName).gameObject;
         itemUI.GetComponent<IconProperties>().c += add;
         itemUI.GetComponent<IconProperties>().SetCount();
     }
