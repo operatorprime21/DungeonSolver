@@ -48,62 +48,68 @@ public class PageScroller : MonoBehaviour
 
     public void ScrollLeft()
     {
-        if(!moving && FindLevel(-1)==true)
+        if(!moving && FindLevel(1)==true)
         {
             
-            curSelectedLevel--;
-            selectedLevel = levels[curSelectedLevel-1];
-            curPos = this.transform.position;
-            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
-            moving = true;
-            startTime = Time.time;
-            if (selectedLevel.levelIsUnlocked == false)
-            {
-                unlocker.SetActive(true);
-            }
-            else
-            {
-                unlocker.SetActive(false);
-            }
-            foreach (GameObject star in iconStar)
-            {
-                star.SetActive(false);
-            }
-            foreach (GameObject candle in iconCandle)
-            {
-                candle.SetActive(false);
-            }
-            SetLevelUI();
-        }
-    }
-
-    public void ScrollRight()
-    {
-        if (!moving && FindLevel(1)==true)
-        {
             curSelectedLevel++;
             selectedLevel = levels[curSelectedLevel-1];
             curPos = this.transform.position;
             destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
             startTime = Time.time;
-            if (selectedLevel.levelIsUnlocked == false)
+            if (selectedLevel != null)
             {
-                unlocker.SetActive(true);
+                if (selectedLevel.levelIsUnlocked == false)
+                {
+                    unlocker.SetActive(true);
+                }
+                else
+                {
+                    unlocker.SetActive(false);
+                }
+                foreach (GameObject star in iconStar)
+                {
+                    star.SetActive(false);
+                }
+                foreach (GameObject candle in iconCandle)
+                {
+                    candle.SetActive(false);
+                }
+                SetLevelUI();
             }
-            else
+        }
+    }
+
+    public void ScrollRight()
+    {
+        if (!moving && FindLevel(-1)==true)
+        {
+            curSelectedLevel--;
+            selectedLevel = levels[curSelectedLevel-1];
+            curPos = this.transform.position;
+            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
+            moving = true;
+            startTime = Time.time;
+            if (selectedLevel != null)
             {
-                unlocker.SetActive(false);
+                if (selectedLevel.levelIsUnlocked == false)
+                {
+                    unlocker.SetActive(true);
+                }
+                else
+                {
+                    unlocker.SetActive(false);
+                }
+                foreach (GameObject star in iconStar)
+                {
+                    star.SetActive(false);
+                }
+                foreach (GameObject candle in iconCandle)
+                {
+                    candle.SetActive(false);
+                }
+                SetLevelUI();
             }
-            foreach (GameObject star in iconStar)
-            {
-                star.SetActive(false);
-            }
-            foreach (GameObject candle in iconCandle)
-            {
-                candle.SetActive(false);
-            }
-            SetLevelUI();
         }
     }
 

@@ -121,7 +121,7 @@ public class Tile : MonoBehaviour
                 break;
             case tileSpecial.ironChest:
                 SpriteRenderer chestsprite = connectedTile.GetComponent<SpriteRenderer>();
-                chestsprite.sprite = otherSprite;
+                chestsprite.sprite = connectedTile.otherSprite;
                 LevelManager manager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
                 manager.chest--;
                 manager.CheckChest();
