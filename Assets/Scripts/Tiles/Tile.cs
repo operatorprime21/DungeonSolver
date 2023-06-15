@@ -111,13 +111,13 @@ public class Tile : MonoBehaviour
                         inven.inventory.Add(itemWithin[0]);
                         itemWithin[0].FindCorrectUI(+1);
                         itemWithin = null;
+                        PopUpUI(1);
+                        SpriteRenderer barrelSprite = this.GetComponent<SpriteRenderer>();
+                        barrelSprite.sprite = otherSprite;
+                        tileType = tileSpecial.none;
                         break;
                     }
                 }
-                PopUpUI(1);
-                SpriteRenderer barrelSprite = this.GetComponent<SpriteRenderer>();
-                barrelSprite.sprite = otherSprite;
-                tileType = tileSpecial.none;
                 break;
             case tileSpecial.ironChest:
                 SpriteRenderer chestsprite = connectedTile.GetComponent<SpriteRenderer>();
@@ -126,6 +126,7 @@ public class Tile : MonoBehaviour
                 manager.chest--;
                 manager.CheckChest();
                 tileType = tileSpecial.none;
+                PopUpUI(1);
                 break;
             case tileSpecial.lockedIronChest:
                 Inventory inve = GameObject.Find("Player").GetComponent<Inventory>();
@@ -140,6 +141,7 @@ public class Tile : MonoBehaviour
                         Lmanager.chest--;
                         Lmanager.CheckChest();
                         tileType = tileSpecial.none;
+                        PopUpUI(1);
                         break;
                     }
                 }
@@ -157,6 +159,7 @@ public class Tile : MonoBehaviour
                         Lmanager.chest--;
                         Lmanager.CheckChest();
                         tileType = tileSpecial.none;
+                        PopUpUI(1);
                         break;
                     }
                 }

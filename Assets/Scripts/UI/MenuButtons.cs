@@ -21,6 +21,7 @@ public class MenuButtons : MonoBehaviour
     public TMP_Text coinT;
     void Start()
     {
+        coins.amount = PlayerPrefs.GetInt("CoinAmount");
         coinT.text = coins.amount.ToString();
     }
 

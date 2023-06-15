@@ -24,6 +24,7 @@ public class Buttons : MonoBehaviour
     public GameObject loseScreen;
 
     public TMP_Text cWood;
+    public TMP_Text textPop;
     public CoinScript coins;
     // Start is called before the first frame update
     void Start()
@@ -128,6 +129,9 @@ public class Buttons : MonoBehaviour
             controls.SetActive(true);
             loseScreen.SetActive(false);
             coins.amount -= 50;
+            PlayerPrefs.SetInt("CoinAmount", coins.amount);
+            textPop.text = "+5";
+            textPop.GetComponent<Animator>().Play("steps_pop");
             manager.steps += 5;
         }
         //Do the rest of the main menu and level menu animations like you did for the stuff in level

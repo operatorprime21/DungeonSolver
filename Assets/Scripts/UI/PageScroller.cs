@@ -13,7 +13,7 @@ public class PageScroller : MonoBehaviour
     private float startTime;
 
     public bool moving = false;
-    public int curSelectedLevel = 1;
+    public int curSelectedLevel = 0;
     public GameObject unlocker;
 
     public CoinScript coins;
@@ -29,6 +29,14 @@ public class PageScroller : MonoBehaviour
     {
         startPos = this.transform.position;
         selectedLevel = levels[0];
+        foreach (LevelInfo level in levels)
+        {
+            if(PlayerPrefs.GetString(level.name + " unlock") == "Unlocked")
+            {
+                level.levelIsUnlocked = true;
+            }
+            level.levelStatus = PlayerPrefs.GetString(level.name + " completion");
+        }
         SetLevelUI();
     }
 
@@ -48,17 +56,18 @@ public class PageScroller : MonoBehaviour
 
     public void ScrollLeft()
     {
-        if(!moving && FindLevel(1)==true)
+        if(!moving && FindLevel(-1)==true)
         {
             
-            curSelectedLevel++;
-            selectedLevel = levels[curSelectedLevel-1];
+            curSelectedLevel--;
+            
             curPos = this.transform.position;
-            destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
+            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
             startTime = Time.time;
             if (selectedLevel != null)
             {
+                selectedLevel = levels[curSelectedLevel - 1];
                 if (selectedLevel.levelIsUnlocked == false)
                 {
                     unlocker.SetActive(true);
@@ -82,16 +91,17 @@ public class PageScroller : MonoBehaviour
 
     public void ScrollRight()
     {
-        if (!moving && FindLevel(-1)==true)
+        if (!moving && FindLevel(1)==true)
         {
-            curSelectedLevel--;
-            selectedLevel = levels[curSelectedLevel-1];
+            curSelectedLevel++;
+            
             curPos = this.transform.position;
-            destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
+            destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
             startTime = Time.time;
             if (selectedLevel != null)
             {
+                selectedLevel = levels[curSelectedLevel - 1];
                 if (selectedLevel.levelIsUnlocked == false)
                 {
                     unlocker.SetActive(true);
@@ -116,17 +126,27 @@ public class PageScroller : MonoBehaviour
     public bool FindLevel(int change)
     {
         int levelFind = curSelectedLevel + change;
-        if (this.transform.Find(levelFind.ToString()).gameObject != null)
+        GameObject lvlButton = this.transform.Find(levelFind.ToString()).gameObject;
+        if (lvlButton != null)
         {
             return true;
         }
+        if (lvlButton == null)
+        {
+            Debug.Log("no object");
+            return false;
+        }
         else return false;
     }
-    private void OnDisable()
+
+        private void OnDisable()
     {
         this.transform.position = startPos;
         curSelectedLevel = 1;
-        selectedLevel = levels[0];
+        if(selectedLevel!= null)
+        {
+            selectedLevel = levels[0];
+        }
     }
 
     public void UnlockLevel()
@@ -136,7 +156,11 @@ public class PageScroller : MonoBehaviour
             unlocker.SetActive(false);
             coins.amount -= selectedLevel.unlockCost;
             coinT.text = coins.amount.ToString();
+            PlayerPrefs.SetInt("CoinAmount", coins.amount);
+            PlayerPrefs.SetString(selectedLevel.name + " unlock", "Unlocked");
             selectedLevel.levelIsUnlocked = true;
+            PlayerPrefs.SetString(selectedLevel.name + " completion", "Incomplete");
+            selectedLevel.levelStatus = "Incomplete";
         }
     }
 

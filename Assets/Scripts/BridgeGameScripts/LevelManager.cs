@@ -14,10 +14,13 @@ public class LevelManager : MonoBehaviour
     public Tile startDoorTile;
     public int camSize;
     private bool levelStarted = true;
+
     private int maxSteps;
     private int tierProgressSteps;
     public int steps;
+    [SerializeField] private int stepsUsed = 0;
     public Slider tierProgress;
+
     public Sprite doorOpen;
     public Sprite doorClose;
 
@@ -39,9 +42,10 @@ public class LevelManager : MonoBehaviour
 
     public int chest;
     public TMP_Text chestCount;
-    //PROTO
+    public TMP_Text stepUsed;
     public CoinScript coin;
     public TMP_Text endReward;
+    public TMP_Text stepPop;
 
     public List<GameObject> Stars = new List<GameObject>();
     public TMP_Text textSteps;
@@ -54,6 +58,7 @@ public class LevelManager : MonoBehaviour
         tierProgressSteps = maxSteps;
         startTime = 0f;
         chestCount.text = chest.ToString();
+        coin.amount = PlayerPrefs.GetInt("CoinAmount");
     }
 
     // Update is called once per frame
@@ -143,9 +148,12 @@ public class LevelManager : MonoBehaviour
     public void PlayerStep() //Reads everything that can happen when the player makes a move
     {
         PlayerMovement player = GameObject.Find("Player").GetComponent<PlayerMovement>();
-            if (steps >= 1 && player.turnsRed ==0)
-            {
+        if (steps >= 1 && player.turnsRed ==0)
+        {
                 steps--;
+                stepPop.text = "-1";
+                stepPop.GetComponent<Animator>().Play("steps_pop");
+                stepsUsed++;
                 textSteps.text = steps.ToString();
                 lerpingTier = true;
                 startTime = Time.time;
@@ -165,9 +173,22 @@ public class LevelManager : MonoBehaviour
                 else
                 {
                     tierThreshold = 0.0f;
+                stepPop.color = Color.red;
+                textSteps.color = Color.red;
                 }
                 destinationBar = TierBarProgress(tierThreshold);
-            }
+        }
+        else if(steps == 1 && player.turnsRed == 0)
+        {
+            steps--;
+            stepPop.text = "-1";
+            stepPop.GetComponent<Animator>().Play("steps_pop");
+            stepsUsed++;
+            textSteps.text = steps.ToString();
+            lerpingTier = true;
+            startTime = Time.time;
+            Lose();
+        }
     }
 
     public void Lose()
@@ -178,6 +199,7 @@ public class LevelManager : MonoBehaviour
         playerControls.SetActive(false);
         levelUI.SetActive(false);
         loseScreen.SetActive(true);
+        loseScreen.GetComponent<Animator>().Play("lose_screen");
     }
 
     public void Win()
@@ -187,9 +209,19 @@ public class LevelManager : MonoBehaviour
         GameObject playerControls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
         playerControls.SetActive(false);
         GameObject winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
-        coin.amount += reward;
-        endReward.text = coin.amount.ToString();
+        coin.amount = coin.amount + reward;
+        PlayerPrefs.SetInt("CoinAmount", coin.amount);
+        endReward.text = reward.ToString();
+        stepUsed.text = stepsUsed.ToString();
         winScreen.SetActive(true);
+        winScreen.GetComponent<Animator>().Play("win_screen");
+        foreach(GameObject star in Stars)
+        {
+            if(star.activeSelf)
+            {
+                star.GetComponent<Animator>().Play("star_show");
+            }
+        }
     }
 
     public int WinTier()
@@ -233,7 +265,7 @@ public class LevelManager : MonoBehaviour
     public void CheckChest()
     {
         chestCount.text = chest.ToString();
-        if(chest == 0)
+        if(chest == 0 && steps > 0)
         {
             Win();
         }
