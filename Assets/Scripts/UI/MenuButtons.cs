@@ -23,6 +23,8 @@ public class MenuButtons : MonoBehaviour
     {
         coins.amount = PlayerPrefs.GetInt("CoinAmount");
         coinT.text = coins.amount.ToString();
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("menu_bg");
     }
 
     // Update is called once per frame
@@ -44,6 +46,8 @@ public class MenuButtons : MonoBehaviour
         if (!transitioning)
         {
             menuAnim.Play("menu_fade_out");
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("button1");
             transitioning = true;
         }
     }
@@ -52,6 +56,8 @@ public class MenuButtons : MonoBehaviour
     {
         if(!transitioning)
         {
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("button1");
             levelPages.SetActive(false);
             levelSelectorAnim.Play("levelselect_fade_out");
             transitioning = true;
@@ -62,6 +68,8 @@ public class MenuButtons : MonoBehaviour
     {
         if(!transitioning)
         {
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("button1");
             Application.Quit();
         }
     }
@@ -73,6 +81,9 @@ public class MenuButtons : MonoBehaviour
         {
             if(levelPages.transform.Find("LevelInfo").gameObject.GetComponent<PageScroller>().selectedLevel.levelIsUnlocked == true && !transitioning)
             {
+                AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+                audio.Play("level_enter");
+                audio.Stop("menu_bg");
                 transitioning = true;
                 levelPages.SetActive(false);
                 string levelName = EventSystem.current.currentSelectedGameObject.name;

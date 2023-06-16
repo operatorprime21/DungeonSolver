@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
 
     public List<GameObject> Stars = new List<GameObject>();
     public TMP_Text textSteps;
+
+    public LevelInfo thisLevel;
     void Start()
     {
         Camera cam = Camera.main;
@@ -59,6 +61,10 @@ public class LevelManager : MonoBehaviour
         startTime = 0f;
         chestCount.text = chest.ToString();
         coin.amount = PlayerPrefs.GetInt("CoinAmount");
+        AudioManager manager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        manager.Play("level_bg");
+        manager.Play("door");
+        textSteps.text = steps.ToString();
     }
 
     // Update is called once per frame
@@ -82,7 +88,7 @@ public class LevelManager : MonoBehaviour
 
         SpriteRenderer doorSprite = startDoorTile.gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(ChangeTileSpriteOnTime(doorSprite, doorOpen, 0.2f));
-        StartCoroutine(ChangeTileSpriteOnTime(doorSprite, doorClose, 2f));
+        StartCoroutine(ChangeTileSpriteOnTime(doorSprite, doorClose, 1.0f));
     }
 
     IEnumerator ChangeTileSpriteOnTime(SpriteRenderer renderer, Sprite sprite, float dur)
@@ -135,6 +141,8 @@ public class LevelManager : MonoBehaviour
                     destinationBar = 1f;
                     Stars[tier - 1].SetActive(false);
                     Stars[tier + 2].SetActive(false);
+                    AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+                    audio.Play("star");
                 }
                 else
                 {
@@ -173,8 +181,8 @@ public class LevelManager : MonoBehaviour
                 else
                 {
                     tierThreshold = 0.0f;
-                stepPop.color = Color.red;
-                textSteps.color = Color.red;
+                    stepPop.color = Color.red;
+                    textSteps.color = Color.red;
                 }
                 destinationBar = TierBarProgress(tierThreshold);
         }
@@ -200,6 +208,9 @@ public class LevelManager : MonoBehaviour
         levelUI.SetActive(false);
         loseScreen.SetActive(true);
         loseScreen.GetComponent<Animator>().Play("lose_screen");
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("lose");
+        audio.Stop("level_bg");
     }
 
     public void Win()
@@ -211,16 +222,31 @@ public class LevelManager : MonoBehaviour
         GameObject winScreen = GameObject.Find("Canvas").transform.Find("WinScreen").gameObject;
         coin.amount = coin.amount + reward;
         PlayerPrefs.SetInt("CoinAmount", coin.amount);
+        PlayerPrefs.SetString(thisLevel.name.ToString() + " completion", "Completed");
+        thisLevel.levelStatus = "Completed";
         endReward.text = reward.ToString();
         stepUsed.text = stepsUsed.ToString();
         winScreen.SetActive(true);
         winScreen.GetComponent<Animator>().Play("win_screen");
-        foreach(GameObject star in Stars)
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("win");
+        audio.Stop("level_bg");
+        int starsEarned = 0;
+        int i = -1;
+        foreach (GameObject star in Stars)
         {
-            if(star.activeSelf)
+            i++;
+            if (i < 3 && Stars[i].activeSelf)
             {
-                star.GetComponent<Animator>().Play("star_show");
+                starsEarned++;
+                Stars[i + 3].GetComponent<Animator>().Play("star_show");
             }
+        }
+        Debug.Log(starsEarned);
+        if (starsEarned >= thisLevel.star)
+        {
+            thisLevel.star = starsEarned;
+            PlayerPrefs.SetInt(thisLevel.name + " star", starsEarned); 
         }
     }
 

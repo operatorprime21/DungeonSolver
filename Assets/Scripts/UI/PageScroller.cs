@@ -27,6 +27,7 @@ public class PageScroller : MonoBehaviour
     public List<GameObject> iconCandle = new List<GameObject>();
     void Start()
     {
+
         startPos = this.transform.position;
         selectedLevel = levels[0];
         foreach (LevelInfo level in levels)
@@ -35,7 +36,10 @@ public class PageScroller : MonoBehaviour
             {
                 level.levelIsUnlocked = true;
             }
+            //level.levelStatus = "Not Unlocked";
+            //PlayerPrefs.SetString(level.name + " completion", "Not Unlocked");
             level.levelStatus = PlayerPrefs.GetString(level.name + " completion");
+            level.star = PlayerPrefs.GetInt(level.name + " star");
         }
         SetLevelUI();
     }
@@ -60,7 +64,8 @@ public class PageScroller : MonoBehaviour
         {
             
             curSelectedLevel--;
-            
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("page");
             curPos = this.transform.position;
             destPos = new Vector3(this.transform.position.x + 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
@@ -94,7 +99,8 @@ public class PageScroller : MonoBehaviour
         if (!moving && FindLevel(1)==true)
         {
             curSelectedLevel++;
-            
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("page");
             curPos = this.transform.position;
             destPos = new Vector3(this.transform.position.x - 1500, this.transform.position.y, this.transform.position.z);
             moving = true;
@@ -159,8 +165,10 @@ public class PageScroller : MonoBehaviour
             PlayerPrefs.SetInt("CoinAmount", coins.amount);
             PlayerPrefs.SetString(selectedLevel.name + " unlock", "Unlocked");
             selectedLevel.levelIsUnlocked = true;
-            PlayerPrefs.SetString(selectedLevel.name + " completion", "Incomplete");
             selectedLevel.levelStatus = "Incomplete";
+            PlayerPrefs.SetString(selectedLevel.name + " completion", "Incomplete");
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("coin");
         }
     }
 

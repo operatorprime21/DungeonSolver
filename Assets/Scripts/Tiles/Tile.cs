@@ -55,6 +55,7 @@ public class Tile : MonoBehaviour
     public void Interaction()
     {
         GameObject.Find("Player").GetComponent<PlayerMovement>().ReturnToIdle();
+        AudioManager audios = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         switch (tileType)
         {
             case tileSpecial.hasItem:
@@ -70,6 +71,7 @@ public class Tile : MonoBehaviour
                     c++;
                 }
                 PopUpUI(c);
+                audios.Play("crate");
                 itemWithin = null;
                 tileType = tileSpecial.none;
                 break;
@@ -92,6 +94,7 @@ public class Tile : MonoBehaviour
                         connectedTile.gameObject.GetComponent<SpriteRenderer>().sprite = connectedTile.otherSprite;
                         invent.inventory.Remove(item);
                         item.FindCorrectUI(-1);
+                        audios.Play("unlock");
                         tileType = tileSpecial.none;
                         break;
                     }
@@ -114,6 +117,7 @@ public class Tile : MonoBehaviour
                         PopUpUI(1);
                         SpriteRenderer barrelSprite = this.GetComponent<SpriteRenderer>();
                         barrelSprite.sprite = otherSprite;
+                        audios.Play("water drop");
                         tileType = tileSpecial.none;
                         break;
                     }
@@ -125,6 +129,7 @@ public class Tile : MonoBehaviour
                 LevelManager manager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
                 manager.chest--;
                 manager.CheckChest();
+                audios.Play("chest");
                 tileType = tileSpecial.none;
                 PopUpUI(1);
                 break;
@@ -140,6 +145,8 @@ public class Tile : MonoBehaviour
                         LevelManager Lmanager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
                         Lmanager.chest--;
                         Lmanager.CheckChest();
+                        audios.Play("unlock");
+                        audios.Play("chest");
                         tileType = tileSpecial.none;
                         PopUpUI(1);
                         break;
@@ -158,6 +165,8 @@ public class Tile : MonoBehaviour
                         LevelManager Lmanager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
                         Lmanager.chest--;
                         Lmanager.CheckChest();
+                        audios.Play("unlock");
+                        audios.Play("chest");
                         tileType = tileSpecial.none;
                         PopUpUI(1);
                         break;
@@ -180,6 +189,6 @@ public class Tile : MonoBehaviour
     //{
     //    yield return new WaitForSeconds(2f);
     //    LevelManager manager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
-    //    manager.Win();
+    //    manager.Win();     
     //}
 }

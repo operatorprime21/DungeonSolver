@@ -40,6 +40,8 @@ public class Buttons : MonoBehaviour
 
     public void Pause()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         PlayerMovement playerScript = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerScript.enabled = false;
         foreach(GameObject ui in uiToggleWhenPause)
@@ -52,6 +54,8 @@ public class Buttons : MonoBehaviour
 
     public void ToggleButtonControlsOff()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         buttonControls.SetActive(false);
         buttonControlsOff.SetActive(false);
         buttonControlsOn.SetActive(true);
@@ -59,6 +63,8 @@ public class Buttons : MonoBehaviour
     }
     public void ToggleButtonControlsOn()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         buttonControls.SetActive(true);
         buttonControlsOn.SetActive(false);
         buttonControlsOff.SetActive(true);
@@ -67,6 +73,8 @@ public class Buttons : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         PlayerMovement playerScript = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerScript.enabled = true;
         foreach (GameObject ui in uiToggleWhenPause)
@@ -79,17 +87,24 @@ public class Buttons : MonoBehaviour
 
     public void Menu()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
+        audio.Stop("level_bg");
         SceneManager.LoadScene(0);
     }
 
     public void Retry()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         Scene thisScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(thisScene.name);
     }
 
     public void CraftMenu()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         PlayerMovement playerScript = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerScript.enabled = false;
         foreach (GameObject ui in uiToggleWhenPause)
@@ -102,6 +117,8 @@ public class Buttons : MonoBehaviour
 
     public void ExitCraftMenu()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         PlayerMovement playerScript = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerScript.enabled = true;
         foreach (GameObject ui in uiToggleWhenPause)
@@ -114,11 +131,15 @@ public class Buttons : MonoBehaviour
 
     public void OpenConfirm()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         confirmMenu.SetActive(true);
     }
     public void Yes()
     {
-        
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
+        audio.Play("coin");
         LevelManager manager = GameObject.Find("LevelSetup").GetComponent<LevelManager>();
         if(coins.amount>=50)
         {
@@ -128,11 +149,11 @@ public class Buttons : MonoBehaviour
             GameObject controls = GameObject.Find("Canvas").transform.Find("PlayerControls").gameObject;
             controls.SetActive(true);
             loseScreen.SetActive(false);
-            coins.amount -= 50;
+            coins.amount -= 150;
             PlayerPrefs.SetInt("CoinAmount", coins.amount);
             textPop.text = "+5";
             textPop.GetComponent<Animator>().Play("steps_pop");
-            manager.steps += 5;
+            manager.steps += 10;
         }
         //Do the rest of the main menu and level menu animations like you did for the stuff in level
         //UI List:
@@ -146,6 +167,8 @@ public class Buttons : MonoBehaviour
 
     public void No()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
         confirmMenu.SetActive(false);
     }
 }

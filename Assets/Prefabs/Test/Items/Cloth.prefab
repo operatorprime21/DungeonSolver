@@ -313,7 +313,7 @@ SpriteRenderer:
   m_SortingLayerID: 831450289
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -424846460, guid: f9f52b165e34ac246bbd18add8fdd930, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6c1b4875b2420b4b89b38d46ccd5d4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -353,12 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 1
-  maxCountPerSlot: 8
-  itemType: 0
-  currentCount: 0
-  slot: {fileID: 0}
-  count: {fileID: 8042995222160116143}
-  lastSlot: {fileID: 0}
+  itemName: 
 --- !u!50 &8565889603079309968
 Rigidbody2D:
   serializedVersion: 4

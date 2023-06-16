@@ -19,13 +19,15 @@ public class PotionBuffs : MonoBehaviour
 
     public void redPotion()
     {
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         foreach(InventoryItem item in inv.inventory)
         {
             if (item.item == InventoryItem.Item.redPotion)
             {
                 item.FindCorrectUI(-1);
                 inv.inventory.Remove(item);
-                this.gameObject.GetComponent<PlayerMovement>().turnsRed += 3;
+                this.gameObject.GetComponent<PlayerMovement>().turnsRed += 5;
+                audio.Play("drink");
                 break;
             }
         }
@@ -35,11 +37,13 @@ public class PotionBuffs : MonoBehaviour
     {
         foreach (InventoryItem item in this.gameObject.GetComponent<Inventory>().inventory)
         {
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
             if (item.item == InventoryItem.Item.bluePotion)
             {
                 item.FindCorrectUI(-1);
                 inv.inventory.Remove(item);
-                this.gameObject.GetComponent<PlayerMovement>().turnsBlue += 3;
+                this.gameObject.GetComponent<PlayerMovement>().turnsBlue += 5;
+                audio.Play("drink");
                 break;
             }
         }
@@ -49,11 +53,13 @@ public class PotionBuffs : MonoBehaviour
     {
         foreach (InventoryItem item in this.gameObject.GetComponent<Inventory>().inventory)
         {
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
             if (item.item == InventoryItem.Item.greenPotion)
             {
                 item.FindCorrectUI(-1);
                 inv.inventory.Remove(item);
-                this.gameObject.GetComponent<PlayerMovement>().turnsGreen += 3;
+                this.gameObject.GetComponent<PlayerMovement>().turnsGreen += 5;
+                audio.Play("drink");
                 break;
             }
         }

@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0bc29216b031a4a9f78b9c0d455c6f, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  iconStar: []
-  iconCandle: []
-  star: 0
+  star: 3
   candle: 0
   levelIsUnlocked: 1
   unlockCost: 0

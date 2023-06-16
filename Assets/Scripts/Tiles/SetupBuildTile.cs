@@ -7,8 +7,6 @@ public class SetupBuildTile : MonoBehaviour
     public GameObject singleTile;
     public int tileStartX;
     public int tileStartY;
-    public int tileEndX;
-    public int tileEndY;
     public int tileLimit;
     public List<Vector2> levelBorder = new List<Vector2>();
     // Start is called before the first frame update
@@ -34,18 +32,12 @@ public class SetupBuildTile : MonoBehaviour
                 tile.name = row + "." + col;
                 tile.transform.parent = GameObject.Find("Tiles").transform;
                 tile.GetComponent<Tile>().tilePosition = tilePos;
-                if(row == tileStartX && col == tileStartY)
+                tile.GetComponent<SpriteRenderer>().color = new Color(247f/255f, 227f/255f, 1f, 1f);
+                if (row == tileStartX && col == tileStartY)
                 {
                     LevelManager manager = this.GetComponentInParent<LevelManager>();
                     manager.playerStart = tilePos;
                     manager.startTile = tile.GetComponent<Tile>();
-                    tile.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f, 0.5f);
-                }
-                if (row == tileEndX && col == tileEndY)
-                {
-                    LevelManager manager = this.GetComponentInParent<LevelManager>();
-                    manager.endTile = tile.GetComponent<Tile>();
-                    tile.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f, 0.5f);
                 }
                 foreach (Vector2 border in levelBorder)
                 {

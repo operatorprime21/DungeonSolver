@@ -19,7 +19,9 @@ public class altControls : MonoBehaviour
 
     public void MoveDown()
     {
-        if(playerScript.canMove == false)
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
+        if(playerScript.canMove == false && GameObject.Find("LevelSetup").GetComponent<LevelManager>().steps > 0)
         {
             playerScript.tapPos = new Vector3(0, 0, 0);
             playerScript.releasePos = new Vector3(0, -1, 0);
@@ -29,7 +31,9 @@ public class altControls : MonoBehaviour
     }
     public void MoveRight()
     {
-        if (playerScript.canMove == false)
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
+        if (playerScript.canMove == false && GameObject.Find("LevelSetup").GetComponent<LevelManager>().steps > 0)
         {
             playerScript.tapPos = new Vector3(0, 0, 0);
             playerScript.releasePos = new Vector3(1, 0, 0);
@@ -39,7 +43,9 @@ public class altControls : MonoBehaviour
     }
     public void MoveLeft()
     {
-        if (playerScript.canMove == false)
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("button1");
+        if (playerScript.canMove == false && GameObject.Find("LevelSetup").GetComponent<LevelManager>().steps > 0)
         {
             playerScript.tapPos = new Vector3(0, 0, 0);
             playerScript.releasePos = new Vector3(-1, 0, 0);
@@ -49,8 +55,10 @@ public class altControls : MonoBehaviour
     }
     public void MoveUp()
     {
-        if (playerScript.canMove == false)
+        if (playerScript.canMove == false && GameObject.Find("LevelSetup").GetComponent<LevelManager>().steps > 0)
         {
+            AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            audio.Play("button1");
             playerScript.tapPos = new Vector3(0, 0, 0);
             playerScript.releasePos = new Vector3(0, 1, 0);
             playerScript.ReturnDirection();

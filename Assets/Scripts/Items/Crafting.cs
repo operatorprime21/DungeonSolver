@@ -159,6 +159,8 @@ public class Crafting : MonoBehaviour
         {
             ConsumeResource(type[c], typeReq[c]);  //Consumes every resource, using the two list 
         }
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("wood");
     }
         //Inventory inventory = GameObject.Find("InventoryManager").GetComponent<Inventory>(); //Depends on what the type of recipe it is, do things differently
         //if (recipe.timeToMake == Recipe.RecipeType.building) 
@@ -190,6 +192,8 @@ public class Crafting : MonoBehaviour
         dragDrop.SetActive(false);
         GameObject.Find("Canvas").GetComponent<Buttons>().ExitCraftMenu();
         objectToMake = null;
+        AudioManager audio = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audio.Play("wood");
         PlacingAnim();
     }
 

@@ -56,8 +56,11 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && canMove == false && altControlOn == false)
         {
-            releasePos = ReleasePos();
-            ReturnDirection();
+            if(GameObject.Find("LevelSetup").GetComponent<LevelManager>().steps >0)
+            {
+                releasePos = ReleasePos();
+                ReturnDirection();
+            }
         }
         float movingTime =+ (Time.time - startTime) * speed *10;
         if(canMove==true)
@@ -255,6 +258,8 @@ public class PlayerMovement : MonoBehaviour
         }
         startTime = Time.time;
         canMove = true;
+        AudioManager manager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        manager.Play("steps");
         if (turnsRed > 0)
         {
             turnsRed -= 1;
